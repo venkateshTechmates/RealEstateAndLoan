@@ -5,30 +5,44 @@ const NAV_GROUPS = {
   borrower: [
     { label: 'Dashboard', icon: '🏠', to: '/dashboard' },
     { label: 'Apply for Loan', icon: '📋', to: '/apply' },
-    { label: 'My Assets', icon: '💰', to: '/assets/overview' },
+    { label: 'My Assets', icon: '💰', to: '/assets' },
+    { label: 'Asset Overview', icon: '📊', to: '/assets/overview' },
     { label: 'Declare Assets', icon: '📝', to: '/assets/declare' },
     { label: 'Documents', icon: '📁', to: '/documents' },
     { label: 'Property Search', icon: '🔍', to: '/properties' },
     { label: 'Insurance', icon: '🛡️', to: '/insurance' },
     { label: 'Loan Servicing', icon: '💳', to: '/servicing' },
+    { label: 'Pre-Qual Calculator', icon: '🧮', to: '/calculator' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
   ],
   lender: [
     { label: 'Loan Pipeline', icon: '📌', to: '/pipeline' },
     { label: 'Underwriting', icon: '⚖️', to: '/underwriting' },
     { label: 'Asset Verification', icon: '✅', to: '/asset-verification' },
+    { label: 'Asset Queue', icon: '📦', to: '/asset-queue' },
     { label: 'Documents', icon: '📁', to: '/documents' },
     { label: 'Insurance', icon: '🛡️', to: '/insurance' },
     { label: 'Closing', icon: '🏁', to: '/closing' },
     { label: 'Servicing', icon: '💳', to: '/servicing' },
+    { label: 'Reports', icon: '📈', to: '/reports' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
     { label: 'Admin', icon: '⚙️', to: '/admin' },
   ],
   broker: [
     { label: 'Dashboard', icon: '🏠', to: '/dashboard' },
+    { label: 'Broker Portal', icon: '🤝', to: '/broker-dashboard' },
     { label: 'Loan Pipeline', icon: '📌', to: '/pipeline' },
     { label: 'Submit Application', icon: '📋', to: '/apply' },
     { label: 'Documents', icon: '📁', to: '/documents' },
     { label: 'Property Search', icon: '🔍', to: '/properties' },
     { label: 'Insurance', icon: '🛡️', to: '/insurance' },
+    { label: 'Calculator', icon: '🧮', to: '/calculator' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
   ],
 }
 
@@ -178,6 +192,7 @@ export default function Layout({ role, setRole }) {
 }
 
 function TopBar({ role }) {
+  const navigate = useNavigate()
   return (
     <div style={{
       height: 56,
@@ -209,8 +224,8 @@ function TopBar({ role }) {
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button className="btn-ghost" style={{ fontSize: 18, padding: '4px 8px' }}>🔔</button>
-        <button className="btn-ghost" style={{ fontSize: 18, padding: '4px 8px' }}>💬</button>
+        <button className="btn-ghost" style={{ fontSize: 18, padding: '4px 8px' }} onClick={() => navigate('/notifications')}>🔔</button>
+        <button className="btn-ghost" style={{ fontSize: 18, padding: '4px 8px' }} onClick={() => navigate('/messages')}>💬</button>
         <div style={{ width: 1, height: 24, background: '#1e293b' }} />
         <div style={{
           background: 'linear-gradient(135deg,#1e40af,#0284c7)',
