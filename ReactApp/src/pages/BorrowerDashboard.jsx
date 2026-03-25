@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+﻿import { useNavigate } from 'react-router-dom'
 
 const STATUS_STEPS = [
   { label: 'Application Submitted', date: 'Mar 10, 2026', done: true },
@@ -76,21 +76,21 @@ export default function BorrowerDashboard() {
                   {i < STATUS_STEPS.length - 1 && (
                     <div style={{
                       position: 'absolute', top: 14, left: '50%', right: '-50%',
-                      height: 2, background: s.done ? '#3b82f6' : '#334155', zIndex: 0,
+                      height: 2, background: s.done ? '#3b82f6' : 'var(--border)', zIndex: 0,
                     }} />
                   )}
                   <div style={{
                     width: 28, height: 28, borderRadius: '50%',
-                    background: s.done ? '#3b82f6' : s.active ? '#1e40af' : '#1e293b',
-                    border: s.active ? '2px solid #3b82f6' : `2px solid ${s.done ? '#3b82f6' : '#334155'}`,
+                    background: s.done ? '#3b82f6' : s.active ? '#1e40af' : 'var(--bg-elevated)',
+                    border: s.active ? '2px solid #3b82f6' : `2px solid ${s.done ? '#3b82f6' : 'var(--border)'}`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontSize: 11, color: s.done ? '#fff' : s.active ? '#60a5fa' : '#475569',
+                    fontSize: 11, color: s.done ? '#fff' : s.active ? '#60a5fa' : 'var(--text-muted)',
                     fontWeight: 700, zIndex: 1, position: 'relative',
                   }}>
                     {s.done ? '✓' : i + 1}
                   </div>
-                  <div style={{ fontSize: 10, fontWeight: s.active ? 600 : 400, color: s.done ? '#f1f5f9' : s.active ? '#60a5fa' : '#475569', marginTop: 6, textAlign: 'center', lineHeight: 1.3 }}>{s.label}</div>
-                  <div style={{ fontSize: 9, color: '#334155', marginTop: 2 }}>{s.date}</div>
+                  <div style={{ fontSize: 10, fontWeight: s.active ? 600 : 400, color: s.done ? 'var(--text-primary)' : s.active ? '#60a5fa' : 'var(--text-muted)', marginTop: 6, textAlign: 'center', lineHeight: 1.3 }}>{s.label}</div>
+                  <div style={{ fontSize: 9, color: 'var(--text-muted)', marginTop: 2 }}>{s.date}</div>
                 </div>
               ))}
             </div>
@@ -108,11 +108,11 @@ export default function BorrowerDashboard() {
             {TASKS.map(t => (
               <div key={t.id} style={{
                 display: 'flex', alignItems: 'center', gap: 12,
-                padding: '12px 14px', background: '#263348', borderRadius: 8, marginBottom: 8,
-                border: `1px solid ${t.urgency === 'high' ? 'rgba(239,68,68,0.3)' : t.urgency === 'medium' ? 'rgba(245,158,11,0.2)' : '#334155'}`,
+                padding: '12px 14px', background: 'var(--bg-elevated)', borderRadius: 8, marginBottom: 8,
+                border: `1px solid ${t.urgency === 'high' ? 'rgba(239,68,68,0.3)' : t.urgency === 'medium' ? 'rgba(245,158,11,0.2)' : 'var(--border)'}`,
               }}>
                 <span style={{ fontSize: 18 }}>{t.icon}</span>
-                <div style={{ flex: 1, fontSize: 13, color: '#f1f5f9' }}>{t.text}</div>
+                <div style={{ flex: 1, fontSize: 13, color: 'var(--text-primary)' }}>{t.text}</div>
                 <span className={`badge badge-${t.urgency === 'high' ? 'red' : t.urgency === 'medium' ? 'yellow' : 'gray'}`}>
                   {t.urgency}
                 </span>
@@ -150,9 +150,9 @@ export default function BorrowerDashboard() {
               ['Est. Total Payment', '$4,020/mo'],
               ['Estimated Closing', 'Apr 15, 2026'],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #1e293b', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
-                <span style={{ fontWeight: 500 }}>{v}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{v}</span>
               </div>
             ))}
           </div>
@@ -166,11 +166,11 @@ export default function BorrowerDashboard() {
             {MESSAGES.map((m, i) => (
               <div key={i} style={{
                 display: 'flex', gap: 10, padding: '10px 0',
-                borderBottom: i < MESSAGES.length - 1 ? '1px solid #1e293b' : 'none',
+                borderBottom: i < MESSAGES.length - 1 ? '1px solid var(--border)' : 'none',
               }}>
                 <div style={{
                   width: 32, height: 32,
-                  background: m.unread ? 'rgba(59,130,246,0.2)' : '#1e293b',
+                  background: m.unread ? 'rgba(59,130,246,0.2)' : 'var(--bg-elevated)',
                   borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontSize: 13, fontWeight: 700, color: '#60a5fa', flexShrink: 0,
                 }}>
@@ -178,10 +178,10 @@ export default function BorrowerDashboard() {
                 </div>
                 <div style={{ flex: 1, overflow: 'hidden' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: m.unread ? '#f1f5f9' : '#94a3b8' }}>{m.from}</span>
-                    <span style={{ fontSize: 11, color: '#475569' }}>{m.time}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: m.unread ? 'var(--text-primary)' : 'var(--text-secondary)' }}>{m.from}</span>
+                    <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{m.time}</span>
                   </div>
-                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.msg}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{m.msg}</div>
                 </div>
                 {m.unread && <div className="status-dot dot-blue" style={{ marginTop: 4 }} />}
               </div>
@@ -196,7 +196,7 @@ export default function BorrowerDashboard() {
               <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(139,92,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#a78bfa' }}>PD</div>
               <div>
                 <div style={{ fontSize: 13, fontWeight: 600 }}>Priya Doe</div>
-                <div style={{ fontSize: 11, color: '#64748b' }}>Co-Applicant · Spouse</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Co-Applicant · Spouse</div>
               </div>
               <span className="badge badge-green" style={{ marginLeft: 'auto' }}>Active</span>
             </div>
@@ -211,8 +211,8 @@ function PageHeader({ title, sub, actions }) {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
       <div>
-        <h1 style={{ fontSize: 22, fontWeight: 800, color: '#f1f5f9' }}>{title}</h1>
-        {sub && <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>{sub}</p>}
+        <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)' }}>{title}</h1>
+        {sub && <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>{sub}</p>}
       </div>
       {actions}
     </div>
@@ -234,10 +234,10 @@ function StatCard({ icon, label, value, sub, color, isProgress }) {
           </div>
         </>
       ) : (
-        <div style={{ fontSize: 22, fontWeight: 800, color: '#f1f5f9' }}>{value}</div>
+        <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)' }}>{value}</div>
       )}
-      <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 4 }}>{label}</div>
-      {sub && <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{sub}</div>}
+      <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginTop: 4 }}>{label}</div>
+      {sub && <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{sub}</div>}
     </div>
   )
 }
@@ -250,10 +250,10 @@ function QuickActionCard({ label, icon, to, color }) {
       style={{ padding: '16px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.15s' }}
       onClick={() => navigate(to)}
       onMouseEnter={e => e.currentTarget.style.borderColor = color}
-      onMouseLeave={e => e.currentTarget.style.borderColor = '#334155'}
+      onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
     >
       <div style={{ fontSize: 24, marginBottom: 8 }}>{icon}</div>
-      <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8' }}>{label}</div>
+      <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)' }}>{label}</div>
     </div>
   )
 }

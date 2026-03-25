@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const POLICIES = [
   {
@@ -91,7 +91,7 @@ export default function InsuranceManagement() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Insurance Management</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Loan LA-001 · Marcus Johnson · 789 Maple Dr, Austin TX</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Loan LA-001 · Marcus Johnson · 789 Maple Dr, Austin TX</p>
         </div>
         <button className="btn btn-primary">+ Add Policy</button>
       </div>
@@ -133,8 +133,8 @@ export default function InsuranceManagement() {
                 key={p.id}
                 onClick={() => setSelectedPolicy(p)}
                 style={{
-                  background: '#1e293b',
-                  border: `1px solid ${selectedPolicy?.id === p.id ? '#3b82f6' : '#334155'}`,
+                  background: 'var(--bg-elevated)',
+                  border: `1px solid ${selectedPolicy?.id === p.id ? '#3b82f6' : 'var(--border)'}`,
                   borderRadius: 12, padding: 16, cursor: 'pointer'
                 }}
               >
@@ -143,12 +143,12 @@ export default function InsuranceManagement() {
                     <span style={{ fontSize: 24 }}>{p.icon}</span>
                     <div>
                       <div style={{ fontSize: 14, fontWeight: 700 }}>{p.type}</div>
-                      <div style={{ fontSize: 12, color: '#64748b' }}>{p.carrier}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{p.carrier}</div>
                     </div>
                   </div>
                   <span className="badge" style={{ background: `${STATUS_COLOR[p.status]}22`, color: STATUS_COLOR[p.status] }}>{p.status}</span>
                 </div>
-                <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#94a3b8' }}>
+                <div style={{ display: 'flex', gap: 16, fontSize: 12, color: 'var(--text-secondary)' }}>
                   {p.premium && <span>💰 ${p.premium.toLocaleString()}/yr</span>}
                   {p.policyNo && <span>📋 {p.policyNo}</span>}
                   {p.expiry && <span>📅 Exp: {p.expiry}</span>}
@@ -175,8 +175,8 @@ export default function InsuranceManagement() {
                   ['Expiry / Term', typeof selectedPolicy.expiry === 'string' ? selectedPolicy.expiry : selectedPolicy.expiry || 'N/A'],
                   ['Mortgagee Clause', selectedPolicy.mortgagee],
                 ].map(([k, v]) => (
-                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                    <span style={{ color: '#64748b' }}>{k}</span>
+                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                    <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                     <span style={{ fontWeight: 600, maxWidth: 200, textAlign: 'right' }}>{v}</span>
                   </div>
                 ))}
@@ -192,7 +192,7 @@ export default function InsuranceManagement() {
               </div>
 
               {uploadingFor === selectedPolicy.id && (
-                <div style={{ marginTop: 16, border: '2px dashed #334155', borderRadius: 10, padding: 20, textAlign: 'center', color: '#64748b', fontSize: 13 }}>
+                <div style={{ marginTop: 16, border: '2px dashed var(--border)', borderRadius: 10, padding: 20, textAlign: 'center', color: 'var(--text-muted)', fontSize: 13 }}>
                   📁 Drop certificate PDF here or <span style={{ color: '#60a5fa', cursor: 'pointer' }}>browse files</span>
                   <div style={{ marginTop: 12, display: 'flex', gap: 8, justifyContent: 'center' }}>
                     <button className="btn btn-primary" style={{ fontSize: 12 }} onClick={() => setUploadingFor(null)}>Upload</button>
@@ -214,8 +214,8 @@ export default function InsuranceManagement() {
                 key={q.carrier}
                 onClick={() => setSelectedQuote(q)}
                 style={{
-                  background: '#1e293b',
-                  border: `2px solid ${selectedQuote?.carrier === q.carrier ? '#3b82f6' : '#334155'}`,
+                  background: 'var(--bg-elevated)',
+                  border: `2px solid ${selectedQuote?.carrier === q.carrier ? '#3b82f6' : 'var(--border)'}`,
                   borderRadius: 12, padding: 18, cursor: 'pointer', position: 'relative'
                 }}
               >
@@ -225,15 +225,15 @@ export default function InsuranceManagement() {
                   <span style={{ fontSize: 28 }}>{q.logo}</span>
                   <div>
                     <div style={{ fontWeight: 800, fontSize: 15 }}>{q.carrier}</div>
-                    <div style={{ fontSize: 12, color: '#64748b' }}>Rating: {q.rating}</div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Rating: {q.rating}</div>
                   </div>
                 </div>
-                <div style={{ fontSize: 22, fontWeight: 800, color: '#f1f5f9', marginBottom: 8 }}>${q.annual.toLocaleString()}<span style={{ fontSize: 14, color: '#64748b', fontWeight: 400 }}>/yr</span></div>
-                <div style={{ fontSize: 13, color: '#94a3b8' }}>${q.monthly}/mo escrowed</div>
+                <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 8 }}>${q.annual.toLocaleString()}<span style={{ fontSize: 14, color: 'var(--text-muted)', fontWeight: 400 }}>/yr</span></div>
+                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>${q.monthly}/mo escrowed</div>
                 <hr className="divider" />
                 {[['Dwelling Coverage', `$${q.dwelling.toLocaleString()}`], ['Liability', `$${q.liability.toLocaleString()}`], ['Deductible', `$${q.deductible.toLocaleString()}`]].map(([k, v]) => (
                   <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '4px 0' }}>
-                    <span style={{ color: '#64748b' }}>{k}</span>
+                    <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                     <span style={{ fontWeight: 600 }}>{v}</span>
                   </div>
                 ))}
@@ -241,12 +241,12 @@ export default function InsuranceManagement() {
               </div>
             ))}
           </div>
-          <div style={{ background: '#1e293b', borderRadius: 12, padding: 16 }}>
+          <div style={{ background: 'var(--bg-elevated)', borderRadius: 12, padding: 16 }}>
             <div style={{ fontWeight: 700, marginBottom: 10 }}>FEMA Flood Zone Check</div>
             <div style={{ display: 'flex', gap: 20, alignItems: 'center', fontSize: 13 }}>
               <div>Property: <strong>789 Maple Dr, Austin TX 78750</strong></div>
               <span className="badge badge-orange" style={{ fontSize: 12 }}>Zone AE – High Risk</span>
-              <div style={{ color: '#64748b' }}>Flood insurance required by lender and GSE guidelines</div>
+              <div style={{ color: 'var(--text-muted)' }}>Flood insurance required by lender and GSE guidelines</div>
             </div>
           </div>
         </div>
@@ -254,25 +254,25 @@ export default function InsuranceManagement() {
 
       {activeTab === 'certificates' && (
         <div className="card" style={{ padding: 0 }}>
-          <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', fontWeight: 700 }}>Insurance Certificates & Documents</div>
+          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', fontWeight: 700 }}>Insurance Certificates & Documents</div>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ background: '#1e293b' }}>
+              <tr style={{ background: 'var(--bg-elevated)' }}>
                 {['Policy Type', 'Carrier', 'Policy No.', 'Document', 'Uploaded', 'Status'].map(h => (
-                  <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                  <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {POLICIES.map(p => (
-                <tr key={p.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                <tr key={p.id} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: '12px 14px', fontSize: 13 }}>{p.icon} {p.type}</td>
-                  <td style={{ padding: '12px 14px', fontSize: 13, color: '#94a3b8' }}>{p.carrier}</td>
+                  <td style={{ padding: '12px 14px', fontSize: 13, color: 'var(--text-secondary)' }}>{p.carrier}</td>
                   <td style={{ padding: '12px 14px', fontSize: 12, color: '#60a5fa' }}>{p.policyNo || '—'}</td>
                   <td style={{ padding: '12px 14px', fontSize: 13 }}>
-                    {['Bound', 'Active'].includes(p.status) ? <span style={{ color: '#4ade80', cursor: 'pointer' }}>📄 view dec page</span> : <span style={{ color: '#475569' }}>—</span>}
+                    {['Bound', 'Active'].includes(p.status) ? <span style={{ color: '#4ade80', cursor: 'pointer' }}>📄 view dec page</span> : <span style={{ color: 'var(--text-muted)' }}>—</span>}
                   </td>
-                  <td style={{ padding: '12px 14px', fontSize: 12, color: '#64748b' }}>
+                  <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-muted)' }}>
                     {['Bound', 'Active'].includes(p.status) ? 'Apr 10, 2025' : '—'}
                   </td>
                   <td style={{ padding: '12px 14px' }}>
@@ -299,12 +299,12 @@ export default function InsuranceManagement() {
               { policy: "Title Insurance (Lender's)", carrier: 'Old Republic', renewal: 'Permanent', daysOut: null, status: 'No Renewal' },
               { policy: 'PMI', carrier: 'Arch MI', renewal: 'Auto-Cancel at 80% LTV', daysOut: null, status: 'Active' },
             ].map(r => (
-              <div key={r.policy} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #334155' }}>
+              <div key={r.policy} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700 }}>{r.policy}</div>
-                  <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>{r.carrier} · Renewal: {r.renewal}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{r.carrier} · Renewal: {r.renewal}</div>
                 </div>
-                <span className={`badge ${r.status === 'On Track' || r.status === 'Active' ? 'badge-green' : r.status === 'Not Yet Bound' ? 'badge-orange' : ''}`} style={{ background: r.status === 'No Renewal' ? '#334155' : undefined, color: r.status === 'No Renewal' ? '#64748b' : undefined }}>{r.status}</span>
+                <span className={`badge ${r.status === 'On Track' || r.status === 'Active' ? 'badge-green' : r.status === 'Not Yet Bound' ? 'badge-orange' : ''}`} style={{ background: r.status === 'No Renewal' ? 'var(--border)' : undefined, color: r.status === 'No Renewal' ? 'var(--text-muted)' : undefined }}>{r.status}</span>
               </div>
             ))}
           </div>

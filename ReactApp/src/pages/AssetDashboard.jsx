@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const ASSETS = [
@@ -87,7 +87,7 @@ export default function AssetDashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>My Assets</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Application #: APP-2026-0421 &nbsp;·&nbsp; Status: <span style={{ color: '#60a5fa', fontWeight: 600 }}>In Review</span></p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Application #: APP-2026-0421 &nbsp;·&nbsp; Status: <span style={{ color: '#60a5fa', fontWeight: 600 }}>In Review</span></p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button className="btn btn-ghost" style={{ color: '#60a5fa' }}>🔄 Refresh</button>
@@ -104,9 +104,9 @@ export default function AssetDashboard() {
         ].map(s => (
           <div key={s.label} className="stat-card">
             <div style={{ fontSize: 26, marginBottom: 8 }}>{s.icon}</div>
-            <div style={{ fontSize: 11, color: '#475569', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>{s.label}</div>
             <div style={{ fontSize: 26, fontWeight: 900, color: s.color, marginBottom: 4 }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: s.sub.startsWith('▲') ? '#4ade80' : '#64748b' }}>{s.sub}</div>
+            <div style={{ fontSize: 12, color: s.sub.startsWith('▲') ? '#4ade80' : 'var(--text-muted)' }}>{s.sub}</div>
           </div>
         ))}
       </div>
@@ -114,11 +114,11 @@ export default function AssetDashboard() {
       {/* Verification progress */}
       <div className="card" style={{ marginBottom: 20 }}>
         <div style={{ fontWeight: 700, marginBottom: 12 }}>Verification Progress</div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b', marginBottom: 6 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, color: 'var(--text-muted)', marginBottom: 6 }}>
           <span>Overall Progress</span>
           <span style={{ fontWeight: 700, color: '#4ade80' }}>{verifiedCount}/{totalCount} ({Math.round(verifiedCount / totalCount * 100)}%)</span>
         </div>
-        <div style={{ height: 12, background: '#334155', borderRadius: 10, marginBottom: 14 }}>
+        <div style={{ height: 12, background: 'var(--border)', borderRadius: 10, marginBottom: 14 }}>
           <div style={{ height: 12, borderRadius: 10, width: `${(verifiedCount / totalCount) * 100}%`, background: 'linear-gradient(90deg, #3b82f6, #4ade80)', transition: 'width 0.4s' }} />
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10 }}>
@@ -128,24 +128,24 @@ export default function AssetDashboard() {
             ['❓ Questioned', questionedCount, '#fb923c'],
             ['✗ Rejected', rejectedCount, '#f87171'],
           ].map(([label, count, color]) => (
-            <div key={label} style={{ textAlign: 'center', background: '#1e293b', borderRadius: 8, padding: '10px 4px', border: `1px solid ${color}33` }}>
+            <div key={label} style={{ textAlign: 'center', background: 'var(--bg-elevated)', borderRadius: 8, padding: '10px 4px', border: `1px solid ${color}33` }}>
               <div style={{ fontSize: 20, fontWeight: 800, color }}>{count}</div>
-              <div style={{ fontSize: 11, color: '#64748b', marginTop: 3 }}>{label}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>{label}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Search */}
-      <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-        <span style={{ color: '#475569' }}>🔍</span>
+      <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+        <span style={{ color: 'var(--text-muted)' }}>🔍</span>
         <input
           value={searchQ}
           onChange={e => setSearchQ(e.target.value)}
           placeholder="Search assets by name, institution…"
-          style={{ background: 'none', border: 'none', outline: 'none', flex: 1, color: '#f1f5f9', fontSize: 13 }}
+          style={{ background: 'none', border: 'none', outline: 'none', flex: 1, color: 'var(--text-primary)', fontSize: 13 }}
         />
-        <button className="btn btn-ghost" style={{ fontSize: 12, color: '#64748b' }}>Filter ▼</button>
+        <button className="btn btn-ghost" style={{ fontSize: 12, color: 'var(--text-muted)' }}>Filter ▼</button>
       </div>
 
       {/* Grouped asset list */}
@@ -161,27 +161,27 @@ export default function AssetDashboard() {
               style={{
                 width: '100%', background: 'none', border: 'none', cursor: 'pointer',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '14px 18px', color: '#f1f5f9',
+                padding: '14px 18px', color: 'var(--text-primary)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: 18 }}>{CAT_ICON[cat]}</span>
                 <span style={{ fontWeight: 700, fontSize: 14 }}>{cat}</span>
-                <span className="badge" style={{ background: '#334155', color: '#94a3b8', fontSize: 11 }}>{items.length}</span>
+                <span className="badge" style={{ background: 'var(--border)', color: 'var(--text-secondary)', fontSize: 11 }}>{items.length}</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, fontSize: 13 }}>
-                <span style={{ color: '#94a3b8' }}>Total: <strong style={{ color: '#f1f5f9' }}>${catTotal.toLocaleString()}</strong></span>
+                <span style={{ color: 'var(--text-secondary)' }}>Total: <strong style={{ color: 'var(--text-primary)' }}>${catTotal.toLocaleString()}</strong></span>
                 <span>
                   Status: <strong style={{ color: catVerified === items.length ? '#4ade80' : questionedCount > 0 ? '#fb923c' : '#facc15' }}>
                     {catVerified}/{items.length} ✅
                   </strong>
                 </span>
-                <span style={{ color: '#475569', fontSize: 14 }}>{isOpen ? '▲' : '▼'}</span>
+                <span style={{ color: 'var(--text-muted)', fontSize: 14 }}>{isOpen ? '▲' : '▼'}</span>
               </div>
             </button>
 
             {isOpen && (
-              <div style={{ borderTop: '1px solid #334155' }}>
+              <div style={{ borderTop: '1px solid var(--border)' }}>
                 {items.map((asset, i) => (
                   <AssetRow key={asset.id} asset={asset} last={i === items.length - 1} onView={() => navigate(`/assets/detail/${asset.id}`)} />
                 ))}
@@ -194,7 +194,7 @@ export default function AssetDashboard() {
       {/* Help section */}
       <div className="card" style={{ background: 'rgba(59,130,246,0.05)', border: '1px solid rgba(59,130,246,0.15)' }}>
         <div style={{ fontWeight: 700, marginBottom: 10, color: '#60a5fa' }}>Need Help?</div>
-        <div style={{ display: 'flex', gap: 24, fontSize: 13, color: '#64748b' }}>
+        <div style={{ display: 'flex', gap: 24, fontSize: 13, color: 'var(--text-muted)' }}>
           <span>💬 <span style={{ color: '#60a5fa', cursor: 'pointer' }}>Chat with Support</span></span>
           <span>📞 1-800-555-1234</span>
           <span>📧 help@loanplatform.com</span>
@@ -209,7 +209,7 @@ export default function AssetDashboard() {
 function AssetRow({ asset: a, last, onView }) {
   const sm = STATUS_META[a.status] || STATUS_META.Pending
   return (
-    <div style={{ padding: '16px 18px', borderBottom: last ? 'none' : '1px solid #1e293b', background: 'transparent' }}>
+    <div style={{ padding: '16px 18px', borderBottom: last ? 'none' : '1px solid var(--border)', background: 'transparent' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
           <div style={{ width: 36, height: 36, borderRadius: 8, background: sm.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0, marginTop: 2 }}>
@@ -221,7 +221,7 @@ function AssetRow({ asset: a, last, onView }) {
               <span className="badge" style={{ background: sm.bg, color: sm.color, fontSize: 11 }}>{a.status}</span>
               {a.fresh && <span className="badge badge-green" style={{ fontSize: 10 }}>Fresh</span>}
             </div>
-            <div style={{ fontSize: 12, color: '#64748b', display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', display: 'flex', gap: 14, flexWrap: 'wrap' }}>
               {a.accountNo && <span>Account: {a.accountNo}</span>}
               {a.statementDate && <span>Statement: {a.statementDate}</span>}
               {a.maturity && <span>Maturity: {a.maturity}</span>}
@@ -240,8 +240,8 @@ function AssetRow({ asset: a, last, onView }) {
           </div>
         </div>
         <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 16 }}>
-          <div style={{ fontSize: 18, fontWeight: 800, color: '#f1f5f9', marginBottom: 4 }}>${a.balance.toLocaleString()}</div>
-          {a.verifiedDate && <div style={{ fontSize: 11, color: '#475569' }}>Verified: {a.verifiedDate}</div>}
+          <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>${a.balance.toLocaleString()}</div>
+          {a.verifiedDate && <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Verified: {a.verifiedDate}</div>}
           {a.questionedDate && <div style={{ fontSize: 11, color: '#fb923c' }}>Questioned: {a.questionedDate}</div>}
         </div>
       </div>
@@ -282,10 +282,10 @@ function AddAssetModal({ onClose }) {
 
   return (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-      <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 16, width: 640, maxHeight: '90vh', overflowY: 'auto', padding: 28 }}>
+      <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 16, width: 640, maxHeight: '90vh', overflowY: 'auto', padding: 28 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
           <div style={{ fontSize: 18, fontWeight: 800 }}>Add Asset</div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: 22, cursor: 'pointer' }}>✕</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 22, cursor: 'pointer' }}>✕</button>
         </div>
 
         {/* Step indicators */}
@@ -293,12 +293,12 @@ function AddAssetModal({ onClose }) {
           {[1, 2, 3].map(s => (
             <div key={s} style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div style={{ width: 26, height: 26, borderRadius: '50%', background: s <= step ? '#3b82f6' : '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: s <= step ? '#fff' : '#475569' }}>{s}</div>
-                <span style={{ fontSize: 12, color: s === step ? '#f1f5f9' : '#475569' }}>
+                <div style={{ width: 26, height: 26, borderRadius: '50%', background: s <= step ? '#3b82f6' : 'var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: s <= step ? '#fff' : 'var(--text-muted)' }}>{s}</div>
+                <span style={{ fontSize: 12, color: s === step ? 'var(--text-primary)' : 'var(--text-muted)' }}>
                   {s === 1 ? 'Select Type' : s === 2 ? 'Enter Details' : 'Verify'}
                 </span>
               </div>
-              {s < 3 && <div style={{ flex: 1, height: 2, background: s < step ? '#3b82f6' : '#334155', margin: '0 8px' }} />}
+              {s < 3 && <div style={{ flex: 1, height: 2, background: s < step ? '#3b82f6' : 'var(--border)', margin: '0 8px' }} />}
             </div>
           ))}
         </div>
@@ -309,9 +309,9 @@ function AddAssetModal({ onClose }) {
             <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Select Asset Type</div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 24 }}>
               {ASSET_TYPES.map(t => (
-                <button key={t.label} onClick={() => setAssetType(t.label)} style={{ background: assetType === t.label ? 'rgba(59,130,246,0.2)' : '#263348', border: `2px solid ${assetType === t.label ? '#3b82f6' : '#334155'}`, borderRadius: 10, padding: 14, cursor: 'pointer', textAlign: 'center', transition: 'all 0.15s' }}>
+                <button key={t.label} onClick={() => setAssetType(t.label)} style={{ background: assetType === t.label ? 'rgba(59,130,246,0.2)' : 'var(--bg-elevated)', border: `2px solid ${assetType === t.label ? '#3b82f6' : 'var(--border)'}`, borderRadius: 10, padding: 14, cursor: 'pointer', textAlign: 'center', transition: 'all 0.15s' }}>
                   <div style={{ fontSize: 28, marginBottom: 6 }}>{t.icon}</div>
-                  <div style={{ fontSize: 12, color: assetType === t.label ? '#60a5fa' : '#94a3b8', fontWeight: assetType === t.label ? 700 : 400 }}>{t.label}</div>
+                  <div style={{ fontSize: 12, color: assetType === t.label ? '#60a5fa' : 'var(--text-secondary)', fontWeight: assetType === t.label ? 700 : 400 }}>{t.label}</div>
                 </button>
               ))}
             </div>
@@ -325,7 +325,7 @@ function AddAssetModal({ onClose }) {
         {/* Step 2: Details */}
         {step === 2 && (
           <div>
-            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Enter Asset Details <span style={{ color: '#475569', fontWeight: 400, fontSize: 12 }}>— {assetType}</span></div>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Enter Asset Details <span style={{ color: 'var(--text-muted)', fontWeight: 400, fontSize: 12 }}>— {assetType}</span></div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <div className="form-group">
                 <label className="form-label">FINANCIAL INSTITUTION *</label>
@@ -386,22 +386,22 @@ function AddAssetModal({ onClose }) {
         {step === 3 && (
           <div>
             <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14 }}>Verify Asset</div>
-            <div style={{ fontSize: 13, color: '#64748b', marginBottom: 16 }}>How would you like to verify this account?</div>
+            <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>How would you like to verify this account?</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
               {[
                 { id: 'plaid', icon: '🔌', title: 'Connect with Plaid (Recommended)', sub: 'Fastest way to verify — connects directly to your bank', badge: 'Recommended' },
                 { id: 'upload', icon: '📎', title: 'Upload Bank Statement', sub: 'Upload PDF or image of your statement (last 3 months required)', badge: null },
                 { id: 'manual', icon: '✍️', title: 'Enter Manually', sub: 'Enter details manually (requires processor review)', badge: null },
               ].map(m => (
-                <button key={m.id} onClick={() => setVerifyMethod(m.id)} style={{ background: verifyMethod === m.id ? 'rgba(59,130,246,0.12)' : '#263348', border: `2px solid ${verifyMethod === m.id ? '#3b82f6' : '#334155'}`, borderRadius: 10, padding: 16, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
+                <button key={m.id} onClick={() => setVerifyMethod(m.id)} style={{ background: verifyMethod === m.id ? 'rgba(59,130,246,0.12)' : 'var(--bg-elevated)', border: `2px solid ${verifyMethod === m.id ? '#3b82f6' : 'var(--border)'}`, borderRadius: 10, padding: 16, cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s' }}>
                   <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
                     <span style={{ fontSize: 24 }}>{m.icon}</span>
                     <div>
                       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 3 }}>
-                        <span style={{ fontSize: 13, fontWeight: 700, color: verifyMethod === m.id ? '#60a5fa' : '#f1f5f9' }}>{m.title}</span>
+                        <span style={{ fontSize: 13, fontWeight: 700, color: verifyMethod === m.id ? '#60a5fa' : 'var(--text-primary)' }}>{m.title}</span>
                         {m.badge && <span className="badge badge-green" style={{ fontSize: 10 }}>{m.badge}</span>}
                       </div>
-                      <div style={{ fontSize: 12, color: '#64748b' }}>{m.sub}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{m.sub}</div>
                     </div>
                   </div>
                 </button>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const LOANS = [
   { id: 'LA-001', borrower: 'Marcus Johnson', co: 'Sarah Johnson', amount: 485000, type: 'Conventional 30yr', rate: 6.875, ltv: 82, dti: 38, fico: 742, status: 'Underwriting', officer: 'Rachel Kim', uw: 'David Park', daysOpen: 18, sla: 45, property: '789 Maple Dr, Austin TX', tasks: ['Appraisal ordered', 'Bank stmts verified'], flags: ['HOI expiring soon'] },
@@ -31,10 +31,10 @@ export default function LoanOfficerPipeline() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Loan Officer Pipeline</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Active loan tracking · {filtered.length} loans · ${ (totalVolume / 1000000).toFixed(2) }M total volume</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Active loan tracking · {filtered.length} loans · ${ (totalVolume / 1000000).toFixed(2) }M total volume</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
-          <select value={filterOfficer} onChange={e => setFilterOfficer(e.target.value)} style={{ fontSize: 13, padding: '6px 10px', background: '#1e293b', border: '1px solid #334155', borderRadius: 8, color: '#f1f5f9' }}>
+          <select value={filterOfficer} onChange={e => setFilterOfficer(e.target.value)} style={{ fontSize: 13, padding: '6px 10px', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)' }}>
             {officers.map(o => <option key={o}>{o}</option>)}
           </select>
           <div className="tab-group">
@@ -89,7 +89,7 @@ function KanbanView({ loans, onSelect, selectedId }) {
                 <KanbanCard key={l.id} loan={l} selected={selectedId === l.id} onClick={() => onSelect(l)} />
               ))}
               {cols.length === 0 && (
-                <div style={{ background: '#1e293b', border: '1px dashed #334155', borderRadius: 10, padding: 20, textAlign: 'center', color: '#475569', fontSize: 12 }}>No loans</div>
+                <div style={{ background: 'var(--bg-elevated)', border: '1px dashed var(--border)', borderRadius: 10, padding: 20, textAlign: 'center', color: 'var(--text-muted)', fontSize: 12 }}>No loans</div>
               )}
             </div>
           </div>
@@ -106,21 +106,21 @@ function KanbanCard({ loan: l, selected, onClick }) {
     <div
       onClick={onClick}
       style={{
-        background: '#1e293b',
-        border: `1px solid ${selected ? '#3b82f6' : urgent ? '#ef4444' : '#334155'}`,
+        background: 'var(--bg-elevated)',
+        border: `1px solid ${selected ? '#3b82f6' : urgent ? '#ef4444' : 'var(--border)'}`,
         borderRadius: 10, padding: 14, cursor: 'pointer',
         transition: 'border-color 0.15s'
       }}
     >
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#94a3b8', marginBottom: 4 }}>{l.id}</div>
+      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 4 }}>{l.id}</div>
       <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 6 }}>{l.borrower}</div>
-      <div style={{ fontSize: 12, fontWeight: 700, color: '#f1f5f9', marginBottom: 8 }}>{fmt(l.amount)}</div>
-      <div style={{ fontSize: 11, color: '#64748b', marginBottom: 8 }}>FICO {l.fico} · DTI {l.dti}% · LTV {l.ltv}%</div>
-      <div style={{ background: '#2d3c55', borderRadius: 4, height: 3, marginBottom: 8 }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>{fmt(l.amount)}</div>
+      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 8 }}>FICO {l.fico} · DTI {l.dti}% · LTV {l.ltv}%</div>
+      <div style={{ background: 'var(--bg-elevated)', borderRadius: 4, height: 3, marginBottom: 8 }}>
         <div style={{ height: 3, borderRadius: 4, width: `${Math.min(SLA_PCT, 100)}%`, background: urgent ? '#ef4444' : '#3b82f6', transition: 'width 0.3s' }} />
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontSize: 10, color: urgent ? '#f87171' : '#475569' }}>Day {l.daysOpen}/{l.sla}</span>
+        <span style={{ fontSize: 10, color: urgent ? '#f87171' : 'var(--text-muted)' }}>Day {l.daysOpen}/{l.sla}</span>
         {l.flags.length > 0 && <span style={{ fontSize: 10, color: '#fb923c' }}>⚠ {l.flags.length}</span>}
       </div>
     </div>
@@ -132,9 +132,9 @@ function TableView({ loans, onSelect, selectedId }) {
     <div className="card" style={{ padding: 0 }}>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
-          <tr style={{ background: '#1e293b' }}>
+          <tr style={{ background: 'var(--bg-elevated)' }}>
             {['Loan ID', 'Borrower', 'Amount', 'Type', 'FICO', 'DTI', 'LTV', 'Status', 'Officer', 'SLA', 'Actions'].map(h => (
-              <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+              <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
             ))}
           </tr>
         </thead>
@@ -142,22 +142,22 @@ function TableView({ loans, onSelect, selectedId }) {
           {loans.map(l => {
             const SLA_PCT = (l.daysOpen / l.sla) * 100
             return (
-              <tr key={l.id} onClick={() => onSelect(l)} style={{ cursor: 'pointer', background: selectedId === l.id ? 'rgba(59,130,246,0.08)' : 'transparent', borderBottom: '1px solid #1e293b' }}>
+              <tr key={l.id} onClick={() => onSelect(l)} style={{ cursor: 'pointer', background: selectedId === l.id ? 'rgba(59,130,246,0.08)' : 'transparent', borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '12px 14px', fontSize: 12, fontWeight: 700, color: '#60a5fa' }}>{l.id}</td>
                 <td style={{ padding: '12px 14px', fontSize: 13 }}>{l.borrower}</td>
                 <td style={{ padding: '12px 14px', fontSize: 13, fontWeight: 700 }}>{fmt(l.amount)}</td>
-                <td style={{ padding: '12px 14px', fontSize: 12, color: '#94a3b8' }}>{l.type}</td>
+                <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{l.type}</td>
                 <td style={{ padding: '12px 14px', fontSize: 13 }}>{l.fico}</td>
-                <td style={{ padding: '12px 14px', fontSize: 13, color: l.dti > 43 ? '#f87171' : '#f1f5f9' }}>{l.dti}%</td>
+                <td style={{ padding: '12px 14px', fontSize: 13, color: l.dti > 43 ? '#f87171' : 'var(--text-primary)' }}>{l.dti}%</td>
                 <td style={{ padding: '12px 14px', fontSize: 13 }}>{l.ltv}%</td>
                 <td style={{ padding: '12px 14px' }}>
                   <span className="badge" style={{ background: `${STATUS_COLOR[l.status]}22`, color: STATUS_COLOR[l.status], fontSize: 11 }}>{l.status}</span>
                 </td>
-                <td style={{ padding: '12px 14px', fontSize: 12, color: '#94a3b8' }}>{l.officer}</td>
+                <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{l.officer}</td>
                 <td style={{ padding: '12px 14px' }}>
                   <div style={{ width: 60 }}>
-                    <div style={{ fontSize: 10, color: SLA_PCT > 80 ? '#f87171' : '#64748b', marginBottom: 3 }}>Day {l.daysOpen}</div>
-                    <div style={{ height: 3, background: '#334155', borderRadius: 4 }}>
+                    <div style={{ fontSize: 10, color: SLA_PCT > 80 ? '#f87171' : 'var(--text-muted)', marginBottom: 3 }}>Day {l.daysOpen}</div>
+                    <div style={{ height: 3, background: 'var(--border)', borderRadius: 4 }}>
                       <div style={{ height: 3, width: `${Math.min(SLA_PCT, 100)}%`, background: SLA_PCT > 80 ? '#ef4444' : '#3b82f6', borderRadius: 4 }} />
                     </div>
                   </div>
@@ -181,21 +181,21 @@ function LoanDetailPanel({ loan: l, onClose }) {
   return (
     <div style={{
       position: 'fixed', top: 0, right: 0, width: 400, height: '100vh', overflowY: 'auto',
-      background: '#0f172a', borderLeft: '1px solid #334155', padding: 24, zIndex: 999,
+      background: 'var(--bg-base)', borderLeft: '1px solid var(--border)', padding: 24, zIndex: 999,
       boxShadow: '-4px 0 24px rgba(0,0,0,0.5)'
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
-          <div style={{ fontSize: 13, color: '#64748b' }}>{l.id}</div>
+          <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>{l.id}</div>
           <div style={{ fontSize: 18, fontWeight: 800 }}>{l.borrower}</div>
         </div>
-        <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: 20, cursor: 'pointer' }}>×</button>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 20, cursor: 'pointer' }}>×</button>
       </div>
 
       <span className="badge" style={{ background: `${STATUS_COLOR[l.status]}22`, color: STATUS_COLOR[l.status], marginBottom: 16, display: 'inline-block' }}>{l.status}</span>
       {l.flags.map(f => <span key={f} className="badge badge-orange" style={{ marginLeft: 6, marginBottom: 16 }}>⚠ {f}</span>)}
 
-      <div style={{ background: '#1e293b', borderRadius: 10, padding: 14, marginBottom: 16 }}>
+      <div style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: 14, marginBottom: 16 }}>
         {[
           ['Loan Amount', fmt(l.amount)],
           ['Loan Type', l.type],
@@ -207,15 +207,15 @@ function LoanDetailPanel({ loan: l, onClose }) {
           ['Loan Officer', l.officer],
           ['Underwriter', l.uw],
         ].map(([k, v]) => (
-          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-            <span style={{ color: '#64748b' }}>{k}</span>
+          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+            <span style={{ color: 'var(--text-muted)' }}>{k}</span>
             <span style={{ fontWeight: 600 }}>{v}</span>
           </div>
         ))}
       </div>
 
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', marginBottom: 8 }}>Pending Tasks</div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 8 }}>Pending Tasks</div>
         {l.tasks.map(t => (
           <div key={t} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '6px 0', fontSize: 13 }}>
             <span style={{ color: '#facc15' }}>●</span> {t}

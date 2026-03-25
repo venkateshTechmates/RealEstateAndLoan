@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const ASSET_CATEGORIES = [
@@ -59,7 +59,7 @@ export default function AssetDeclarationWizard() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Asset Declaration Wizard</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Step 4 of 7 — Declare all assets for Application #APP-2026-001842</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Step 4 of 7 — Declare all assets for Application #APP-2026-001842</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button className="btn btn-secondary btn-sm" onClick={() => navigate('/assets/overview')}>View Summary →</button>
@@ -68,14 +68,14 @@ export default function AssetDeclarationWizard() {
       </div>
 
       {/* Progress bar */}
-      <div style={{ display: 'flex', gap: 16, marginBottom: 24, padding: '14px 20px', background: '#1e293b', borderRadius: 10, border: '1px solid #334155' }}>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 24, padding: '14px 20px', background: 'var(--bg-elevated)', borderRadius: 10, border: '1px solid var(--border)' }}>
         {['Total Assets', 'Verified', 'Pending', 'Completion'].map((label, i) => {
           const vals = ['$255,000', '$70,000', '$185,000', '72%']
           const colors = ['#3b82f6', '#34d399', '#fbbf24', '#a78bfa']
           return (
-            <div key={label} style={{ flex: 1, borderRight: i < 3 ? '1px solid #334155' : 'none', paddingRight: i < 3 ? 16 : 0 }}>
+            <div key={label} style={{ flex: 1, borderRight: i < 3 ? '1px solid var(--border)' : 'none', paddingRight: i < 3 ? 16 : 0 }}>
               <div style={{ fontSize: 20, fontWeight: 800, color: colors[i] }}>{vals[i]}</div>
-              <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{label}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{label}</div>
             </div>
           )
         })}
@@ -90,8 +90,8 @@ export default function AssetDeclarationWizard() {
               onClick={() => { setActiveCategory(cat.id); setShowForm(false); setSelectedType(null) }}
               style={{
                 padding: '14px 16px',
-                background: activeCategory === cat.id ? 'rgba(59,130,246,0.1)' : '#1e293b',
-                border: `1px solid ${activeCategory === cat.id ? '#3b82f6' : '#334155'}`,
+                background: activeCategory === cat.id ? 'rgba(59,130,246,0.1)' : 'var(--bg-elevated)',
+                border: `1px solid ${activeCategory === cat.id ? '#3b82f6' : 'var(--border)'}`,
                 borderRadius: 10,
                 cursor: 'pointer',
                 transition: 'all 0.15s',
@@ -100,8 +100,8 @@ export default function AssetDeclarationWizard() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: 20 }}>{cat.icon}</span>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: activeCategory === cat.id ? '#f1f5f9' : '#94a3b8' }}>{cat.label}</div>
-                  <div style={{ fontSize: 11, color: '#475569', marginTop: 2, lineHeight: 1.3 }}>{cat.desc}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: activeCategory === cat.id ? 'var(--text-primary)' : 'var(--text-secondary)' }}>{cat.label}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2, lineHeight: 1.3 }}>{cat.desc}</div>
                 </div>
               </div>
             </div>
@@ -110,13 +110,13 @@ export default function AssetDeclarationWizard() {
           {/* Added assets summary */}
           {ADDED_ASSETS.length > 0 && (
             <div style={{ marginTop: 8 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Added Assets</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Added Assets</div>
               {ADDED_ASSETS.map((a, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: '#1e293b', borderRadius: 8, marginBottom: 6, border: '1px solid #334155' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'var(--bg-elevated)', borderRadius: 8, marginBottom: 6, border: '1px solid var(--border)' }}>
                   <span>{a.icon}</span>
                   <div style={{ flex: 1, overflow: 'hidden' }}>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: '#f1f5f9', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.institution}</div>
-                    <div style={{ fontSize: 11, color: '#64748b' }}>{a.type}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{a.institution}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{a.type}</div>
                   </div>
                   <div style={{ fontSize: 12, fontWeight: 700 }}>{a.value}</div>
                 </div>
@@ -133,7 +133,7 @@ export default function AssetDeclarationWizard() {
                 <div style={{ fontSize: 16, fontWeight: 700 }}>
                   {ASSET_CATEGORIES.find(c => c.id === activeCategory)?.label}
                 </div>
-                <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Select an asset type to add</div>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Select an asset type to add</div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
                 {ASSET_TYPES[activeCategory].map(type => (
@@ -143,21 +143,21 @@ export default function AssetDeclarationWizard() {
                     style={{
                       display: 'flex', alignItems: 'center', gap: 12,
                       padding: '14px 16px',
-                      background: '#263348',
-                      border: '1px solid #334155',
+                      background: 'var(--bg-elevated)',
+                      border: '1px solid var(--border)',
                       borderRadius: 10,
                       cursor: 'pointer',
                       transition: 'all 0.15s',
                     }}
                     onMouseEnter={e => { e.currentTarget.style.borderColor = '#3b82f6'; e.currentTarget.style.background = 'rgba(59,130,246,0.07)' }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = '#334155'; e.currentTarget.style.background = '#263348' }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.background = 'var(--bg-elevated)' }}
                   >
                     <span style={{ fontSize: 24, flexShrink: 0 }}>{type.icon}</span>
                     <div>
-                      <div style={{ fontSize: 13, fontWeight: 600, color: '#f1f5f9' }}>{type.label}</div>
-                      <div style={{ fontSize: 10, color: '#475569', marginTop: 2 }}>{type.id}</div>
+                      <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-primary)' }}>{type.label}</div>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 2 }}>{type.id}</div>
                     </div>
-                    <span style={{ marginLeft: 'auto', color: '#334155', fontSize: 16 }}>+</span>
+                    <span style={{ marginLeft: 'auto', color: 'var(--text-muted)', fontSize: 16 }}>+</span>
                   </div>
                 ))}
               </div>
@@ -179,12 +179,12 @@ function AssetForm({ type, category, onBack, onSave }) {
 
   return (
     <div className="card">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid #334155' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid var(--border)' }}>
         <button className="btn btn-ghost btn-sm" onClick={onBack}>← Back</button>
         <span style={{ fontSize: 22 }}>{type?.icon}</span>
         <div>
           <div style={{ fontSize: 15, fontWeight: 700 }}>{type?.label}</div>
-          <div style={{ fontSize: 11, color: '#64748b' }}>Form {type?.id}</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Form {type?.id}</div>
         </div>
       </div>
 
@@ -284,7 +284,7 @@ function AssetForm({ type, category, onBack, onSave }) {
 
       {/* Document upload */}
       <div style={{ marginTop: 16 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Supporting Documents</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Supporting Documents</div>
         <DocUpload label={isGift ? 'Gift Letter (Required)' : 'Statement / Certificate (Required)'} required />
         {isGift && <DocUpload label="Donor Bank Statement (Required)" required />}
         {is401k && <DocUpload label="Most Recent Quarterly Statement (Required)" required />}
@@ -302,15 +302,15 @@ function AssetForm({ type, category, onBack, onSave }) {
 function DocUpload({ label, required }) {
   return (
     <div style={{
-      border: `2px dashed ${required ? '#334155' : '#1e293b'}`,
+      border: `2px dashed ${required ? 'var(--border)' : 'var(--bg-elevated)'}`,
       borderRadius: 8, padding: '14px 16px', marginBottom: 10,
       display: 'flex', alignItems: 'center', gap: 12,
       background: 'rgba(255,255,255,0.01)', cursor: 'pointer',
     }}>
       <span style={{ fontSize: 20 }}>📎</span>
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8' }}>{label}</div>
-        <div style={{ fontSize: 11, color: '#475569' }}>Drag & drop or click to upload · PDF, JPG, PNG</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)' }}>{label}</div>
+        <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Drag & drop or click to upload · PDF, JPG, PNG</div>
       </div>
       {required && <span className="badge badge-red" style={{ fontSize: 10 }}>Required</span>}
       <button className="btn btn-secondary btn-sm">Browse</button>

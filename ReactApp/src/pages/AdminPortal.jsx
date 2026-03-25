@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const USERS = [
   { id: 'U001', name: 'Rachel Kim', email: 'rachel.kim@firstnational.com', role: 'Loan Officer', status: 'Active', lastLogin: '2 hours ago', loans: 14 },
@@ -62,7 +62,7 @@ export default function AdminPortal() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Admin Portal</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>First National Mortgage · System Administration</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>First National Mortgage · System Administration</p>
         </div>
         <span className="badge badge-green" style={{ padding: '8px 14px', fontSize: 13 }}>● All Systems Operational</span>
       </div>
@@ -131,15 +131,15 @@ export default function AdminPortal() {
           <div className="card" style={{ padding: 0 }}>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: '#1e293b' }}>
+                <tr style={{ background: 'var(--bg-elevated)' }}>
                   {['User', 'Email', 'Role', 'Loans', 'Last Login', 'Status', 'Actions'].map(h => (
-                    <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                    <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.map(u => (
-                  <tr key={u.id} style={{ borderBottom: '1px solid #1e293b', opacity: u.status === 'Inactive' ? 0.6 : 1 }}>
+                  <tr key={u.id} style={{ borderBottom: '1px solid var(--border)', opacity: u.status === 'Inactive' ? 0.6 : 1 }}>
                     <td style={{ padding: '12px 14px' }}>
                       <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                         <div style={{ width: 34, height: 34, borderRadius: '50%', background: `${ROLE_COLOR[u.role]}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: ROLE_COLOR[u.role], fontSize: 13 }}>
@@ -147,18 +147,18 @@ export default function AdminPortal() {
                         </div>
                         <div>
                           <div style={{ fontSize: 13, fontWeight: 700 }}>{u.name}</div>
-                          <div style={{ fontSize: 11, color: '#475569' }}>{u.id}</div>
+                          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{u.id}</div>
                         </div>
                       </div>
                     </td>
-                    <td style={{ padding: '12px 14px', fontSize: 12, color: '#94a3b8' }}>{u.email}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{u.email}</td>
                     <td style={{ padding: '12px 14px' }}>
                       <span className="badge" style={{ background: `${ROLE_COLOR[u.role]}22`, color: ROLE_COLOR[u.role], fontSize: 11 }}>{u.role}</span>
                     </td>
                     <td style={{ padding: '12px 14px', fontSize: 13 }}>{u.loans}</td>
-                    <td style={{ padding: '12px 14px', fontSize: 12, color: '#64748b' }}>{u.lastLogin}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-muted)' }}>{u.lastLogin}</td>
                     <td style={{ padding: '12px 14px' }}>
-                      <span className={`badge ${u.status === 'Active' ? 'badge-green' : ''}`} style={u.status !== 'Active' ? { background: '#334155', color: '#64748b', fontSize: 11 } : { fontSize: 11 }}>{u.status}</span>
+                      <span className={`badge ${u.status === 'Active' ? 'badge-green' : ''}`} style={u.status !== 'Active' ? { background: 'var(--border)', color: 'var(--text-muted)', fontSize: 11 } : { fontSize: 11 }}>{u.status}</span>
                     </td>
                     <td style={{ padding: '12px 14px' }}>
                       <div style={{ display: 'flex', gap: 6 }}>
@@ -179,29 +179,29 @@ export default function AdminPortal() {
       {activeTab === 'audit' && (
         <div>
           <div className="card" style={{ padding: 0 }}>
-            <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontWeight: 700 }}>Audit Log — Last 7 Days</span>
               <button className="btn btn-ghost" style={{ fontSize: 12, color: '#60a5fa' }}>⬇ Export CSV</button>
             </div>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: '#1e293b' }}>
+                <tr style={{ background: 'var(--bg-elevated)' }}>
                   {['Event ID', 'Timestamp', 'User', 'Action', 'Resource / Details', 'IP Address'].map(h => (
-                    <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                    <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {AUDIT_LOG.map(l => (
-                  <tr key={l.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                  <tr key={l.id} style={{ borderBottom: '1px solid var(--border)' }}>
                     <td style={{ padding: '12px 14px', fontSize: 12, color: '#60a5fa', fontWeight: 700 }}>{l.id}</td>
-                    <td style={{ padding: '12px 14px', fontSize: 12, color: '#64748b', fontFamily: 'monospace' }}>{l.timestamp}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'monospace' }}>{l.timestamp}</td>
                     <td style={{ padding: '12px 14px', fontSize: 13, fontWeight: 600 }}>{l.user}</td>
                     <td style={{ padding: '12px 14px' }}>
-                      <span className="badge" style={{ background: '#334155', color: '#94a3b8', fontSize: 11 }}>{l.action}</span>
+                      <span className="badge" style={{ background: 'var(--border)', color: 'var(--text-secondary)', fontSize: 11 }}>{l.action}</span>
                     </td>
-                    <td style={{ padding: '12px 14px', fontSize: 12, color: '#94a3b8' }}>{l.resource}</td>
-                    <td style={{ padding: '12px 14px', fontSize: 12, color: '#475569', fontFamily: 'monospace' }}>{l.ip}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{l.resource}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-muted)', fontFamily: 'monospace' }}>{l.ip}</td>
                   </tr>
                 ))}
               </tbody>
@@ -225,21 +225,21 @@ export default function AdminPortal() {
             ))}
           </div>
           <div className="card" style={{ padding: 0 }}>
-            <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', fontWeight: 700 }}>Service Health Monitor</div>
+            <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', fontWeight: 700 }}>Service Health Monitor</div>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: '#1e293b' }}>
+                <tr style={{ background: 'var(--bg-elevated)' }}>
                   {['Service', 'Uptime (30d)', 'Avg Latency', 'Status'].map(h => (
-                    <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                    <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {systemHealth.map(s => (
-                  <tr key={s.service} style={{ borderBottom: '1px solid #1e293b' }}>
+                  <tr key={s.service} style={{ borderBottom: '1px solid var(--border)' }}>
                     <td style={{ padding: '12px 14px', fontSize: 13, fontWeight: 600 }}>{s.service}</td>
                     <td style={{ padding: '12px 14px', fontSize: 13 }}>{s.uptime}</td>
-                    <td style={{ padding: '12px 14px', fontSize: 13, color: '#94a3b8' }}>{s.latency}</td>
+                    <td style={{ padding: '12px 14px', fontSize: 13, color: 'var(--text-secondary)' }}>{s.latency}</td>
                     <td style={{ padding: '12px 14px' }}>
                       <span className="badge" style={{ background: `${HEALTH_COLOR[s.status]}22`, color: HEALTH_COLOR[s.status], fontSize: 11 }}>
                         ● {s.status}
@@ -267,10 +267,10 @@ export default function AdminPortal() {
               ['AML/BSA Monitoring', 'No suspicious activity flagged', 'Pass'],
               ['GDPR/CCPA Data Rights', 'Opt-out workflow active', 'Pass'],
             ].map(([k, v, status]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
                 <div>
                   <div style={{ fontWeight: 600 }}>{k}</div>
-                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{v}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{v}</div>
                 </div>
                 <span className={`badge ${status === 'Pass' || status === 'Complete' ? 'badge-green' : 'badge-red'}`} style={{ fontSize: 11 }}>{status}</span>
               </div>
@@ -285,10 +285,10 @@ export default function AdminPortal() {
               { label: 'SOX IT Controls Audit Report', date: 'Feb 28, 2025', format: 'PDF' },
               { label: 'Vendor Risk Assessment – Q1', date: 'Mar 15, 2025', format: 'PDF' },
             ].map(r => (
-              <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #334155' }}>
+              <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 600 }}>{r.label}</div>
-                  <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{r.date} · {r.format}</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{r.date} · {r.format}</div>
                 </div>
                 <button className="btn btn-ghost" style={{ fontSize: 12, color: '#60a5fa' }}>⬇ Download</button>
               </div>
@@ -311,8 +311,8 @@ export default function AdminPortal() {
               ['Default Loan Program', 'Conventional 30yr Fixed'],
               ['Rate Lock Period', '45 days (default)'],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 600 }}>{v}</span>
               </div>
             ))}
@@ -330,11 +330,11 @@ export default function AdminPortal() {
             ].map(s => {
               const [on, setOn] = useState(s.defaultOn)
               return (
-                <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #334155' }}>
+                <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
                   <span style={{ fontSize: 13 }}>{s.label}</span>
                   <button
                     onClick={() => setOn(!on)}
-                    style={{ width: 44, height: 24, borderRadius: 12, background: on ? '#3b82f6' : '#334155', border: 'none', cursor: 'pointer', position: 'relative', transition: 'background 0.2s' }}
+                    style={{ width: 44, height: 24, borderRadius: 12, background: on ? '#3b82f6' : 'var(--border)', border: 'none', cursor: 'pointer', position: 'relative', transition: 'background 0.2s' }}
                   >
                     <span style={{ position: 'absolute', left: on ? 22 : 2, top: 2, width: 20, height: 20, borderRadius: '50%', background: '#fff', transition: 'left 0.2s' }} />
                   </button>

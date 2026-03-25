@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from 'react'
+﻿import { useState, useRef, useEffect } from 'react'
 
 const CONTACTS = [
   { id: 1, name: 'Sarah Johnson', role: 'Loan Officer', initials: 'SJ', color: '#3b82f6', lastMsg: 'Please upload your updated bank statement.', lastTime: '10:32 AM', unread: 2, online: true, appNo: 'APP-2026-0421' },
   { id: 2, name: 'Mike Torres', role: 'Underwriter', initials: 'MT', color: '#a78bfa', lastMsg: 'Employment verification has been completed.', lastTime: '9:15 AM', unread: 0, online: true, appNo: 'APP-2026-0421' },
   { id: 3, name: 'Lisa Chen', role: 'Processor', initials: 'LC', color: '#4ade80', lastMsg: 'Closing disclosure is ready for review.', lastTime: 'Yesterday', unread: 1, online: false, appNo: 'APP-2026-0421' },
   { id: 4, name: 'Tom Bailey', role: 'Loan Officer', initials: 'TB', color: '#f59e0b', lastMsg: 'Your rate lock expires in 5 days.', lastTime: 'Yesterday', unread: 0, online: false, appNo: 'APP-2026-0418' },
-  { id: 5, name: 'Support Team', role: 'Customer Support', initials: 'ST', color: '#64748b', lastMsg: 'How can we help you today?', lastTime: 'Mar 22', unread: 0, online: true, appNo: null },
+  { id: 5, name: 'Support Team', role: 'Customer Support', initials: 'ST', color: 'var(--text-muted)', lastMsg: 'How can we help you today?', lastTime: 'Mar 22', unread: 0, online: true, appNo: null },
 ]
 
 const MESSAGES = {
@@ -73,22 +73,22 @@ export default function MessagingCenter() {
   }, {})
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', height: 'calc(100vh - 120px)', gap: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid #334155' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', height: 'calc(100vh - 120px)', gap: 0, borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border)' }}>
       {/* Left: Contacts list */}
-      <div style={{ background: '#1e293b', borderRight: '1px solid #334155', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ background: 'var(--bg-elevated)', borderRight: '1px solid var(--border)', display: 'flex', flexDirection: 'column' }}>
         {/* Header */}
-        <div style={{ padding: '16px 14px', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ padding: '16px 14px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontWeight: 800, fontSize: 14 }}>Messages</div>
           <div style={{ display: 'flex', gap: 6 }}>
             <button className="btn btn-ghost" style={{ fontSize: 11, padding: '4px 8px' }} onClick={() => setShowCompose(true)}>+ New</button>
           </div>
         </div>
         {/* Search */}
-        <div style={{ padding: '10px 14px', borderBottom: '1px solid #334155' }}>
-          <div style={{ background: '#0f172a', borderRadius: 8, padding: '7px 12px', display: 'flex', gap: 8, alignItems: 'center' }}>
-            <span style={{ color: '#475569', fontSize: 13 }}>🔍</span>
+        <div style={{ padding: '10px 14px', borderBottom: '1px solid var(--border)' }}>
+          <div style={{ background: 'var(--bg-base)', borderRadius: 8, padding: '7px 12px', display: 'flex', gap: 8, alignItems: 'center' }}>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🔍</span>
             <input value={searchQ} onChange={e => setSearchQ(e.target.value)} placeholder="Search conversations…"
-              style={{ background: 'none', border: 'none', outline: 'none', fontSize: 12, color: '#f1f5f9', width: '100%' }} />
+              style={{ background: 'none', border: 'none', outline: 'none', fontSize: 12, color: 'var(--text-primary)', width: '100%' }} />
           </div>
         </div>
         {/* Contact list */}
@@ -98,16 +98,16 @@ export default function MessagingCenter() {
               style={{ display: 'flex', width: '100%', gap: 12, padding: '14px 16px', borderBottom: '1px solid #1a2030', background: activeContact.id === c.id ? 'rgba(59,130,246,0.1)' : 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', borderLeft: activeContact.id === c.id ? `3px solid #3b82f6` : '3px solid transparent' }}>
               <div style={{ position: 'relative', flexShrink: 0 }}>
                 <div style={{ width: 40, height: 40, borderRadius: '50%', background: c.color + '33', border: `2px solid ${c.color}66`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: c.color }}>{c.initials}</div>
-                {c.online && <div style={{ position: 'absolute', bottom: 1, right: 1, width: 10, height: 10, borderRadius: '50%', background: '#4ade80', border: '2px solid #1e293b' }} />}
+                {c.online && <div style={{ position: 'absolute', bottom: 1, right: 1, width: 10, height: 10, borderRadius: '50%', background: '#4ade80', border: '2px solid var(--border)' }} />}
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-                  <span style={{ fontWeight: 700, fontSize: 13, color: activeContact.id === c.id ? '#60a5fa' : '#f1f5f9' }}>{c.name}</span>
-                  <span style={{ fontSize: 11, color: '#475569', flexShrink: 0 }}>{c.lastTime}</span>
+                  <span style={{ fontWeight: 700, fontSize: 13, color: activeContact.id === c.id ? '#60a5fa' : 'var(--text-primary)' }}>{c.name}</span>
+                  <span style={{ fontSize: 11, color: 'var(--text-muted)', flexShrink: 0 }}>{c.lastTime}</span>
                 </div>
-                <div style={{ fontSize: 11, color: '#475569', marginBottom: 1 }}>{c.role} {c.appNo && `· ${c.appNo}`}</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 1 }}>{c.role} {c.appNo && `· ${c.appNo}`}</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: 12, color: '#64748b', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{c.lastMsg}</span>
+                  <span style={{ fontSize: 12, color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{c.lastMsg}</span>
                   {c.unread > 0 && (
                     <span style={{ background: '#3b82f6', color: '#fff', fontSize: 10, fontWeight: 800, borderRadius: 10, padding: '1px 6px', marginLeft: 6, flexShrink: 0 }}>{c.unread}</span>
                   )}
@@ -119,9 +119,9 @@ export default function MessagingCenter() {
       </div>
 
       {/* Right: Message thread */}
-      <div style={{ background: '#0f172a', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ background: 'var(--bg-base)', display: 'flex', flexDirection: 'column' }}>
         {/* Thread header */}
-        <div style={{ padding: '14px 20px', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#1e293b' }}>
+        <div style={{ padding: '14px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-elevated)' }}>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <div style={{ width: 38, height: 38, borderRadius: '50%', background: activeContact.color + '33', border: `2px solid ${activeContact.color}66`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: activeContact.color }}>{activeContact.initials}</div>
             <div>
@@ -130,7 +130,7 @@ export default function MessagingCenter() {
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
-            {activeContact.appNo && <span style={{ fontSize: 12, color: '#475569' }}>{activeContact.appNo}</span>}
+            {activeContact.appNo && <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{activeContact.appNo}</span>}
             <button className="btn btn-ghost" style={{ fontSize: 12 }}>⋯</button>
           </div>
         </div>
@@ -140,8 +140,8 @@ export default function MessagingCenter() {
           {Object.entries(groupedMsgs).map(([date, msgs]) => (
             <div key={date}>
               <div style={{ textAlign: 'center', margin: '14px 0 18px', position: 'relative' }}>
-                <span style={{ background: '#1e293b', padding: '4px 14px', borderRadius: 20, fontSize: 11, color: '#475569', border: '1px solid #334155', position: 'relative', zIndex: 1 }}>{date}</span>
-                <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: '#1e293b', zIndex: 0 }} />
+                <span style={{ background: 'var(--bg-elevated)', padding: '4px 14px', borderRadius: 20, fontSize: 11, color: 'var(--text-muted)', border: '1px solid var(--border)', position: 'relative', zIndex: 1 }}>{date}</span>
+                <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: 'var(--bg-elevated)', zIndex: 0 }} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {msgs.map(m => (
@@ -150,11 +150,11 @@ export default function MessagingCenter() {
                       <div style={{ width: 28, height: 28, borderRadius: '50%', background: activeContact.color + '33', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 800, color: activeContact.color, flexShrink: 0 }}>{activeContact.initials}</div>
                     )}
                     <div style={{ maxWidth: '68%' }}>
-                      <div style={{ background: m.from === 'me' ? '#1d4ed8' : '#1e293b', border: `1px solid ${m.from === 'me' ? '#2563eb' : '#334155'}`, borderRadius: m.from === 'me' ? '16px 16px 4px 16px' : '16px 16px 16px 4px', padding: '10px 14px', fontSize: 13, lineHeight: 1.5, color: '#f1f5f9' }}>
+                      <div style={{ background: m.from === 'me' ? '#1d4ed8' : 'var(--bg-elevated)', border: `1px solid ${m.from === 'me' ? '#2563eb' : 'var(--border)'}`, borderRadius: m.from === 'me' ? '16px 16px 4px 16px' : '16px 16px 16px 4px', padding: '10px 14px', fontSize: 13, lineHeight: 1.5, color: 'var(--text-primary)' }}>
                         {m.text}
                         {m.isDoc && <div style={{ marginTop: 8, padding: '8px 10px', background: 'rgba(255,255,255,0.06)', borderRadius: 8, fontSize: 12, color: '#60a5fa', display: 'flex', gap: 6 }}>📎 bank_statement.pdf</div>}
                       </div>
-                      <div style={{ fontSize: 10, color: '#334155', marginTop: 3, textAlign: m.from === 'me' ? 'right' : 'left' }}>{m.time} {m.from === 'me' && '✓✓'}</div>
+                      <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 3, textAlign: m.from === 'me' ? 'right' : 'left' }}>{m.time} {m.from === 'me' && '✓✓'}</div>
                     </div>
                   </div>
                 ))}
@@ -165,20 +165,20 @@ export default function MessagingCenter() {
         </div>
 
         {/* Input area */}
-        <div style={{ padding: '14px 20px', borderTop: '1px solid #334155', background: '#1e293b' }}>
+        <div style={{ padding: '14px 20px', borderTop: '1px solid var(--border)', background: 'var(--bg-elevated)' }}>
           <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
-            <div style={{ flex: 1, background: '#0f172a', border: '1px solid #334155', borderRadius: 12, padding: '10px 14px', display: 'flex', gap: 10, alignItems: 'center' }}>
+            <div style={{ flex: 1, background: 'var(--bg-base)', border: '1px solid var(--border)', borderRadius: 12, padding: '10px 14px', display: 'flex', gap: 10, alignItems: 'center' }}>
               <textarea value={draftText} onChange={e => setDraftText(e.target.value)} onKeyDown={handleKeyDown}
                 placeholder="Type a message… (Enter to send, Shift+Enter for new line)"
                 rows={1}
-                style={{ flex: 1, background: 'none', border: 'none', outline: 'none', resize: 'none', color: '#f1f5f9', fontSize: 13, fontFamily: 'inherit', lineHeight: 1.5 }} />
-              <button className="btn btn-ghost" style={{ fontSize: 16, padding: '2px 6px', color: '#475569' }}>📎</button>
+                style={{ flex: 1, background: 'none', border: 'none', outline: 'none', resize: 'none', color: 'var(--text-primary)', fontSize: 13, fontFamily: 'inherit', lineHeight: 1.5 }} />
+              <button className="btn btn-ghost" style={{ fontSize: 16, padding: '2px 6px', color: 'var(--text-muted)' }}>📎</button>
             </div>
             <button className="btn btn-primary" style={{ padding: '10px 16px', borderRadius: 12 }} onClick={sendMessage} disabled={!draftText.trim()}>
               Send
             </button>
           </div>
-          <div style={{ fontSize: 11, color: '#334155', marginTop: 6, textAlign: 'center' }}>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6, textAlign: 'center' }}>
             Messages are logged for compliance purposes
           </div>
         </div>
@@ -187,14 +187,14 @@ export default function MessagingCenter() {
       {/* Compose Modal */}
       {showCompose && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 14, width: 520, padding: 24 }}>
+          <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 14, width: 520, padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
               <div style={{ fontWeight: 800 }}>New Message</div>
-              <button onClick={() => setShowCompose(false)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: 18, cursor: 'pointer' }}>✕</button>
+              <button onClick={() => setShowCompose(false)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 18, cursor: 'pointer' }}>✕</button>
             </div>
             <div className="form-group">
               <label className="form-label">TO</label>
-              <select style={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8, padding: '8px 12px', color: '#f1f5f9', fontSize: 13, width: '100%' }}>
+              <select style={{ background: 'var(--bg-base)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--text-primary)', fontSize: 13, width: '100%' }}>
                 {CONTACTS.map(c => <option key={c.id}>{c.name} — {c.role}</option>)}
               </select>
             </div>
@@ -204,7 +204,7 @@ export default function MessagingCenter() {
             </div>
             <div className="form-group">
               <label className="form-label">MESSAGE</label>
-              <textarea rows={5} placeholder="Type your message here…" style={{ width: '100%', background: '#0f172a', border: '1px solid #334155', borderRadius: 8, padding: 10, color: '#f1f5f9', fontSize: 13, resize: 'none', boxSizing: 'border-box' }} />
+              <textarea rows={5} placeholder="Type your message here…" style={{ width: '100%', background: 'var(--bg-base)', border: '1px solid var(--border)', borderRadius: 8, padding: 10, color: 'var(--text-primary)', fontSize: 13, resize: 'none', boxSizing: 'border-box' }} />
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, marginTop: 6 }}>
               <button className="btn btn-ghost" onClick={() => setShowCompose(false)}>Cancel</button>

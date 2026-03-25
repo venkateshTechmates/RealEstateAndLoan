@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const DOCUMENTS = [
   { id: 1, name: '2025 W-2 — TechCorp Inc.', category: 'Income', status: 'Verified', size: '1.2 MB', uploaded: 'Mar 14', icon: '📄', expires: null },
@@ -38,7 +38,7 @@ export default function DocumentCenter() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Document Center</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Application #APP-2026-001842 · {DOCUMENTS.length} documents · 1 requires action</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Application #APP-2026-001842 · {DOCUMENTS.length} documents · 1 requires action</p>
         </div>
         <button className="btn btn-primary">+ Upload Document</button>
       </div>
@@ -56,7 +56,7 @@ export default function DocumentCenter() {
               <span style={{ fontSize: 22 }}>{s.icon}</span>
               <div>
                 <div style={{ fontSize: 28, fontWeight: 800, color: s.color }}>{s.value}</div>
-                <div style={{ fontSize: 11, color: '#64748b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{s.label}</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{s.label}</div>
               </div>
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function DocumentCenter() {
         onDragLeave={() => setDragging(false)}
         onDrop={e => { e.preventDefault(); setDragging(false) }}
         style={{
-          border: `2px dashed ${dragging ? '#3b82f6' : '#334155'}`,
+          border: `2px dashed ${dragging ? '#3b82f6' : 'var(--border)'}`,
           borderRadius: 12,
           padding: '28px 20px',
           textAlign: 'center',
@@ -89,8 +89,8 @@ export default function DocumentCenter() {
         }}
       >
         <div style={{ fontSize: 32, marginBottom: 8 }}>📤</div>
-        <div style={{ fontWeight: 600, color: '#f1f5f9' }}>Drag & Drop Documents Here</div>
-        <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>PDF, JPG, PNG, TIFF — Max 25 MB per file · OCR extraction automatic</div>
+        <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Drag & Drop Documents Here</div>
+        <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>PDF, JPG, PNG, TIFF — Max 25 MB per file · OCR extraction automatic</div>
         <button className="btn btn-secondary btn-sm" style={{ marginTop: 12 }}>Browse Files</button>
       </div>
 
@@ -122,14 +122,14 @@ export default function DocumentCenter() {
                   <td>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <span style={{ fontSize: 20 }}>{doc.icon}</span>
-                      <span style={{ fontWeight: 600, color: '#f1f5f9' }}>{doc.name}</span>
+                      <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{doc.name}</span>
                     </div>
                   </td>
                   <td><span className="badge badge-gray">{doc.category}</span></td>
                   <td><span className={`badge ${STATUS_COLORS[doc.status] || 'badge-gray'}`}>{doc.status}</span></td>
                   <td>Mar {doc.uploaded}, 2026</td>
                   <td>{doc.size}</td>
-                  <td style={{ color: doc.expires && doc.expires === 'Mar 28' ? '#f87171' : '#94a3b8' }}>
+                  <td style={{ color: doc.expires && doc.expires === 'Mar 28' ? '#f87171' : 'var(--text-secondary)' }}>
                     {doc.expires ? <><span>⏰</span> {doc.expires}</> : '—'}
                   </td>
                   <td>
@@ -149,7 +149,7 @@ export default function DocumentCenter() {
       {selectedDoc && (
         <div style={{
           position: 'fixed', right: 0, top: 0, bottom: 0, width: 360,
-          background: '#131e30', borderLeft: '1px solid #334155',
+          background: 'var(--bg-elevated)', borderLeft: '1px solid var(--border)',
           padding: '24px 20px', zIndex: 100, overflowY: 'auto',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
@@ -161,9 +161,9 @@ export default function DocumentCenter() {
           <span className={`badge ${STATUS_COLORS[selectedDoc.status] || 'badge-gray'}`}>{selectedDoc.status}</span>
           <div style={{ marginTop: 20 }}>
             {[['Category', selectedDoc.category], ['File Size', selectedDoc.size], ['Uploaded', `Mar ${selectedDoc.uploaded}, 2026`], ['Expires', selectedDoc.expires || 'No expiry']].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #1e293b', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
-                <span style={{ fontWeight: 500 }}>{v}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{v}</span>
               </div>
             ))}
           </div>
@@ -176,8 +176,8 @@ export default function DocumentCenter() {
             <button className="btn btn-ghost" style={{ justifyContent: 'center', color: '#f87171' }}>🗑 Replace Document</button>
           </div>
           <div style={{ marginTop: 20 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 10 }}>OCR EXTRACTED DATA</div>
-            <div style={{ background: '#1e293b', borderRadius: 8, padding: 12, fontSize: 12, color: '#64748b' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 10 }}>OCR EXTRACTED DATA</div>
+            <div style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: 12, fontSize: 12, color: 'var(--text-muted)' }}>
               {selectedDoc.category === 'Income' ? 'Employer: TechCorp Inc. | Wages: $145,000 | Tax Withheld: $32,480' :
                selectedDoc.category === 'Assets' ? 'Account: XXXX1234 | Balance: $42,000 | As of: 03/25/2026' :
                'Data extracted. Click to review fields.'}

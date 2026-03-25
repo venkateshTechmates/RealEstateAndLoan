@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext.jsx'
 import Layout from './components/Layout.jsx'
 import Login from './pages/Login.jsx'
+import OrgSelect from './pages/OrgSelect.jsx'
 import BorrowerDashboard from './pages/BorrowerDashboard.jsx'
 import LoanApplicationWizard from './pages/LoanApplicationWizard.jsx'
 import AssetDeclarationWizard from './pages/AssetDeclarationWizard.jsx'
@@ -33,6 +34,7 @@ export default function App() {
     <ThemeProvider>
     <BrowserRouter>
       <Routes>
+        <Route path="/select-org" element={<OrgSelect />} />
         <Route path="/login" element={<Login setRole={setRole} />} />
         <Route path="/" element={<Layout role={role} setRole={setRole} />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
@@ -59,7 +61,7 @@ export default function App() {
           <Route path="calculator" element={<PreQualCalculator />} />
           <Route path="messages" element={<MessagingCenter />} />
         </Route>
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
     </ThemeProvider>

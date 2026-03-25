@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const PROPERTIES = [
   { id: 1, address: '789 Maple Drive, Austin, TX 78750', type: 'Single Family', beds: 4, baths: 3, sqft: 2850, price: 540000, status: 'Active - Pre-Approval', image: '🏡', zip: '78750', year: 2018, hoa: 0, tax: 9800 },
@@ -30,7 +30,7 @@ export default function PropertySearch() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Property Search</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>MLS-linked listings · Austin, TX metro area · {filtered.length} properties found</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>MLS-linked listings · Austin, TX metro area · {filtered.length} properties found</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <div className="tab-group">
@@ -101,8 +101,8 @@ function PropertyCard({ property: p, selected, onClick }) {
       onClick={onClick}
       style={{
         cursor: 'pointer',
-        background: '#1e293b',
-        border: `1px solid ${selected ? '#3b82f6' : '#334155'}`,
+        background: 'var(--bg-elevated)',
+        border: `1px solid ${selected ? '#3b82f6' : 'var(--border)'}`,
         borderRadius: 12,
         overflow: 'hidden',
         transition: 'all 0.15s',
@@ -112,7 +112,7 @@ function PropertyCard({ property: p, selected, onClick }) {
       {/* Image placeholder */}
       <div style={{
         height: 140,
-        background: 'linear-gradient(135deg, #1e3a5f, #263348)',
+        background: 'linear-gradient(135deg, var(--bg-elevated), var(--bg-elevated))',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         fontSize: 56, position: 'relative',
       }}>
@@ -125,15 +125,15 @@ function PropertyCard({ property: p, selected, onClick }) {
         )}
       </div>
       <div style={{ padding: '14px 16px' }}>
-        <div style={{ fontSize: 20, fontWeight: 800, color: '#f1f5f9', marginBottom: 4 }}>{fmt(p.price)}</div>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 10, lineHeight: 1.4 }}>{p.address}</div>
-        <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#64748b' }}>
+        <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>{fmt(p.price)}</div>
+        <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 10, lineHeight: 1.4 }}>{p.address}</div>
+        <div style={{ display: 'flex', gap: 16, fontSize: 12, color: 'var(--text-muted)' }}>
           <span>🛏 {p.beds} bd</span>
           <span>🚿 {p.baths} ba</span>
           <span>📐 {p.sqft.toLocaleString()} sqft</span>
           <span>🏗 {p.year}</span>
         </div>
-        {p.hoa > 0 && <div style={{ fontSize: 11, color: '#475569', marginTop: 6 }}>HOA: ${p.hoa}/mo</div>}
+        {p.hoa > 0 && <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6 }}>HOA: ${p.hoa}/mo</div>}
       </div>
     </div>
   )
@@ -146,16 +146,16 @@ function PropertyDetail({ property: p }) {
   return (
     <div className="card">
       <div style={{ fontSize: 48, textAlign: 'center', marginBottom: 12 }}>{p.image}</div>
-      <div style={{ fontSize: 22, fontWeight: 800, color: '#f1f5f9', marginBottom: 4 }}>{fmt(p.price)}</div>
-      <div style={{ fontSize: 13, color: '#94a3b8', marginBottom: 12 }}>{p.address}</div>
+      <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 4 }}>{fmt(p.price)}</div>
+      <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 12 }}>{p.address}</div>
       <span className={`badge ${p.status.includes('Pre-Approval') ? 'badge-blue' : 'badge-green'}`}>{p.status}</span>
 
       <hr className="divider" />
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 16 }}>
         {[['Beds', `${p.beds} Bedrooms`], ['Baths', `${p.baths} Bathrooms`], ['Sqft', `${p.sqft.toLocaleString()} sq ft`], ['Year Built', p.year], ['Property Type', p.type], ['HOA', p.hoa > 0 ? `$${p.hoa}/mo` : 'None']].map(([k, v]) => (
-          <div key={k} style={{ background: '#263348', borderRadius: 8, padding: '8px 12px' }}>
-            <div style={{ fontSize: 10, color: '#475569', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
+          <div key={k} style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '8px 12px' }}>
+            <div style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>{k}</div>
             <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2 }}>{v}</div>
           </div>
         ))}
@@ -171,8 +171,8 @@ function PropertyDetail({ property: p }) {
           ['Est. Total Payment', `~$${(monthlyPI + Math.round(p.tax / 12) + 120).toLocaleString()}/mo`],
         ].map(([k, v]) => (
           <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '4px 0', borderBottom: '1px solid rgba(59,130,246,0.1)' }}>
-            <span style={{ color: '#64748b' }}>{k}</span>
-            <span style={{ fontWeight: 600, color: v.includes('~') ? '#60a5fa' : '#f1f5f9' }}>{v}</span>
+            <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+            <span style={{ fontWeight: 600, color: v.includes('~') ? '#60a5fa' : 'var(--text-primary)' }}>{v}</span>
           </div>
         ))}
       </div>

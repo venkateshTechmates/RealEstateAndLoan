@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const TABS = ['Profile', 'Security', 'Notifications', 'Connected Accounts', 'Preferences']
 
@@ -21,7 +21,7 @@ export default function ProfileSettings() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Account Settings</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 3 }}>Manage your profile, security, and preferences</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 3 }}>Manage your profile, security, and preferences</p>
         </div>
         {saved && <div style={{ background: 'rgba(74,222,128,0.15)', border: '1px solid rgba(74,222,128,0.3)', borderRadius: 8, padding: '8px 16px', fontSize: 13, color: '#4ade80' }}>✅ Changes saved!</div>}
       </div>
@@ -31,7 +31,7 @@ export default function ProfileSettings() {
         <div className="card" style={{ padding: 8 }}>
           {TABS.map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
-              style={{ display: 'block', width: '100%', padding: '10px 14px', borderRadius: 8, border: 'none', background: activeTab === tab ? 'rgba(59,130,246,0.15)' : 'none', color: activeTab === tab ? '#60a5fa' : '#94a3b8', textAlign: 'left', cursor: 'pointer', fontSize: 13, fontWeight: activeTab === tab ? 700 : 400, transition: 'all 0.15s' }}>
+              style={{ display: 'block', width: '100%', padding: '10px 14px', borderRadius: 8, border: 'none', background: activeTab === tab ? 'rgba(59,130,246,0.15)' : 'none', color: activeTab === tab ? '#60a5fa' : 'var(--text-secondary)', textAlign: 'left', cursor: 'pointer', fontSize: 13, fontWeight: activeTab === tab ? 700 : 400, transition: 'all 0.15s' }}>
               {tab}
             </button>
           ))}
@@ -43,11 +43,11 @@ export default function ProfileSettings() {
           {activeTab === 'Profile' && (
             <div className="card">
               {/* Avatar */}
-              <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 24, paddingBottom: 24, borderBottom: '1px solid #334155' }}>
+              <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 24, paddingBottom: 24, borderBottom: '1px solid var(--border)' }}>
                 <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'linear-gradient(135deg, #3b82f6, #a78bfa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, fontWeight: 800, color: '#fff' }}>JD</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: 15 }}>{profileForm.firstName} {profileForm.lastName}</div>
-                  <div style={{ fontSize: 13, color: '#64748b', marginBottom: 8 }}>{profileForm.email}</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8 }}>{profileForm.email}</div>
                   <button className="btn btn-ghost" style={{ fontSize: 12 }}>Change Photo</button>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export default function ProfileSettings() {
                     </button>
                   </div>
                 </div>
-                <p style={{ fontSize: 13, color: '#64748b', marginBottom: 14 }}>Protect your account with an additional layer of security. We recommend keeping MFA enabled.</p>
+                <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 14 }}>Protect your account with an additional layer of security. We recommend keeping MFA enabled.</p>
                 {mfaEnabled && (
                   <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                     {[
@@ -126,10 +126,10 @@ export default function ProfileSettings() {
                       { icon: '💬', label: 'SMS Text Message', sub: '(555) ***-4567', active: false },
                       { icon: '📧', label: 'Email OTP', sub: 'john.***@email.com', active: false },
                     ].map(m => (
-                      <div key={m.label} style={{ flex: 1, background: m.active ? 'rgba(59,130,246,0.1)' : '#1e293b', border: `1px solid ${m.active ? '#3b82f6' : '#334155'}`, borderRadius: 10, padding: 12 }}>
+                      <div key={m.label} style={{ flex: 1, background: m.active ? 'rgba(59,130,246,0.1)' : 'var(--bg-elevated)', border: `1px solid ${m.active ? '#3b82f6' : 'var(--border)'}`, borderRadius: 10, padding: 12 }}>
                         <div style={{ fontSize: 22, marginBottom: 6 }}>{m.icon}</div>
                         <div style={{ fontSize: 13, fontWeight: 700 }}>{m.label}</div>
-                        <div style={{ fontSize: 11, color: '#64748b', marginBottom: 8 }}>{m.sub}</div>
+                        <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 8 }}>{m.sub}</div>
                         <button className="btn btn-ghost" style={{ fontSize: 11 }}>{m.active ? '✅ Configured' : 'Set Up'}</button>
                       </div>
                     ))}
@@ -145,11 +145,11 @@ export default function ProfileSettings() {
                   { device: 'Safari on iPhone 15', ip: '203.0.113.22', location: 'Austin, TX', time: 'Mar 24, 2026 8:30 AM', current: false },
                   { device: 'Firefox on Mac', ip: '203.0.113.55', location: 'Austin, TX', time: 'Mar 22, 2026 6:00 PM', current: false },
                 ].map((s, i) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
+                  <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
                     <div>
                       <div style={{ fontWeight: 600 }}>{s.device} {s.current && <span className="badge badge-green" style={{ fontSize: 10 }}>Current</span>}</div>
-                      <div style={{ fontSize: 11, color: '#64748b' }}>{s.location} · {s.ip}</div>
-                      <div style={{ fontSize: 11, color: '#475569' }}>{s.time}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{s.location} · {s.ip}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{s.time}</div>
                     </div>
                     {!s.current && <button className="btn btn-ghost" style={{ fontSize: 12, color: '#f87171' }}>Revoke</button>}
                   </div>
@@ -170,7 +170,7 @@ export default function ProfileSettings() {
               ].map(f => (
                 <div key={f.label} className="form-group">
                   <label className="form-label">{f.label.toUpperCase()}</label>
-                  <select style={{ background: '#0f172a', border: '1px solid #334155', borderRadius: 8, padding: '8px 12px', color: '#f1f5f9', fontSize: 13, width: '100%' }}>
+                  <select style={{ background: 'var(--bg-base)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--text-primary)', fontSize: 13, width: '100%' }}>
                     {f.opts.map(o => <option key={o} value={o}>{o}</option>)}
                   </select>
                 </div>
@@ -185,21 +185,21 @@ export default function ProfileSettings() {
           {activeTab === 'Connected Accounts' && (
             <div className="card">
               <div style={{ fontWeight: 700, marginBottom: 6 }}>Connected Financial Accounts</div>
-              <p style={{ fontSize: 13, color: '#64748b', marginBottom: 18 }}>Connect your bank accounts via Plaid for instant, secure verification.</p>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 18 }}>Connect your bank accounts via Plaid for instant, secure verification.</p>
               {[
                 { name: 'Chase Bank', sub: 'Checking ****1234, Savings ****5678', status: 'Connected', lastSync: 'Mar 25, 2026 9:00 AM', icon: '🏦' },
                 { name: 'Vanguard', sub: 'Brokerage ****5678', status: 'Connected', lastSync: 'Mar 24, 2026 8:00 AM', icon: '📈' },
                 { name: 'Marcus (Goldman)', sub: 'CD ****9012', status: 'Not Connected', lastSync: null, icon: '🏛' },
               ].map(acc => (
-                <div key={acc.name} style={{ display: 'flex', gap: 14, alignItems: 'center', padding: '14px 0', borderBottom: '1px solid #334155' }}>
-                  <div style={{ width: 40, height: 40, borderRadius: 10, background: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>{acc.icon}</div>
+                <div key={acc.name} style={{ display: 'flex', gap: 14, alignItems: 'center', padding: '14px 0', borderBottom: '1px solid var(--border)' }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: 'var(--bg-elevated)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20 }}>{acc.icon}</div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 700, fontSize: 13 }}>{acc.name}</div>
-                    <div style={{ fontSize: 12, color: '#64748b' }}>{acc.sub}</div>
-                    {acc.lastSync && <div style={{ fontSize: 11, color: '#475569' }}>Last synced: {acc.lastSync}</div>}
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{acc.sub}</div>
+                    {acc.lastSync && <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Last synced: {acc.lastSync}</div>}
                   </div>
                   <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <span className={`badge ${acc.status === 'Connected' ? 'badge-green' : ''}`} style={{ fontSize: 11, background: acc.status === 'Connected' ? undefined : 'rgba(100,116,139,0.15)', color: acc.status === 'Connected' ? undefined : '#64748b' }}>{acc.status}</span>
+                    <span className={`badge ${acc.status === 'Connected' ? 'badge-green' : ''}`} style={{ fontSize: 11, background: acc.status === 'Connected' ? undefined : 'rgba(100,116,139,0.15)', color: acc.status === 'Connected' ? undefined : 'var(--text-muted)' }}>{acc.status}</span>
                     {acc.status === 'Connected' ? (
                       <button className="btn btn-ghost" style={{ fontSize: 12 }}>🔄 Refresh</button>
                     ) : (
@@ -219,10 +219,10 @@ export default function ProfileSettings() {
           {activeTab === 'Notifications' && (
             <div className="card">
               <div style={{ fontWeight: 700, marginBottom: 6 }}>Notification Preferences</div>
-              <p style={{ fontSize: 13, color: '#64748b', marginBottom: 18 }}>Control how and when you receive alerts about your loan application.</p>
+              <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 18 }}>Control how and when you receive alerts about your loan application.</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 16, alignItems: 'center', marginBottom: 10 }}>
                 {['', 'Email', 'SMS', 'In-App'].map((h, i) => (
-                  <div key={i} style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', textAlign: i > 0 ? 'center' : 'left' }}>{h}</div>
+                  <div key={i} style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', textAlign: i > 0 ? 'center' : 'left' }}>{h}</div>
                 ))}
               </div>
               {[
@@ -234,7 +234,7 @@ export default function ProfileSettings() {
                 { label: 'Payment Reminders', email: true, sms: true, app: true },
                 { label: 'Security Alerts', email: true, sms: true, app: true },
               ].map(row => (
-                <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 16, alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #334155' }}>
+                <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 16, alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
                   <span style={{ fontSize: 13 }}>{row.label}</span>
                   {['email', 'sms', 'app'].map(ch => (
                     <div key={ch} style={{ textAlign: 'center' }}>

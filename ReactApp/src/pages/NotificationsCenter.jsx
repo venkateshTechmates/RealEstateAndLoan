@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const NOTIFICATIONS = [
   { id: 1, type: 'document', icon: '📄', title: 'Document Requested', body: 'Your loan officer has requested an updated bank statement for Chase Checking.', time: '10 min ago', date: 'Today', read: false, link: '/documents', appNo: 'APP-2026-0421' },
@@ -18,7 +18,7 @@ const TYPE_COLORS = {
   asset:      '#fb923c',
   rate:       '#a78bfa',
   payment:    '#facc15',
-  system:     '#94a3b8',
+  system:     'var(--text-secondary)',
 }
 
 export default function NotificationsCenter() {
@@ -46,7 +46,7 @@ export default function NotificationsCenter() {
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Notifications</h1>
           {unreadCount > 0 && (
-            <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>
               You have <span style={{ color: '#60a5fa', fontWeight: 700 }}>{unreadCount} unread</span> notifications
             </p>
           )}
@@ -72,7 +72,7 @@ export default function NotificationsCenter() {
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
             {typeFilters.map(t => (
               <button key={t} onClick={() => setFilter(t)}
-                style={{ padding: '5px 14px', borderRadius: 20, border: `1px solid ${filter === t ? '#3b82f6' : '#334155'}`, background: filter === t ? 'rgba(59,130,246,0.15)' : 'transparent', color: filter === t ? '#60a5fa' : '#64748b', fontSize: 12, cursor: 'pointer', textTransform: t === 'All' ? 'none' : 'capitalize' }}>
+                style={{ padding: '5px 14px', borderRadius: 20, border: `1px solid ${filter === t ? '#3b82f6' : 'var(--border)'}`, background: filter === t ? 'rgba(59,130,246,0.15)' : 'transparent', color: filter === t ? '#60a5fa' : 'var(--text-muted)', fontSize: 12, cursor: 'pointer', textTransform: t === 'All' ? 'none' : 'capitalize' }}>
                 {t === 'All' ? 'All Types' : t}
               </button>
             ))}
@@ -80,31 +80,31 @@ export default function NotificationsCenter() {
 
           {/* Notification groups */}
           {grouped.length === 0 && (
-            <div className="card" style={{ textAlign: 'center', padding: 40, color: '#475569' }}>
+            <div className="card" style={{ textAlign: 'center', padding: 40, color: 'var(--text-muted)' }}>
               🎉 No notifications in this category.
             </div>
           )}
           {grouped.map(({ date, items }) => (
             <div key={date} style={{ marginBottom: 20 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>{date}</div>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>{date}</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {items.map(n => (
                   <div key={n.id} onClick={() => markRead(n.id)}
-                    style={{ display: 'flex', gap: 14, padding: '14px 16px', borderRadius: 10, background: !n.read ? 'rgba(59,130,246,0.06)' : '#1e293b', border: `1px solid ${!n.read ? 'rgba(59,130,246,0.15)' : '#334155'}`, cursor: 'pointer', transition: 'background 0.15s' }}>
+                    style={{ display: 'flex', gap: 14, padding: '14px 16px', borderRadius: 10, background: !n.read ? 'rgba(59,130,246,0.06)' : 'var(--bg-elevated)', border: `1px solid ${!n.read ? 'rgba(59,130,246,0.15)' : 'var(--border)'}`, cursor: 'pointer', transition: 'background 0.15s' }}>
                     <div style={{ width: 36, height: 36, borderRadius: 10, background: `${TYPE_COLORS[n.type]}20`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>{n.icon}</div>
                     <div style={{ flex: 1 }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 3 }}>
                         <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                           <span style={{ fontWeight: !n.read ? 800 : 600, fontSize: 13 }}>{n.title}</span>
                           {!n.read && <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#3b82f6', display: 'inline-block' }} />}
-                          {n.appNo && <span style={{ fontSize: 11, color: '#475569' }}>{n.appNo}</span>}
+                          {n.appNo && <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{n.appNo}</span>}
                         </div>
                         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-                          <span style={{ fontSize: 11, color: '#475569' }}>{n.time}</span>
-                          <button onClick={e => { e.stopPropagation(); deleteNotif(n.id) }} style={{ background: 'none', border: 'none', color: '#334155', cursor: 'pointer', fontSize: 14, lineHeight: 1 }}>✕</button>
+                          <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>{n.time}</span>
+                          <button onClick={e => { e.stopPropagation(); deleteNotif(n.id) }} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: 14, lineHeight: 1 }}>✕</button>
                         </div>
                       </div>
-                      <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.5 }}>{n.body}</div>
+                      <div style={{ fontSize: 13, color: 'var(--text-muted)', lineHeight: 1.5 }}>{n.body}</div>
                     </div>
                   </div>
                 ))}
@@ -127,16 +127,16 @@ export default function NotificationsCenter() {
               { label: 'Security Alerts', sub: 'New sign-ins and account security events', email: true, sms: true, push: true },
               { label: 'Marketing & Offers', sub: 'Special offers and promotional content', email: false, sms: false, push: false },
             ].map((row, i) => (
-              <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 24, alignItems: 'center', padding: '14px 0', borderBottom: '1px solid #334155' }}>
+              <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 24, alignItems: 'center', padding: '14px 0', borderBottom: '1px solid var(--border)' }}>
                 <div>
                   <div style={{ fontWeight: 600, fontSize: 13 }}>{row.label}</div>
-                  <div style={{ fontSize: 12, color: '#475569', marginTop: 2 }}>{row.sub}</div>
+                  <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>{row.sub}</div>
                 </div>
                 {['Email', 'SMS', 'In-App'].map((ch, j) => {
                   const key = ['email', 'sms', 'push'][j]
                   return (
                     <div key={ch} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
-                      <div style={{ fontSize: 11, color: '#475569' }}>{ch}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{ch}</div>
                       <input type="checkbox" defaultChecked={row[key]} style={{ cursor: 'pointer', accentColor: '#3b82f6' }} />
                     </div>
                   )

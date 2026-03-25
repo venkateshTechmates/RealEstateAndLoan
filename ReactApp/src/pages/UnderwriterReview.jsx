@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const LOAN = {
   id: 'LA-001',
@@ -36,7 +36,7 @@ const CONDITIONS = [
   { id: 'C-06', text: 'Appraisal showing value >= $590,000', category: 'Appraisal', status: 'Received', priority: 'Prior to Docs' },
 ]
 
-const CONDITION_COLOR = { Open: '#f87171', Received: '#4ade80', Waived: '#94a3b8', Cleared: '#4ade80' }
+const CONDITION_COLOR = { Open: '#f87171', Received: '#4ade80', Waived: 'var(--text-secondary)', Cleared: '#4ade80' }
 const SEV_COLOR = { pass: '#4ade80', warn: '#facc15', fail: '#f87171', info: '#60a5fa' }
 
 export default function UnderwriterReview() {
@@ -65,8 +65,8 @@ export default function UnderwriterReview() {
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Underwriter Review</h1>
           <div style={{ display: 'flex', gap: 12, marginTop: 6 }}>
-            <span style={{ color: '#64748b', fontSize: 13 }}>Loan: <strong style={{ color: '#60a5fa' }}>{LOAN.id}</strong></span>
-            <span style={{ color: '#64748b', fontSize: 13 }}>Borrower: <strong>{LOAN.borrower}</strong></span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>Loan: <strong style={{ color: '#60a5fa' }}>{LOAN.id}</strong></span>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>Borrower: <strong>{LOAN.borrower}</strong></span>
             <span className="badge badge-orange">⚠ {openCount} Open Conditions</span>
           </div>
         </div>
@@ -107,13 +107,13 @@ function RiskBar({ label, value, max, threshold, fmt: fmtFn }) {
   return (
     <div style={{ marginBottom: 14 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-        <span style={{ fontSize: 13, color: '#94a3b8' }}>{label}</span>
+        <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{label}</span>
         <span style={{ fontSize: 14, fontWeight: 700, color: atRisk ? '#f87171' : '#4ade80' }}>{fmtFn ? fmtFn(value) : value}</span>
       </div>
-      <div style={{ height: 8, background: '#334155', borderRadius: 8 }}>
+      <div style={{ height: 8, background: 'var(--border)', borderRadius: 8 }}>
         <div style={{ height: 8, borderRadius: 8, width: `${pct}%`, background: atRisk ? '#ef4444' : '#3b82f6', transition: 'width 0.4s' }} />
       </div>
-      <div style={{ fontSize: 11, color: '#475569', marginTop: 3 }}>Guideline max: {fmtFn ? fmtFn(threshold) : threshold}</div>
+      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>Guideline max: {fmtFn ? fmtFn(threshold) : threshold}</div>
     </div>
   )
 }
@@ -132,8 +132,8 @@ function OverviewTab({ loan: l, openCount }) {
           ['Note Rate', `${l.rate}%`],
           ['Property', l.property],
         ].map(([k, v]) => (
-          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-            <span style={{ color: '#64748b' }}>{k}</span>
+          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+            <span style={{ color: 'var(--text-muted)' }}>{k}</span>
             <span style={{ fontWeight: 600 }}>{v}</span>
           </div>
         ))}
@@ -145,19 +145,19 @@ function OverviewTab({ loan: l, openCount }) {
         <RiskBar label="DTI Ratio" value={l.dti} max={60} threshold={43} fmtFn={v => `${v}%`} />
         <div style={{ marginBottom: 14 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-            <span style={{ fontSize: 13, color: '#94a3b8' }}>FICO Score</span>
+            <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>FICO Score</span>
             <span style={{ fontSize: 14, fontWeight: 700, color: '#4ade80' }}>{l.fico}</span>
           </div>
-          <div style={{ height: 8, background: '#334155', borderRadius: 8 }}>
+          <div style={{ height: 8, background: 'var(--border)', borderRadius: 8 }}>
             <div style={{ height: 8, borderRadius: 8, width: `${((l.fico - 300) / 550) * 100}%`, background: l.fico >= 740 ? '#4ade80' : l.fico >= 680 ? '#facc15' : '#ef4444' }} />
           </div>
-          <div style={{ fontSize: 11, color: '#475569', marginTop: 3 }}>Min required: 620 (Conv)</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>Min required: 620 (Conv)</div>
         </div>
 
         <div style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 10, padding: 14, marginTop: 16 }}>
           <div style={{ fontSize: 12, fontWeight: 700, color: '#60a5fa', marginBottom: 8 }}>DU RECOMMENDATION</div>
           <div style={{ fontSize: 15, fontWeight: 700, color: '#4ade80' }}>Eligible / Approve</div>
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Automated underwriting passed all primary checks</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Automated underwriting passed all primary checks</div>
         </div>
       </div>
 
@@ -167,9 +167,9 @@ function OverviewTab({ loan: l, openCount }) {
           {[['Open', '#f87171'], ['Received', '#facc15'], ['Cleared/Waived', '#4ade80']].map(([label, color]) => {
             const count = CONDITIONS.filter(c => label === 'Cleared/Waived' ? ['Cleared', 'Waived'].includes(c.status) : c.status === label).length
             return (
-              <div key={label} style={{ background: '#1e293b', borderRadius: 8, padding: 12, textAlign: 'center', border: `1px solid ${color}33` }}>
+              <div key={label} style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: 12, textAlign: 'center', border: `1px solid ${color}33` }}>
                 <div style={{ fontSize: 24, fontWeight: 800, color }}>{count}</div>
-                <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>{label}</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>{label}</div>
               </div>
             )
           })}
@@ -180,9 +180,9 @@ function OverviewTab({ loan: l, openCount }) {
         <div style={{ fontWeight: 700, marginBottom: 12 }}>Borrowers</div>
         {[{ name: 'Marcus Johnson', role: 'Primary Borrower', fico: 742, income: '$128,000/yr', score: 'Eligible' },
           { name: 'Sarah Johnson', role: 'Co-Borrower', fico: 728, income: '$25,600/yr', score: 'Eligible' }].map(b => (
-          <div key={b.name} style={{ background: '#1e293b', borderRadius: 8, padding: 12, marginBottom: 10 }}>
+          <div key={b.name} style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: 12, marginBottom: 10 }}>
             <div style={{ fontWeight: 700, marginBottom: 4 }}>{b.name}</div>
-            <div style={{ fontSize: 12, color: '#64748b', marginBottom: 6 }}>{b.role}</div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 6 }}>{b.role}</div>
             <div style={{ display: 'flex', gap: 16, fontSize: 12 }}>
               <span>FICO: <strong>{b.fico}</strong></span>
               <span>Income: <strong>{b.income}</strong></span>
@@ -206,7 +206,7 @@ function CreditTab({ loan: l }) {
   return (
     <div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 14, marginBottom: 20 }}>
-        {[{ label: 'FICO Score', value: l.fico, color: '#4ade80' }, { label: 'Active Tradelines', value: tradelines.length, color: '#60a5fa' }, { label: 'Monthly Debt', value: `$${tradelines.reduce((s, t) => s + t.monthly, 0).toLocaleString()}`, color: '#fb923c' }, { label: 'Credit Inquiries', value: 2, color: '#94a3b8' }].map(s => (
+        {[{ label: 'FICO Score', value: l.fico, color: '#4ade80' }, { label: 'Active Tradelines', value: tradelines.length, color: '#60a5fa' }, { label: 'Monthly Debt', value: `$${tradelines.reduce((s, t) => s + t.monthly, 0).toLocaleString()}`, color: '#fb923c' }, { label: 'Credit Inquiries', value: 2, color: 'var(--text-secondary)' }].map(s => (
           <div key={s.label} className="stat-card">
             <div className="stat-value" style={{ color: s.color }}>{s.value}</div>
             <div className="stat-label">{s.label}</div>
@@ -214,26 +214,26 @@ function CreditTab({ loan: l }) {
         ))}
       </div>
       <div className="card" style={{ padding: 0 }}>
-        <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', fontWeight: 700 }}>Credit Tradelines</div>
+        <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', fontWeight: 700 }}>Credit Tradelines</div>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ background: '#1e293b' }}>
+            <tr style={{ background: 'var(--bg-elevated)' }}>
               {['Creditor', 'Type', 'Limit', 'Balance', 'Monthly Pmt', 'Rate', 'Status', 'Opened'].map(h => (
-                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {tradelines.map(t => (
-              <tr key={t.creditor} style={{ borderBottom: '1px solid #1e293b' }}>
+              <tr key={t.creditor} style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 600 }}>{t.creditor}</td>
-                <td style={{ padding: '10px 14px', fontSize: 12 }}><span className="badge" style={{ background: '#334155', color: '#94a3b8' }}>{t.type}</span></td>
+                <td style={{ padding: '10px 14px', fontSize: 12 }}><span className="badge" style={{ background: 'var(--border)', color: 'var(--text-secondary)' }}>{t.type}</span></td>
                 <td style={{ padding: '10px 14px', fontSize: 13 }}>${t.limit.toLocaleString()}</td>
                 <td style={{ padding: '10px 14px', fontSize: 13 }}>${t.balance.toLocaleString()}</td>
                 <td style={{ padding: '10px 14px', fontSize: 13 }}>${t.monthly}/mo</td>
-                <td style={{ padding: '10px 14px', fontSize: 12, color: '#94a3b8' }}>{t.rate}</td>
+                <td style={{ padding: '10px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{t.rate}</td>
                 <td style={{ padding: '10px 14px' }}><span className="badge badge-green" style={{ fontSize: 11 }}>{t.status}</span></td>
-                <td style={{ padding: '10px 14px', fontSize: 12, color: '#64748b' }}>{t.opened}</td>
+                <td style={{ padding: '10px 14px', fontSize: 12, color: 'var(--text-muted)' }}>{t.opened}</td>
               </tr>
             ))}
           </tbody>
@@ -248,17 +248,17 @@ function FindingsTab({ findings }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: 10, padding: 14, marginBottom: 4 }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: '#4ade80', marginBottom: 4 }}>DU FINDINGS SUMMARY</div>
-        <div style={{ fontSize: 12, color: '#94a3b8' }}>Desktop Underwriter run: April 10, 2025 · Version: DU 11.0 · Case #: DU-4829-2025</div>
+        <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Desktop Underwriter run: April 10, 2025 · Version: DU 11.0 · Case #: DU-4829-2025</div>
       </div>
       {findings.map(f => (
-        <div key={f.code} style={{ background: '#1e293b', border: `1px solid ${SEV_COLOR[f.severity]}33`, borderRadius: 10, padding: 14, display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+        <div key={f.code} style={{ background: 'var(--bg-elevated)', border: `1px solid ${SEV_COLOR[f.severity]}33`, borderRadius: 10, padding: 14, display: 'flex', gap: 14, alignItems: 'flex-start' }}>
           <span style={{ width: 16, height: 16, background: SEV_COLOR[f.severity], borderRadius: '50%', flexShrink: 0, marginTop: 3 }} />
           <div>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 4 }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#64748b' }}>{f.code}</span>
+              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted)' }}>{f.code}</span>
               <span style={{ fontSize: 13, fontWeight: 700 }}>{f.label}</span>
             </div>
-            <div style={{ fontSize: 13, color: '#94a3b8' }}>{f.description}</div>
+            <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{f.description}</div>
           </div>
         </div>
       ))}
@@ -275,7 +275,7 @@ function ConditionsTab({ conditions, onToggle, newCond, setNewCond, onAdd }) {
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {conditions.map(c => (
-          <div key={c.id} style={{ background: '#1e293b', border: `1px solid ${CONDITION_COLOR[c.status]}33`, borderRadius: 10, padding: 14, display: 'flex', gap: 14, alignItems: 'center' }}>
+          <div key={c.id} style={{ background: 'var(--bg-elevated)', border: `1px solid ${CONDITION_COLOR[c.status]}33`, borderRadius: 10, padding: 14, display: 'flex', gap: 14, alignItems: 'center' }}>
             <div style={{ flexShrink: 0 }}>
               <button onClick={() => onToggle(c.id)} style={{ width: 22, height: 22, borderRadius: '50%', background: CONDITION_COLOR[c.status], border: 'none', cursor: 'pointer', color: '#fff', fontSize: 12 }}>
                 {c.status === 'Open' ? ' ' : c.status === 'Received' ? '→' : '✓'}
@@ -284,8 +284,8 @@ function ConditionsTab({ conditions, onToggle, newCond, setNewCond, onAdd }) {
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, marginBottom: 4 }}>{c.text}</div>
               <div style={{ display: 'flex', gap: 8 }}>
-                <span className="badge" style={{ background: '#334155', color: '#94a3b8', fontSize: 11 }}>{c.category}</span>
-                <span className="badge" style={{ background: '#334155', color: '#94a3b8', fontSize: 11 }}>{c.priority}</span>
+                <span className="badge" style={{ background: 'var(--border)', color: 'var(--text-secondary)', fontSize: 11 }}>{c.category}</span>
+                <span className="badge" style={{ background: 'var(--border)', color: 'var(--text-secondary)', fontSize: 11 }}>{c.priority}</span>
               </div>
             </div>
             <span className="badge" style={{ background: `${CONDITION_COLOR[c.status]}22`, color: CONDITION_COLOR[c.status], fontSize: 12 }}>{c.status}</span>
@@ -313,8 +313,8 @@ function IncomeTab({ loan: l }) {
               <span className="badge badge-green" style={{ fontSize: 11 }}>{s.verified ? '✓ Verified' : 'Pending'}</span>
             </div>
             {[['Annual Gross', `$${s.gross.toLocaleString()}`], ['Monthly', `$${s.monthly.toLocaleString()}`], ['Documentation', s.doc]].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, padding: '5px 0', borderBottom: '1px solid #334155' }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, padding: '5px 0', borderBottom: '1px solid var(--border)' }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 600 }}>{v}</span>
               </div>
             ))}
@@ -324,8 +324,8 @@ function IncomeTab({ loan: l }) {
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 14 }}>DTI Analysis</div>
         {[['Total Monthly Income', `$${totalMonthly.toLocaleString()}`], ['PITIA (New Housing)', `$${(l.amount * 0.006875).toFixed(0).toLocaleString()}`], ['Other Monthly Debts', `$${(l.debts - Math.round(l.amount * 0.006875)).toLocaleString()}`], ['Total Monthly Debts', `$${l.debts.toLocaleString()}`], ['Front-End DTI', `${((Math.round(l.amount * 0.006875) / totalMonthly) * 100).toFixed(1)}%`], ['Back-End DTI', `${dtiCalc}%`]].map(([k, v]) => (
-          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-            <span style={{ color: '#64748b' }}>{k}</span>
+          <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+            <span style={{ color: 'var(--text-muted)' }}>{k}</span>
             <span style={{ fontWeight: 700 }}>{v}</span>
           </div>
         ))}
@@ -359,19 +359,19 @@ function AppraisalTab({ loan: l }) {
           <thead>
             <tr>
               {['Address', 'Sqft', 'Sale Price', 'Net Adj.', 'Adj. Price', 'Date'].map(h => (
-                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: '#475569', borderBottom: '1px solid #334155' }}>{h}</th>
+                <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: 'var(--text-muted)', borderBottom: '1px solid var(--border)' }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {comps.map(c => (
-              <tr key={c.address} style={{ borderBottom: '1px solid #1e293b' }}>
+              <tr key={c.address} style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '10px 14px', fontSize: 13 }}>{c.address}</td>
                 <td style={{ padding: '10px 14px', fontSize: 13 }}>{c.sqft.toLocaleString()}</td>
                 <td style={{ padding: '10px 14px', fontSize: 13 }}>${c.price.toLocaleString()}</td>
-                <td style={{ padding: '10px 14px', fontSize: 13, color: c.adj > 0 ? '#4ade80' : c.adj < 0 ? '#f87171' : '#64748b' }}>{c.adj !== 0 ? `${c.adj > 0 ? '+' : ''}$${c.adj.toLocaleString()}` : '—'}</td>
+                <td style={{ padding: '10px 14px', fontSize: 13, color: c.adj > 0 ? '#4ade80' : c.adj < 0 ? '#f87171' : 'var(--text-muted)' }}>{c.adj !== 0 ? `${c.adj > 0 ? '+' : ''}$${c.adj.toLocaleString()}` : '—'}</td>
                 <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 700 }}>${c.adjPrice.toLocaleString()}</td>
-                <td style={{ padding: '10px 14px', fontSize: 12, color: '#64748b' }}>{c.date}</td>
+                <td style={{ padding: '10px 14px', fontSize: 12, color: 'var(--text-muted)' }}>{c.date}</td>
               </tr>
             ))}
           </tbody>

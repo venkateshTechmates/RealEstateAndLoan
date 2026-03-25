@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const STEPS = [
@@ -28,7 +28,7 @@ export default function LoanApplicationWizard() {
     <div>
       <div style={{ marginBottom: 24 }}>
         <h1 style={{ fontSize: 22, fontWeight: 800 }}>Loan Application — Form 1003</h1>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Uniform Residential Loan Application · Application #APP-2026-001842</p>
+        <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Uniform Residential Loan Application · Application #APP-2026-001842</p>
       </div>
 
       {/* Step indicator */}
@@ -36,24 +36,24 @@ export default function LoanApplicationWizard() {
         {STEPS.map((s, i) => (
           <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
             {i < STEPS.length - 1 && (
-              <div style={{ position: 'absolute', top: 16, left: '50%', right: '-50%', height: 2, background: i < step ? '#3b82f6' : '#334155', zIndex: 0 }} />
+              <div style={{ position: 'absolute', top: 16, left: '50%', right: '-50%', height: 2, background: i < step ? '#3b82f6' : 'var(--border)', zIndex: 0 }} />
             )}
             <div
               onClick={() => i <= step && setStep(i)}
               style={{
                 width: 32, height: 32, borderRadius: '50%',
-                background: i < step ? '#3b82f6' : i === step ? '#1e40af' : '#1e293b',
-                border: `2px solid ${i <= step ? '#3b82f6' : '#334155'}`,
+                background: i < step ? '#3b82f6' : i === step ? '#1e40af' : 'var(--bg-elevated)',
+                border: `2px solid ${i <= step ? '#3b82f6' : 'var(--border)'}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: i < step ? 13 : 14,
-                color: i < step ? '#fff' : i === step ? '#60a5fa' : '#475569',
+                color: i < step ? '#fff' : i === step ? '#60a5fa' : 'var(--text-muted)',
                 fontWeight: 700, zIndex: 1, position: 'relative',
                 cursor: i <= step ? 'pointer' : 'default',
               }}
             >
               {i < step ? '✓' : s.icon}
             </div>
-            <div style={{ fontSize: 10, fontWeight: i === step ? 600 : 400, color: i < step ? '#60a5fa' : i === step ? '#f1f5f9' : '#475569', marginTop: 5, textAlign: 'center', lineHeight: 1.3 }}>
+            <div style={{ fontSize: 10, fontWeight: i === step ? 600 : 400, color: i < step ? '#60a5fa' : i === step ? 'var(--text-primary)' : 'var(--text-muted)', marginTop: 5, textAlign: 'center', lineHeight: 1.3 }}>
               {s.label}
             </div>
           </div>
@@ -62,14 +62,14 @@ export default function LoanApplicationWizard() {
 
       {/* Step content */}
       <div className="card" style={{ minHeight: 400 }}>
-        <div style={{ marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid #334155', display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 10 }}>
           <span style={{ fontSize: 22 }}>{STEPS[step].icon}</span>
           <div>
             <div style={{ fontSize: 16, fontWeight: 700 }}>Step {step + 1}: {STEPS[step].label}</div>
-            <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>Please fill in all required fields marked with *</div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 2 }}>Please fill in all required fields marked with *</div>
           </div>
           <div style={{ marginLeft: 'auto' }}>
-            <div style={{ fontSize: 11, color: '#475569', textAlign: 'right' }}>{step + 1} of {STEPS.length}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', textAlign: 'right' }}>{step + 1} of {STEPS.length}</div>
             <div className="progress-bar" style={{ width: 120, marginTop: 4 }}>
               <div className="progress-fill" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} />
             </div>
@@ -82,7 +82,7 @@ export default function LoanApplicationWizard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
         <div style={{ display: 'flex', gap: 10 }}>
           {step > 0 && <button className="btn btn-secondary" onClick={prev}>← Previous</button>}
-          <button className="btn btn-ghost" style={{ color: '#64748b' }}>Save & Exit</button>
+          <button className="btn btn-ghost" style={{ color: 'var(--text-muted)' }}>Save & Exit</button>
         </div>
         {step < STEPS.length - 1 ? (
           <button className="btn btn-primary" onClick={next}>Save & Continue →</button>
@@ -97,10 +97,10 @@ export default function LoanApplicationWizard() {
 function FormSection({ title, children }) {
   return (
     <div style={{ marginBottom: 24 }}>
-      <div style={{ fontSize: 13, fontWeight: 700, color: '#94a3b8', marginBottom: 14, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: 8 }}>
-        <div style={{ height: 1, width: 20, background: '#334155' }} />
+      <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 14, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ height: 1, width: 20, background: 'var(--border)' }} />
         {title}
-        <div style={{ flex: 1, height: 1, background: '#334155' }} />
+        <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
       </div>
       {children}
     </div>
@@ -145,7 +145,7 @@ function StepPersonal() {
       <FormSection title="Co-Applicant">
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
           <input type="checkbox" id="coapp" defaultChecked style={{ width: 'auto' }} />
-          <label htmlFor="coapp" style={{ fontSize: 13, color: '#94a3b8' }}>Add Co-Applicant (Spouse / Partner)</label>
+          <label htmlFor="coapp" style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Add Co-Applicant (Spouse / Partner)</label>
         </div>
         <div className="form-row">
           <div className="form-group"><label className="form-label">CO-APPLICANT FIRST NAME</label><input defaultValue="Priya" /></div>
@@ -204,11 +204,11 @@ function StepIncome() {
           { type: 'Rental Income', amount: '$2,400/mo', verified: true },
           { type: 'Investment Dividends', amount: '$450/mo', verified: true },
         ].map((inc, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: '#263348', borderRadius: 8, marginBottom: 8, border: '1px solid #334155' }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: 'var(--bg-elevated)', borderRadius: 8, marginBottom: 8, border: '1px solid var(--border)' }}>
             <span>💵</span>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600 }}>{inc.type}</div>
-              <div style={{ fontSize: 12, color: '#64748b' }}>{inc.amount}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>{inc.amount}</div>
             </div>
             <span className={`badge ${inc.verified ? 'badge-green' : 'badge-yellow'}`}>{inc.verified ? '✓ Verified' : 'Pending'}</span>
             <button className="btn btn-ghost btn-sm">Edit</button>
@@ -217,12 +217,12 @@ function StepIncome() {
         <button className="btn btn-secondary btn-sm" style={{ marginTop: 8 }}>+ Add Income Source</button>
       </FormSection>
       <FormSection title="Calculated Qualifying Income">
-        <div style={{ background: '#263348', borderRadius: 10, padding: 16, border: '1px solid #334155' }}>
+        <div style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: 16, border: '1px solid var(--border)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
             {[['Base Salary', '$12,083/mo'],['Other Income', '$2,850/mo'],['Total Qualifying', '$14,933/mo']].map(([k,v]) => (
               <div key={k}>
-                <div style={{ fontSize: 11, color: '#64748b', marginBottom: 4 }}>{k}</div>
-                <div style={{ fontSize: 18, fontWeight: 800, color: k === 'Total Qualifying' ? '#34d399' : '#f1f5f9' }}>{v}</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>{k}</div>
+                <div style={{ fontSize: 18, fontWeight: 800, color: k === 'Total Qualifying' ? '#34d399' : 'var(--text-primary)' }}>{v}</div>
               </div>
             ))}
           </div>
@@ -243,7 +243,7 @@ function StepAssetsSummary({ navigate }) {
           { type: 'Vanguard 401(k)', value: '$185,000', status: 'badge-yellow', statusText: 'Pending' },
           { type: 'Investment Account — Fidelity', value: '$95,000', status: 'badge-yellow', statusText: 'Pending' },
         ].map((a, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: '#263348', borderRadius: 8, marginBottom: 8, border: '1px solid #334155' }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: 'var(--bg-elevated)', borderRadius: 8, marginBottom: 8, border: '1px solid var(--border)' }}>
             <span>💰</span>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600 }}>{a.type}</div>
@@ -289,7 +289,7 @@ function StepProperty() {
         <div className="form-row-3">
           <div className="form-group"><label className="form-label">LOAN AMOUNT *</label><input defaultValue="$485,000" /></div>
           <div className="form-group"><label className="form-label">DOWN PAYMENT</label><input defaultValue="$55,000" /></div>
-          <div className="form-group"><label className="form-label">DOWN PAYMENT %</label><input defaultValue="10.19%" disabled style={{ color: '#64748b' }} /></div>
+          <div className="form-group"><label className="form-label">DOWN PAYMENT %</label><input defaultValue="10.19%" disabled style={{ color: 'var(--text-muted)' }} /></div>
         </div>
         <div className="form-row">
           <div className="form-group"><label className="form-label">LOAN PRODUCT</label>
@@ -311,11 +311,11 @@ function StepLiabilities() {
           { desc: 'Chase Sapphire Credit Card', payment: '$180/mo', balance: '$4,800', type: 'Revolving' },
           { desc: 'Student Loan', payment: '$310/mo', balance: '$22,000', type: 'Installment' },
         ].map((l, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: '#263348', borderRadius: 8, marginBottom: 8, border: '1px solid #334155' }}>
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', background: 'var(--bg-elevated)', borderRadius: 8, marginBottom: 8, border: '1px solid var(--border)' }}>
             <span>📉</span>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 13, fontWeight: 600 }}>{l.desc}</div>
-              <div style={{ fontSize: 11, color: '#64748b' }}>Balance: {l.balance} · {l.type}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Balance: {l.balance} · {l.type}</div>
             </div>
             <div style={{ color: '#f87171', fontWeight: 600, fontSize: 13 }}>{l.payment}</div>
             <button className="btn btn-ghost btn-sm">Edit</button>
@@ -324,17 +324,17 @@ function StepLiabilities() {
         <button className="btn btn-secondary btn-sm" style={{ marginTop: 8 }}>+ Add Liability</button>
       </FormSection>
       <FormSection title="DTI Summary">
-        <div style={{ background: '#263348', borderRadius: 10, padding: 16, border: '1px solid #334155' }}>
+        <div style={{ background: 'var(--bg-elevated)', borderRadius: 10, padding: 16, border: '1px solid var(--border)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
             {[
-              ['Gross Income', '$14,933/mo', '#f1f5f9'],
+              ['Gross Income', '$14,933/mo', 'var(--text-primary)'],
               ['Front-End DTI', '21.4%', '#34d399'],
               ['Back-End DTI', '35.6%', '#34d399'],
-              ['Max Allowed DTI', '43%', '#64748b'],
+              ['Max Allowed DTI', '43%', 'var(--text-muted)'],
             ].map(([k, v, c]) => (
               <div key={k} style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: 20, fontWeight: 800, color: c }}>{v}</div>
-                <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>{k}</div>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>{k}</div>
               </div>
             ))}
           </div>
@@ -360,17 +360,17 @@ function StepReview({ navigate }) {
           <div key={section.title} className="card" style={{ padding: 14 }}>
             <div style={{ fontWeight: 700, marginBottom: 10, fontSize: 13 }}>{section.title}</div>
             {section.items.map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '4px 0', borderBottom: '1px solid #1e293b' }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
-                <span style={{ fontWeight: 500 }}>{v}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '4px 0', borderBottom: '1px solid var(--border)' }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{v}</span>
               </div>
             ))}
           </div>
         ))}
       </div>
-      <div style={{ marginTop: 16, display: 'flex', alignItems: 'flex-start', gap: 10, padding: 14, background: '#263348', borderRadius: 8, border: '1px solid #334155' }}>
+      <div style={{ marginTop: 16, display: 'flex', alignItems: 'flex-start', gap: 10, padding: 14, background: 'var(--bg-elevated)', borderRadius: 8, border: '1px solid var(--border)' }}>
         <input type="checkbox" id="agree" style={{ width: 'auto', marginTop: 2 }} defaultChecked />
-        <label htmlFor="agree" style={{ fontSize: 12, color: '#94a3b8', lineHeight: 1.6 }}>
+        <label htmlFor="agree" style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.6 }}>
           I certify that the information provided in this application is true and correct. I acknowledge receipt of the Fair Lending Notice, Privacy Policy, and consent to credit inquiry. I understand this application will be used to evaluate my creditworthiness.
         </label>
       </div>

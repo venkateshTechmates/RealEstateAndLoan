@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const DECLARED = [
   { id: 'BA-001', form: 'LA-001', category: 'Liquid', type: 'Checking Account', institution: 'Chase Bank', accountNo: '****4821', declared: 48200, verified: null, status: 'Pending' },
@@ -56,10 +56,10 @@ export default function AssetVerificationLender() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Asset Verification — Lender View</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Forms LA-001 through LA-008 · Loan LA-001 · Marcus Johnson</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Forms LA-001 through LA-008 · Loan LA-001 · Marcus Johnson</p>
         </div>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-          <select value={program} onChange={e => setProgram(e.target.value)} style={{ fontSize: 13, padding: '6px 10px', background: '#1e293b', border: '1px solid #334155', borderRadius: 8, color: '#f1f5f9' }}>
+          <select value={program} onChange={e => setProgram(e.target.value)} style={{ fontSize: 13, padding: '6px 10px', background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, color: 'var(--text-primary)' }}>
             <option>Conventional</option><option>FHA</option><option>VA</option>
           </select>
           <button onClick={() => setPlaidConnected(true)} className={`btn ${plaidConnected ? 'btn-secondary' : 'btn-primary'}`} style={{ background: plaidConnected ? 'rgba(74,222,128,0.15)' : undefined, borderColor: plaidConnected ? '#4ade80' : undefined, color: plaidConnected ? '#4ade80' : undefined }}>
@@ -101,9 +101,9 @@ export default function AssetVerificationLender() {
       <div className="card" style={{ padding: 0, marginBottom: 20 }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ background: '#1e293b' }}>
+            <tr style={{ background: 'var(--bg-elevated)' }}>
               {['Form', 'Category', 'Type', 'Institution', 'Declared', 'Verified', 'Variance', 'Haircut', 'Eligible', 'Status', 'Action'].map(h => (
-                <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -115,17 +115,17 @@ export default function AssetVerificationLender() {
               const variance = a.verified !== null ? ((a.verified - a.declared) / a.declared * 100).toFixed(1) : null
               const varHigh = variance !== null && Math.abs(parseFloat(variance)) >= 5
               return (
-                <tr key={a.id} style={{ borderBottom: '1px solid #1e293b', background: selected?.id === a.id ? 'rgba(59,130,246,0.06)' : 'transparent' }}>
+                <tr key={a.id} style={{ borderBottom: '1px solid var(--border)', background: selected?.id === a.id ? 'rgba(59,130,246,0.06)' : 'transparent' }}>
                   <td style={{ padding: '10px 14px', fontSize: 12, color: '#60a5fa', fontWeight: 700 }}>{a.form}</td>
                   <td style={{ padding: '10px 14px' }}><span className="badge" style={{ background: `${CATEGORY_COLOR[a.category]}22`, color: CATEGORY_COLOR[a.category], fontSize: 11 }}>{a.category}</span></td>
                   <td style={{ padding: '10px 14px', fontSize: 13 }}>{a.type}</td>
-                  <td style={{ padding: '10px 14px', fontSize: 12, color: '#94a3b8' }}>{a.institution}</td>
+                  <td style={{ padding: '10px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{a.institution}</td>
                   <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 600 }}>${a.declared.toLocaleString()}</td>
-                  <td style={{ padding: '10px 14px', fontSize: 13, color: a.verified !== null ? '#4ade80' : '#475569' }}>{a.verified !== null ? `$${a.verified.toLocaleString()}` : '—'}</td>
+                  <td style={{ padding: '10px 14px', fontSize: 13, color: a.verified !== null ? '#4ade80' : 'var(--text-muted)' }}>{a.verified !== null ? `$${a.verified.toLocaleString()}` : '—'}</td>
                   <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 700, color: varHigh ? '#f87171' : '#4ade80' }}>
                     {variance !== null ? `${parseFloat(variance) > 0 ? '+' : ''}${variance}%${varHigh ? ' ⚠' : ''}` : '—'}
                   </td>
-                  <td style={{ padding: '10px 14px', fontSize: 13, color: '#94a3b8' }}>{Math.round(hc * 100)}%</td>
+                  <td style={{ padding: '10px 14px', fontSize: 13, color: 'var(--text-secondary)' }}>{Math.round(hc * 100)}%</td>
                   <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 700 }}>${eligible.toLocaleString()}</td>
                   <td style={{ padding: '10px 14px' }}>
                     <span className="badge" style={{ background: `${STATUS_COLOR[a.status]}22`, color: STATUS_COLOR[a.status], fontSize: 11 }}>{a.status}</span>
@@ -156,8 +156,8 @@ export default function AssetVerificationLender() {
               ['Available After Close', `$${(totalEligible - 62400).toLocaleString()}`],
               ['Required Reserves', `$${(485000 * 0.02).toLocaleString()} (2 mos PITIA)`],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 700 }}>{v}</span>
               </div>
             ))}
@@ -187,12 +187,12 @@ export default function AssetVerificationLender() {
       {/* Verify modal */}
       {selected && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 999 }} onClick={() => setSelected(null)}>
-          <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 14, padding: 28, width: 420 }} onClick={e => e.stopPropagation()}>
+          <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 14, padding: 28, width: 420 }} onClick={e => e.stopPropagation()}>
             <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Verify Asset</div>
-            <div style={{ fontSize: 13, color: '#64748b', marginBottom: 20 }}>{selected.type} · {selected.institution}</div>
+            <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 20 }}>{selected.type} · {selected.institution}</div>
             <div className="form-group">
               <label className="form-label">DECLARED AMOUNT</label>
-              <input value={`$${selected.declared.toLocaleString()}`} disabled style={{ color: '#64748b' }} />
+              <input value={`$${selected.declared.toLocaleString()}`} disabled style={{ color: 'var(--text-muted)' }} />
             </div>
             <div className="form-group">
               <label className="form-label">VERIFIED AMOUNT (from statement)</label>

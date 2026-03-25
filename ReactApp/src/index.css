@@ -166,11 +166,11 @@ th {
 }
 td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(51,65,85,0.5);
+  border-bottom: 1px solid var(--border);
   font-size: 13.5px;
   color: var(--text-secondary);
 }
-tr:hover td { background: rgba(255,255,255,0.02); }
+tr:hover td { background: var(--bg-elevated); }
 td:first-child, th:first-child { color: var(--text-primary); font-weight: 500; }
 
 /* Form elements */

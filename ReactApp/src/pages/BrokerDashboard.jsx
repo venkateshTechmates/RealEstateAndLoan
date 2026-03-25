@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import {
   BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer
@@ -33,14 +33,14 @@ const STAGE_META = {
   'Underwriting':   { color: '#a78bfa', bg: 'rgba(167,139,250,0.12)' },
   'Approved':       { color: '#4ade80', bg: 'rgba(74,222,128,0.12)' },
   'Clear to Close': { color: '#34d399', bg: 'rgba(52,211,153,0.12)' },
-  'Closed':         { color: '#94a3b8', bg: 'rgba(148,163,184,0.12)' },
+  'Closed':         { color: 'var(--text-secondary)', bg: 'rgba(148,163,184,0.12)' },
 }
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload?.length) {
     return (
-      <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, padding: '8px 14px' }}>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 3 }}>{label}</div>
+      <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 14px' }}>
+        <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 3 }}>{label}</div>
         <div style={{ fontSize: 14, fontWeight: 800, color: '#4ade80' }}>${payload[0].value.toLocaleString()}</div>
       </div>
     )
@@ -62,7 +62,7 @@ export default function BrokerDashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Broker Dashboard</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Overview of your submitted loans and compensation</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Overview of your submitted loans and compensation</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button className="btn btn-ghost" style={{ fontSize: 13 }}>📊 Export Report</button>
@@ -81,7 +81,7 @@ export default function BrokerDashboard() {
           <div key={s.label} className="stat-card">
             <div style={{ fontSize: 24, marginBottom: 8 }}>{s.icon}</div>
             <div style={{ fontSize: 22, fontWeight: 900, color: s.color, marginBottom: 3 }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 4 }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 4 }}>{s.label}</div>
             <div style={{ fontSize: 12, color: '#4ade80' }}>{s.trend}</div>
           </div>
         ))}
@@ -99,9 +99,9 @@ export default function BrokerDashboard() {
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
-              <tr style={{ background: '#0f172a', borderBottom: '1px solid #334155' }}>
+              <tr style={{ background: 'var(--bg-base)', borderBottom: '1px solid var(--border)' }}>
                 {['App #', 'Borrower', 'Property', 'Loan Amount', 'Type', 'LTV', 'Rate', 'Stage', 'Days Open', 'Actions'].map(h => (
-                  <th key={h} style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, fontSize: 11, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>{h}</th>
+                  <th key={h} style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 700, fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>{h}</th>
                 ))}
               </tr>
             </thead>
@@ -109,20 +109,20 @@ export default function BrokerDashboard() {
               {PIPELINE_ITEMS.map(item => {
                 const sm = STAGE_META[item.stage] || STAGE_META.Processing
                 return (
-                  <tr key={item.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                  <tr key={item.id} style={{ borderBottom: '1px solid var(--border)' }}>
                     <td style={{ padding: '12px 12px', fontWeight: 700, color: '#60a5fa' }}>{item.id}</td>
                     <td style={{ padding: '12px 12px', fontWeight: 600 }}>{item.borrower}</td>
-                    <td style={{ padding: '12px 12px', color: '#94a3b8', fontSize: 12, maxWidth: 160 }}>{item.property}</td>
+                    <td style={{ padding: '12px 12px', color: 'var(--text-secondary)', fontSize: 12, maxWidth: 160 }}>{item.property}</td>
                     <td style={{ padding: '12px 12px', fontWeight: 700 }}>${item.loanAmt.toLocaleString()}</td>
                     <td style={{ padding: '12px 12px' }}>
-                      <span className="badge" style={{ background: '#1e293b', color: '#94a3b8', fontSize: 11 }}>{item.type}</span>
+                      <span className="badge" style={{ background: 'var(--bg-elevated)', color: 'var(--text-secondary)', fontSize: 11 }}>{item.type}</span>
                     </td>
                     <td style={{ padding: '12px 12px', color: item.ltv >= 95 ? '#fb923c' : item.ltv >= 80 ? '#facc15' : '#4ade80', fontWeight: 700 }}>{item.ltv}%</td>
-                    <td style={{ padding: '12px 12px', fontWeight: 700, color: '#f1f5f9' }}>{item.rate}</td>
+                    <td style={{ padding: '12px 12px', fontWeight: 700, color: 'var(--text-primary)' }}>{item.rate}</td>
                     <td style={{ padding: '12px 12px' }}>
                       <span className="badge" style={{ background: sm.bg, color: sm.color, fontSize: 11 }}>{item.stage}</span>
                     </td>
-                    <td style={{ padding: '12px 12px', color: item.daysOpen > 30 ? '#f87171' : '#64748b' }}>{item.daysOpen}d</td>
+                    <td style={{ padding: '12px 12px', color: item.daysOpen > 30 ? '#f87171' : 'var(--text-muted)' }}>{item.daysOpen}d</td>
                     <td style={{ padding: '12px 12px' }}>
                       <div style={{ display: 'flex', gap: 6 }}>
                         <button className="btn btn-ghost" style={{ fontSize: 11, padding: '4px 8px', color: '#60a5fa' }}>View</button>
@@ -140,21 +140,21 @@ export default function BrokerDashboard() {
       {/* Clients Tab */}
       {tab === 'clients' && (
         <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-          <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontWeight: 700 }}>Client Roster</span>
             <button className="btn btn-primary" style={{ fontSize: 13 }}>+ Add Client</button>
           </div>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
-              <tr style={{ background: '#0f172a', borderBottom: '1px solid #334155' }}>
+              <tr style={{ background: 'var(--bg-base)', borderBottom: '1px solid var(--border)' }}>
                 {['Client', 'Contact', 'Loans', 'Total Volume', 'Status', 'Last Contact', 'Actions'].map(h => (
-                  <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 700, fontSize: 11, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</th>
+                  <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 700, fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {CLIENTS.map(c => (
-                <tr key={c.id} style={{ borderBottom: '1px solid #1e293b' }}>
+                <tr key={c.id} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: '14px 14px' }}>
                     <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
                       <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg, #3b82f6, #a78bfa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: '#fff' }}>
@@ -165,17 +165,17 @@ export default function BrokerDashboard() {
                   </td>
                   <td style={{ padding: '14px 14px' }}>
                     <div style={{ fontSize: 12, color: '#60a5fa' }}>{c.email}</div>
-                    <div style={{ fontSize: 12, color: '#94a3b8' }}>{c.phone}</div>
+                    <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{c.phone}</div>
                   </td>
                   <td style={{ padding: '14px 14px', fontWeight: 700, textAlign: 'center' }}>{c.loans}</td>
                   <td style={{ padding: '14px 14px', fontWeight: 700 }}>${c.totalVol.toLocaleString()}</td>
                   <td style={{ padding: '14px 14px' }}>
                     <span className={`badge ${c.status === 'Active' ? 'badge-green' : c.status === 'Closed' ? '' : 'badge-blue'}`}
-                      style={{ fontSize: 11, background: c.status === 'Closed' ? 'rgba(148,163,184,0.12)' : c.status === 'Prospect' ? 'rgba(96,165,250,0.12)' : undefined, color: c.status === 'Closed' ? '#64748b' : c.status === 'Prospect' ? '#60a5fa' : undefined }}>
+                      style={{ fontSize: 11, background: c.status === 'Closed' ? 'rgba(148,163,184,0.12)' : c.status === 'Prospect' ? 'rgba(96,165,250,0.12)' : undefined, color: c.status === 'Closed' ? 'var(--text-muted)' : c.status === 'Prospect' ? '#60a5fa' : undefined }}>
                       {c.status}
                     </span>
                   </td>
-                  <td style={{ padding: '14px 14px', color: '#64748b' }}>{c.lastContact}</td>
+                  <td style={{ padding: '14px 14px', color: 'var(--text-muted)' }}>{c.lastContact}</td>
                   <td style={{ padding: '14px 14px' }}>
                     <div style={{ display: 'flex', gap: 6 }}>
                       <button className="btn btn-ghost" style={{ fontSize: 11, padding: '4px 8px' }}>View</button>
@@ -196,9 +196,9 @@ export default function BrokerDashboard() {
             <div style={{ fontWeight: 700, marginBottom: 14 }}>Monthly Commission Earned</div>
             <ResponsiveContainer width="100%" height={220}>
               <BarChart data={COMMISSION_DATA} margin={{ top: 5, right: 10, bottom: 5, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="month" stroke="#475569" tick={{ fontSize: 11 }} />
-                <YAxis stroke="#475569" tick={{ fontSize: 11 }} tickFormatter={v => `$${v / 1000}K`} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="month" stroke="var(--text-muted)" tick={{ fontSize: 11 }} />
+                <YAxis stroke="var(--text-muted)" tick={{ fontSize: 11 }} tickFormatter={v => `$${v / 1000}K`} />
                 <Tooltip content={<CustomTooltip />} />
                 <Bar dataKey="earned" name="Commission" fill="#4ade80" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -209,12 +209,12 @@ export default function BrokerDashboard() {
             {[
               ['YTD Gross Commission', `$${(ytdCommission / 1000).toFixed(1)}K`, '#4ade80'],
               ['Mar 2026 Commission', `$21,400`, '#60a5fa'],
-              ['Avg Per Loan', `$6,820`, '#f1f5f9'],
-              ['Loans Closed YTD', '12', '#f1f5f9'],
+              ['Avg Per Loan', `$6,820`, 'var(--text-primary)'],
+              ['Loans Closed YTD', '12', 'var(--text-primary)'],
               ['YTD Loan Volume', `$${(totalVolume * 2.4 / 1000000).toFixed(1)}M`, '#a78bfa'],
             ].map(([k, v, c]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 800, color: c }}>{v}</span>
               </div>
             ))}

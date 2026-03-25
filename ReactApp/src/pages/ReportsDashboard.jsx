@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -45,8 +45,8 @@ const PIE_COLORS = ['#3b82f6', '#4ade80', '#f59e0b', '#a78bfa', '#34d399', '#60a
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload?.length) {
     return (
-      <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, padding: '8px 14px' }}>
-        <div style={{ fontSize: 12, color: '#94a3b8', marginBottom: 4 }}>{label}</div>
+      <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 14px' }}>
+        <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 4 }}>{label}</div>
         {payload.map(p => (
           <div key={p.dataKey} style={{ fontSize: 13, color: p.color, fontWeight: 700 }}>
             {p.name}: {typeof p.value === 'number' && p.value < 20 ? `${p.value}%` : p.value}
@@ -68,11 +68,11 @@ export default function ReportsDashboard() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Reports & Analytics</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Insights and compliance reporting for loan operations</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Insights and compliance reporting for loan operations</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <select value={dateRange} onChange={e => setDateRange(e.target.value)}
-            style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, padding: '8px 12px', color: '#f1f5f9', fontSize: 13 }}>
+            style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 12px', color: 'var(--text-primary)', fontSize: 13 }}>
             {['Q1 2026', 'Q4 2025', 'Q3 2025', 'YTD 2026', 'Last 12 months'].map(r => <option key={r}>{r}</option>)}
           </select>
           <button className="btn btn-primary" style={{ fontSize: 13 }}>📥 Export All</button>
@@ -89,8 +89,8 @@ export default function ReportsDashboard() {
         ].map(s => (
           <div key={s.label} className="stat-card">
             <div style={{ fontSize: 24, marginBottom: 8 }}>{s.icon}</div>
-            <div style={{ fontSize: 24, fontWeight: 900, color: '#f1f5f9', marginBottom: 3 }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 4 }}>{s.label}</div>
+            <div style={{ fontSize: 24, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 3 }}>{s.value}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 4 }}>{s.label}</div>
             <div style={{ fontSize: 12, color: '#4ade80' }}>{s.trend}</div>
           </div>
         ))}
@@ -110,9 +110,9 @@ export default function ReportsDashboard() {
             <div style={{ fontWeight: 700, marginBottom: 14 }}>Loan Volume by Product Type — Last 6 Months</div>
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={VOLUME_DATA} margin={{ top: 5, right: 10, bottom: 5, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="month" stroke="#475569" tick={{ fontSize: 11 }} />
-                <YAxis stroke="#475569" tick={{ fontSize: 11 }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="month" stroke="var(--text-muted)" tick={{ fontSize: 11 }} />
+                <YAxis stroke="var(--text-muted)" tick={{ fontSize: 11 }} />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
                 <Bar dataKey="conventional" name="Conventional" fill="#3b82f6" radius={[4, 4, 0, 0]} />
@@ -144,7 +144,7 @@ export default function ReportsDashboard() {
                     </div>
                     <div style={{ display: 'flex', gap: 14 }}>
                       <span style={{ fontSize: 13, fontWeight: 700, color: PIE_COLORS[i] }}>{d.value}</span>
-                      <span style={{ fontSize: 12, color: '#475569' }}>{Math.round(d.value / PIPELINE_DATA[0].value * 100)}%</span>
+                      <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{Math.round(d.value / PIPELINE_DATA[0].value * 100)}%</span>
                     </div>
                   </div>
                 ))}
@@ -157,9 +157,9 @@ export default function ReportsDashboard() {
             <div style={{ fontWeight: 700, marginBottom: 14 }}>Average Rate by Program — Last 6 Months</div>
             <ResponsiveContainer width="100%" height={280}>
               <LineChart data={RATE_TREND} margin={{ top: 5, right: 10, bottom: 5, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                <XAxis dataKey="month" stroke="#475569" tick={{ fontSize: 11 }} />
-                <YAxis stroke="#475569" tick={{ fontSize: 11 }} domain={[6, 8]} tickFormatter={v => `${v}%`} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
+                <XAxis dataKey="month" stroke="var(--text-muted)" tick={{ fontSize: 11 }} />
+                <YAxis stroke="var(--text-muted)" tick={{ fontSize: 11 }} domain={[6, 8]} tickFormatter={v => `${v}%`} />
                 <Tooltip formatter={v => `${v}%`} />
                 <Legend wrapperStyle={{ fontSize: 12 }} />
                 <Line type="monotone" dataKey="conventional" name="Conventional" stroke="#3b82f6" strokeWidth={2} dot={{ r: 3 }} />
@@ -179,21 +179,21 @@ export default function ReportsDashboard() {
         </div>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
-            <tr style={{ borderBottom: '1px solid #334155' }}>
+            <tr style={{ borderBottom: '1px solid var(--border)' }}>
               {['Report Name', 'Type', 'Generated', 'Size', 'Status', 'Actions'].map(h => (
-                <th key={h} style={{ padding: '8px 10px', textAlign: 'left', fontWeight: 700, fontSize: 11, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{h}</th>
+                <th key={h} style={{ padding: '8px 10px', textAlign: 'left', fontWeight: 700, fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {REPORTS.map(r => (
-              <tr key={r.id} style={{ borderBottom: '1px solid #1e293b' }}>
+              <tr key={r.id} style={{ borderBottom: '1px solid var(--border)' }}>
                 <td style={{ padding: '12px 10px', fontWeight: 600 }}>{r.name}</td>
                 <td style={{ padding: '12px 10px' }}>
-                  <span className="badge" style={{ background: '#1e293b', color: '#94a3b8', fontSize: 11 }}>{r.type}</span>
+                  <span className="badge" style={{ background: 'var(--bg-elevated)', color: 'var(--text-secondary)', fontSize: 11 }}>{r.type}</span>
                 </td>
-                <td style={{ padding: '12px 10px', color: '#64748b' }}>{r.date}</td>
-                <td style={{ padding: '12px 10px', color: '#64748b' }}>{r.size}</td>
+                <td style={{ padding: '12px 10px', color: 'var(--text-muted)' }}>{r.date}</td>
+                <td style={{ padding: '12px 10px', color: 'var(--text-muted)' }}>{r.size}</td>
                 <td style={{ padding: '12px 10px' }}>
                   <span className={`badge ${r.status === 'Ready' ? 'badge-green' : ''}`} style={{ fontSize: 11, background: r.status === 'Generating' ? 'rgba(250,204,21,0.12)' : undefined, color: r.status === 'Generating' ? '#facc15' : undefined }}>
                     {r.status === 'Generating' ? '⏳ Generating…' : '✅ Ready'}

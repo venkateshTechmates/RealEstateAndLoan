@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+﻿import { useState, useMemo } from 'react'
 
 const PROGRAMS = {
   Conventional: { name: 'Conventional', minDown: 3, minCredit: 620, maxDTI: 45, basePmiRate: 0.9, label: 'Conventional', color: '#3b82f6', desc: 'Best for strong credit and 20%+ down payment to avoid PMI' },
@@ -59,7 +59,7 @@ export default function PreQualCalculator() {
     <div>
       <div style={{ marginBottom: 24 }}>
         <h1 style={{ fontSize: 22, fontWeight: 800 }}>Pre-Qualification Calculator</h1>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Estimate loan eligibility and monthly payments across programs</p>
+        <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Estimate loan eligibility and monthly payments across programs</p>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 20, alignItems: 'start' }}>
@@ -91,7 +91,7 @@ export default function PreQualCalculator() {
             <input type="range" min={500} max={850} step={10} value={creditScore}
               onChange={e => upd('creditScore', e.target.value)}
               style={{ width: '100%', accentColor: '#3b82f6', cursor: 'pointer' }} />
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#475569', marginTop: 3 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--text-muted)', marginTop: 3 }}>
               <span>Poor</span><span>Fair</span><span>Good</span><span>Excellent</span>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function PreQualCalculator() {
             <div style={{ display: 'flex', gap: 10 }}>
               {[10, 15, 20, 30].map(y => (
                 <button key={y} onClick={() => upd('loanTerm', y)}
-                  style={{ flex: 1, padding: '7px 0', borderRadius: 8, border: `1px solid ${loanTerm === y ? '#3b82f6' : '#334155'}`, background: loanTerm === y ? 'rgba(59,130,246,0.15)' : 'transparent', color: loanTerm === y ? '#60a5fa' : '#64748b', fontSize: 13, fontWeight: loanTerm === y ? 700 : 400, cursor: 'pointer' }}>
+                  style={{ flex: 1, padding: '7px 0', borderRadius: 8, border: `1px solid ${loanTerm === y ? '#3b82f6' : 'var(--border)'}`, background: loanTerm === y ? 'rgba(59,130,246,0.15)' : 'transparent', color: loanTerm === y ? '#60a5fa' : 'var(--text-muted)', fontSize: 13, fontWeight: loanTerm === y ? 700 : 400, cursor: 'pointer' }}>
                   {y}yr
                 </button>
               ))}
@@ -109,8 +109,8 @@ export default function PreQualCalculator() {
           </div>
 
           {/* Quick summary */}
-          <div style={{ background: '#0f172a', borderRadius: 10, padding: 14, marginTop: 4 }}>
-            <div style={{ fontSize: 12, color: '#475569', marginBottom: 8, fontWeight: 700 }}>LOAN SUMMARY</div>
+          <div style={{ background: 'var(--bg-base)', borderRadius: 10, padding: 14, marginTop: 4 }}>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontWeight: 700 }}>LOAN SUMMARY</div>
             {[
               ['Loan Amount', `$${loanAmount.toLocaleString()}`],
               ['Down Payment', `$${downPayment.toLocaleString()} (${downPct}%)`],
@@ -118,7 +118,7 @@ export default function PreQualCalculator() {
               ['Gross Monthly Income', `$${Math.round(grossMonthly).toLocaleString()}`],
             ].map(([k, v]) => (
               <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '4px 0' }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 700 }}>{v}</span>
               </div>
             ))}
@@ -127,9 +127,9 @@ export default function PreQualCalculator() {
 
         {/* Results Panel */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#64748b', marginBottom: 2 }}>Program Comparison — {loanTerm}-Year Fixed</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 2 }}>Program Comparison — {loanTerm}-Year Fixed</div>
           {results.map(r => (
-            <div key={r.key} className="card" style={{ border: `1px solid ${r.eligible ? r.color + '40' : '#334155'}`, opacity: r.eligible ? 1 : 0.6, position: 'relative' }}>
+            <div key={r.key} className="card" style={{ border: `1px solid ${r.eligible ? r.color + '40' : 'var(--border)'}`, opacity: r.eligible ? 1 : 0.6, position: 'relative' }}>
               {!r.eligible && (
                 <div style={{ position: 'absolute', top: 12, right: 14, fontSize: 11, color: '#f87171', fontWeight: 700 }}>
                   ✗ Not Eligible
@@ -140,32 +140,32 @@ export default function PreQualCalculator() {
                   <div style={{ width: 42, height: 42, borderRadius: 10, background: `${r.color}22`, border: `2px solid ${r.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: r.color }}>{r.label}</div>
                   <div>
                     <div style={{ fontWeight: 800, color: r.color, fontSize: 14 }}>{r.name} Loan</div>
-                    <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>{r.desc}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 2 }}>{r.desc}</div>
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: 22, fontWeight: 900, color: r.eligible ? r.color : '#64748b' }}>{r.rate.toFixed(3)}%</div>
-                  <div style={{ fontSize: 11, color: '#475569' }}>Est. Rate</div>
+                  <div style={{ fontSize: 22, fontWeight: 900, color: r.eligible ? r.color : 'var(--text-muted)' }}>{r.rate.toFixed(3)}%</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Est. Rate</div>
                 </div>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10 }}>
                 {[
-                  ['P&I', `$${r.monthly.toLocaleString()}`, '#f1f5f9'],
+                  ['P&I', `$${r.monthly.toLocaleString()}`, 'var(--text-primary)'],
                   ['PMI/MIP', r.pmi > 0 ? `$${r.pmi}/mo` : 'None', r.pmi > 0 ? '#fb923c' : '#4ade80'],
-                  ['Taxes/Ins', `$${(r.taxes + r.insurance).toLocaleString()}/mo`, '#94a3b8'],
+                  ['Taxes/Ins', `$${(r.taxes + r.insurance).toLocaleString()}/mo`, 'var(--text-secondary)'],
                   ['Total Monthly', `$${r.totalMonthly.toLocaleString()}`, r.eligible ? r.color : '#f87171'],
                   ['Est. DTI', `${r.dti}%`, r.dti > r.maxDTI ? '#f87171' : r.dti > 40 ? '#facc15' : '#4ade80'],
                 ].map(([label, value, color]) => (
-                  <div key={label} style={{ background: '#1e293b', borderRadius: 8, padding: '10px 8px', textAlign: 'center' }}>
+                  <div key={label} style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '10px 8px', textAlign: 'center' }}>
                     <div style={{ fontSize: 14, fontWeight: 800, color, marginBottom: 3 }}>{value}</div>
-                    <div style={{ fontSize: 10, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+                    <div style={{ fontSize: 10, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
                   </div>
                 ))}
               </div>
 
               {r.eligible && (
-                <div style={{ marginTop: 12, display: 'flex', gap: 10, paddingTop: 12, borderTop: '1px solid #334155' }}>
+                <div style={{ marginTop: 12, display: 'flex', gap: 10, paddingTop: 12, borderTop: '1px solid var(--border)' }}>
                   <button className="btn btn-primary" style={{ fontSize: 13 }}>Apply for {r.name} Loan →</button>
                   <button className="btn btn-ghost" style={{ fontSize: 13 }}>Get Rate Quote</button>
                 </div>
@@ -173,7 +173,7 @@ export default function PreQualCalculator() {
 
               {!r.eligible && (
                 <div style={{ marginTop: 10 }}>
-                  <div style={{ fontSize: 12, color: '#f87171', paddingTop: 10, borderTop: '1px solid #334155' }}>
+                  <div style={{ fontSize: 12, color: '#f87171', paddingTop: 10, borderTop: '1px solid var(--border)' }}>
                     Requirements: Min credit {r.minCredit} · Min down {r.minDown}% · Max DTI {r.maxDTI}%
                   </div>
                 </div>
@@ -182,7 +182,7 @@ export default function PreQualCalculator() {
           ))}
 
           <div className="card" style={{ background: 'rgba(59,130,246,0.05)', border: '1px solid rgba(59,130,246,0.15)' }}>
-            <div style={{ fontSize: 13, color: '#64748b' }}>
+            <div style={{ fontSize: 13, color: 'var(--text-muted)' }}>
               ℹ️ Rate estimates are illustrative and based on current market conditions. Actual rates depend on full application review, appraisal, and lender guidelines. Taxes and insurance are estimated.
             </div>
           </div>

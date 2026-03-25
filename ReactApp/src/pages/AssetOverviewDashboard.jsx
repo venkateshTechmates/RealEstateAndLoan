@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend } from 'recharts'
 
 const TREND_DATA = [
@@ -21,7 +21,7 @@ const PIE_DATA = [
   { name: 'Investments', value: 418, color: '#8b5cf6' },
   { name: 'Retirement',  value: 300, color: '#10b981' },
   { name: 'Real Estate', value: 300, color: '#f59e0b' },
-  { name: 'Other',       value: 21,  color: '#64748b' },
+  { name: 'Other',       value: 21,  color: 'var(--text-muted)' },
 ]
 
 const ASSET_LIST = [
@@ -40,8 +40,8 @@ const ASSET_LIST = [
 const CUSTOM_TOOLTIP = ({ active, payload, label }) => {
   if (!active || !payload) return null
   return (
-    <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, padding: '10px 14px', fontSize: 12 }}>
-      <div style={{ fontWeight: 600, marginBottom: 6, color: '#f1f5f9' }}>{label}</div>
+    <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '10px 14px', fontSize: 12 }}>
+      <div style={{ fontWeight: 600, marginBottom: 6, color: 'var(--text-primary)' }}>{label}</div>
       {payload.map(p => (
         <div key={p.name} style={{ color: p.color, marginBottom: 2 }}>{p.name}: <strong>${p.value}K</strong></div>
       ))}
@@ -58,7 +58,7 @@ export default function AssetOverviewDashboard() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Asset Overview & Trends</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Application #APP-2026-001842 · Last refreshed: Mar 25, 2026 9:00 AM</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Application #APP-2026-001842 · Last refreshed: Mar 25, 2026 9:00 AM</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button className="btn btn-secondary btn-sm">🔄 Refresh Valuations</button>
@@ -80,7 +80,7 @@ export default function AssetOverviewDashboard() {
               <span className={`badge ${s.label === 'Reserve Coverage' ? 'badge-green' : 'badge-blue'}`}>{s.change}</span>
             </div>
             <div style={{ fontSize: 22, fontWeight: 800, color: s.color }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: '#64748b', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4, textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 700 }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -119,7 +119,7 @@ function OverviewTab() {
           <div className="section-title">Portfolio Value — 12 Months</div>
           <div style={{ display: 'flex', gap: 16, fontSize: 11 }}>
             {[['Total', '#3b82f6'], ['Liquid', '#10b981'], ['Investment', '#8b5cf6'], ['Retirement', '#f59e0b']].map(([n, c]) => (
-              <span key={n} style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#94a3b8' }}>
+              <span key={n} style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--text-secondary)' }}>
                 <span style={{ width: 8, height: 8, borderRadius: '50%', background: c, display: 'inline-block' }} />{n}
               </span>
             ))}
@@ -127,8 +127,8 @@ function OverviewTab() {
         </div>
         <ResponsiveContainer width="100%" height={240}>
           <LineChart data={TREND_DATA} margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
-            <XAxis dataKey="month" tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: '#475569', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `$${v}K`} />
+            <XAxis dataKey="month" tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `$${v}K`} />
             <Tooltip content={<CUSTOM_TOOLTIP />} />
             <Line type="monotone" dataKey="total" stroke="#3b82f6" strokeWidth={2} dot={false} name="Total" />
             <Line type="monotone" dataKey="liquid" stroke="#10b981" strokeWidth={1.5} dot={false} name="Liquid" strokeDasharray="4 2" />
@@ -151,14 +151,14 @@ function OverviewTab() {
         </ResponsiveContainer>
         <div style={{ marginTop: 8 }}>
           {PIE_DATA.map(d => (
-            <div key={d.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 0', fontSize: 12, borderBottom: '1px solid #1e293b' }}>
+            <div key={d.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '5px 0', fontSize: 12, borderBottom: '1px solid var(--border)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: d.color }} />
-                <span style={{ color: '#94a3b8' }}>{d.name}</span>
+                <span style={{ color: 'var(--text-secondary)' }}>{d.name}</span>
               </div>
               <div>
                 <span style={{ fontWeight: 600 }}>${d.value}K</span>
-                <span style={{ color: '#475569', marginLeft: 6 }}>{Math.round(d.value / 11.63)}%</span>
+                <span style={{ color: 'var(--text-muted)', marginLeft: 6 }}>{Math.round(d.value / 11.63)}%</span>
               </div>
             </div>
           ))}
@@ -183,9 +183,9 @@ function TrendsTab() {
           { name: 'Roth IRA', value: 3.8, fill: '#10b981' },
           { name: 'Bitcoin', value: -15.0, fill: '#ef4444' },
         ]} margin={{ top: 5, right: 10, left: -5, bottom: 30 }}>
-          <XAxis dataKey="name" tick={{ fill: '#475569', fontSize: 10 }} angle={-30} textAnchor="end" interval={0} />
-          <YAxis tick={{ fill: '#475569', fontSize: 11 }} tickFormatter={v => `${v}%`} />
-          <Tooltip formatter={(v) => [`${v}%`, '30-Day Change']} contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+          <XAxis dataKey="name" tick={{ fill: 'var(--text-muted)', fontSize: 10 }} angle={-30} textAnchor="end" interval={0} />
+          <YAxis tick={{ fill: 'var(--text-muted)', fontSize: 11 }} tickFormatter={v => `${v}%`} />
+          <Tooltip formatter={(v) => [`${v}%`, '30-Day Change']} contentStyle={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8 }} />
           <Bar dataKey="value" radius={[4, 4, 0, 0]}>
             {[
               { fill: '#3b82f6' }, { fill: '#3b82f6' }, { fill: '#8b5cf6' }, { fill: '#8b5cf6' },
@@ -196,9 +196,9 @@ function TrendsTab() {
       </ResponsiveContainer>
       <div style={{ marginTop: 16, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
         {[['7-Day Avg Change', '+1.4%', 'green'], ['30-Day Avg', '+2.1%', 'green'], ['Volatility Score', '8.5 / 20', 'yellow'], ['Risk Score', '65 / 100', 'yellow']].map(([k, v, c]) => (
-          <div key={k} style={{ textAlign: 'center', padding: 12, background: '#263348', borderRadius: 8 }}>
+          <div key={k} style={{ textAlign: 'center', padding: 12, background: 'var(--bg-elevated)', borderRadius: 8 }}>
             <div style={{ fontSize: 18, fontWeight: 800, color: c === 'green' ? '#34d399' : '#fbbf24' }}>{v}</div>
-            <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>{k}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>{k}</div>
           </div>
         ))}
       </div>
@@ -214,17 +214,17 @@ function ReservesTab() {
         <span className="badge badge-green">✅ Requirements Met</span>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginBottom: 24 }}>
-        <div style={{ padding: 16, background: '#263348', borderRadius: 10, border: '1px solid #334155' }}>
+        <div style={{ padding: 16, background: 'var(--bg-elevated)', borderRadius: 10, border: '1px solid var(--border)' }}>
           <div style={{ fontSize: 18, fontWeight: 800, color: '#34d399' }}>$67,200</div>
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Total Eligible Assets for Reserves</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Total Eligible Assets for Reserves</div>
           <div className="progress-bar" style={{ marginTop: 10 }}>
             <div className="progress-fill" style={{ width: '78%', background: '#10b981' }} />
           </div>
         </div>
-        <div style={{ padding: 16, background: '#263348', borderRadius: 10, border: '1px solid #334155' }}>
+        <div style={{ padding: 16, background: 'var(--bg-elevated)', borderRadius: 10, border: '1px solid var(--border)' }}>
           <div style={{ fontSize: 18, fontWeight: 800, color: '#fbbf24' }}>$18,400</div>
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Required Reserves (2 months PITI)</div>
-          <div style={{ fontSize: 11, color: '#475569', marginTop: 6 }}>Monthly PITI: $4,020 × 2 = $8,040 <br /> (Conventional: 0-6 months depending on LTV)</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Required Reserves (2 months PITI)</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6 }}>Monthly PITI: $4,020 × 2 = $8,040 <br /> (Conventional: 0-6 months depending on LTV)</div>
         </div>
       </div>
       <div className="table-wrap">
@@ -242,7 +242,7 @@ function ReservesTab() {
               ['Gift Funds', '$35,000', 'None', '$0', 'gray', 'Not for Reserves'],
             ].map(([type, declared, haircut, eligible, color, status]) => (
               <tr key={type}>
-                <td style={{ fontWeight: 500 }}>{type}</td>
+                <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{type}</td>
                 <td>{declared}</td>
                 <td style={{ color: haircut === 'None' ? '#34d399' : '#fbbf24' }}>{haircut}</td>
                 <td style={{ fontWeight: 700 }}>{eligible}</td>
@@ -253,7 +253,7 @@ function ReservesTab() {
         </table>
       </div>
       <div style={{ marginTop: 16, padding: 16, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 8, display: 'flex', justifyContent: 'space-between' }}>
-        <span style={{ fontSize: 13, color: '#94a3b8' }}>Total Eligible Reserves</span>
+        <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Total Eligible Reserves</span>
         <span style={{ fontSize: 18, fontWeight: 800, color: '#34d399' }}>$364,900 &nbsp;·&nbsp; 3.65× covered</span>
       </div>
     </div>
@@ -290,7 +290,7 @@ function ListTab({ filter, setFilter }) {
                 </td>
                 <td><span className="badge badge-gray">{a.type}</span></td>
                 <td style={{ fontWeight: 700 }}>{a.value}</td>
-                <td style={{ color: a.trend === 'up' ? '#34d399' : a.trend === 'down' ? '#f87171' : '#64748b', fontWeight: 600 }}>
+                <td style={{ color: a.trend === 'up' ? '#34d399' : a.trend === 'down' ? '#f87171' : 'var(--text-muted)', fontWeight: 600 }}>
                   {a.trend === 'up' ? '▲' : a.trend === 'down' ? '▼' : '—'} {a.change}
                 </td>
                 <td>

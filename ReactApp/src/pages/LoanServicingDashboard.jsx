@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const LOAN = {
   loanNo: 'SVC-2025-00482',
@@ -49,7 +49,7 @@ export default function LoanServicingDashboard() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Loan Servicing</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>{LOAN.loanNo} · {LOAN.borrower} · {LOAN.address}</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>{LOAN.loanNo} · {LOAN.borrower} · {LOAN.address}</p>
         </div>
         <span className="badge badge-green" style={{ padding: '8px 14px', fontSize: 13 }}>● Current — Good Standing</span>
       </div>
@@ -95,8 +95,8 @@ export default function LoanServicingDashboard() {
               ['Escrow Monthly', `$${ESCROW.monthlyContrib}`],
               ['Total Monthly', `$${(LOAN.payment + ESCROW.monthlyContrib).toLocaleString()}`],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 600 }}>{v}</span>
               </div>
             ))}
@@ -105,14 +105,14 @@ export default function LoanServicingDashboard() {
             {/* Balance progress */}
             <div className="card" style={{ marginBottom: 16 }}>
               <div style={{ fontWeight: 700, marginBottom: 10 }}>Balance Paydown Progress</div>
-              <div style={{ marginBottom: 6, fontSize: 12, color: '#64748b', display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ marginBottom: 6, fontSize: 12, color: 'var(--text-muted)', display: 'flex', justifyContent: 'space-between' }}>
                 <span>Principal paid: ${(LOAN.originalBalance - LOAN.currentBalance).toLocaleString()}</span>
                 <span>{(((LOAN.originalBalance - LOAN.currentBalance) / LOAN.originalBalance) * 100).toFixed(1)}%</span>
               </div>
-              <div style={{ height: 12, background: '#334155', borderRadius: 12 }}>
+              <div style={{ height: 12, background: 'var(--border)', borderRadius: 12 }}>
                 <div style={{ height: 12, borderRadius: 12, width: `${((LOAN.originalBalance - LOAN.currentBalance) / LOAN.originalBalance) * 100}%`, background: 'linear-gradient(90deg, #3b82f6, #4ade80)' }} />
               </div>
-              <div style={{ fontSize: 11, color: '#475569', marginTop: 6 }}>Remaining: ${LOAN.currentBalance.toLocaleString()} · Est. payoff: {LOAN.maturity}</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6 }}>Remaining: ${LOAN.currentBalance.toLocaleString()} · Est. payoff: {LOAN.maturity}</div>
             </div>
 
             {/* Quick pay */}
@@ -142,27 +142,27 @@ export default function LoanServicingDashboard() {
 
       {activeTab === 'payments' && (
         <div className="card" style={{ padding: 0 }}>
-          <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontWeight: 700 }}>Payment History</span>
             <button className="btn btn-ghost" style={{ fontSize: 12, color: '#60a5fa' }}>⬇ Download Statement</button>
           </div>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ background: '#1e293b' }}>
+              <tr style={{ background: 'var(--bg-elevated)' }}>
                 {['Date', 'Amount Paid', 'Principal', 'Interest', 'Escrow', 'Method', 'Status'].map(h => (
-                  <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                  <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {[...PAYMENT_HISTORY].reverse().map((p, i) => (
-                <tr key={i} style={{ borderBottom: '1px solid #1e293b' }}>
+                <tr key={i} style={{ borderBottom: '1px solid var(--border)' }}>
                   <td style={{ padding: '12px 14px', fontSize: 13, fontWeight: 600 }}>{p.date}</td>
                   <td style={{ padding: '12px 14px', fontSize: 13, fontWeight: 700 }}>${p.paid.toLocaleString()}</td>
                   <td style={{ padding: '12px 14px', fontSize: 13, color: '#4ade80' }}>${p.principal}</td>
                   <td style={{ padding: '12px 14px', fontSize: 13 }}>${p.interest.toLocaleString()}</td>
                   <td style={{ padding: '12px 14px', fontSize: 13, color: '#fb923c' }}>{p.escrow > 0 ? `$${p.escrow}` : '—'}</td>
-                  <td style={{ padding: '12px 14px', fontSize: 12, color: '#94a3b8' }}>{p.pmtType}</td>
+                  <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-secondary)' }}>{p.pmtType}</td>
                   <td style={{ padding: '12px 14px' }}><span className="badge badge-green" style={{ fontSize: 11 }}>{p.status}</span></td>
                 </tr>
               ))}
@@ -183,9 +183,9 @@ export default function LoanServicingDashboard() {
                 ['Required Escrow Cushion', `$${(ESCROW.monthlyContrib * 2).toLocaleString()} (2 months)`],
                 ['Surplus / (Shortage)', ESCROW.balance - ESCROW.monthlyContrib * 2 > 0 ? `+$${(ESCROW.balance - ESCROW.monthlyContrib * 2).toLocaleString()} surplus` : `Shortage`],
               ].map(([k, v]) => (
-                <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                  <span style={{ color: '#64748b' }}>{k}</span>
-                  <span style={{ fontWeight: 700, color: v.includes('surplus') ? '#4ade80' : v.includes('Shortage') ? '#f87171' : '#f1f5f9' }}>{v}</span>
+                <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                  <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                  <span style={{ fontWeight: 700, color: v.includes('surplus') ? '#4ade80' : v.includes('Shortage') ? '#f87171' : 'var(--text-primary)' }}>{v}</span>
                 </div>
               ))}
             </div>
@@ -198,13 +198,13 @@ export default function LoanServicingDashboard() {
           <div className="card">
             <div style={{ fontWeight: 700, marginBottom: 14 }}>Escrow Disbursement Schedule</div>
             {ESCROW.projItems.map(item => (
-              <div key={item.label} style={{ background: '#263348', borderRadius: 8, padding: 12, marginBottom: 10 }}>
+              <div key={item.label} style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: 12, marginBottom: 10 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
                   <div style={{ fontSize: 13, fontWeight: 700 }}>{item.label}</div>
                   {item.paid && <span className="badge badge-green" style={{ fontSize: 11 }}>Paid</span>}
                   {!item.paid && <span className="badge badge-orange" style={{ fontSize: 11 }}>Upcoming</span>}
                 </div>
-                <div style={{ display: 'flex', gap: 16, fontSize: 12, color: '#64748b' }}>
+                <div style={{ display: 'flex', gap: 16, fontSize: 12, color: 'var(--text-muted)' }}>
                   <span>Annual: ${item.annual.toLocaleString()}</span>
                   <span>Monthly: ${item.monthly}/mo</span>
                   <span>Next due: {item.nextDue}</span>
@@ -222,7 +222,7 @@ export default function LoanServicingDashboard() {
             <div className="form-group">
               <label className="form-label">ADDITIONAL MONTHS TO ADD</label>
               <input type="number" placeholder="0" min="0" max="60" value={payoffMonths} onChange={e => setPayoffMonths(parseInt(e.target.value) || 0)} />
-              <div style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>Payoff quotes are valid for 30 days from generation date.</div>
+              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>Payoff quotes are valid for 30 days from generation date.</div>
             </div>
             <div style={{ background: 'rgba(59,130,246,0.08)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 10, padding: 16, marginTop: 8 }}>
               {[
@@ -233,8 +233,8 @@ export default function LoanServicingDashboard() {
                 ['Good Through', 'June 7, 2026'],
               ].map(([k, v]) => (
                 <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid rgba(59,130,246,0.15)', fontSize: 13 }}>
-                  <span style={{ color: '#64748b' }}>{k}</span>
-                  <span style={{ fontWeight: k === 'TOTAL PAYOFF AMOUNT' ? 800 : 600, fontSize: k === 'TOTAL PAYOFF AMOUNT' ? 15 : 13, color: k === 'TOTAL PAYOFF AMOUNT' ? '#60a5fa' : '#f1f5f9' }}>{v}</span>
+                  <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                  <span style={{ fontWeight: k === 'TOTAL PAYOFF AMOUNT' ? 800 : 600, fontSize: k === 'TOTAL PAYOFF AMOUNT' ? 15 : 13, color: k === 'TOTAL PAYOFF AMOUNT' ? '#60a5fa' : 'var(--text-primary)' }}>{v}</span>
                 </div>
               ))}
             </div>
@@ -243,11 +243,11 @@ export default function LoanServicingDashboard() {
 
           <div className="card">
             <div style={{ fontWeight: 700, marginBottom: 14 }}>PMI Removal Eligibility</div>
-            <div style={{ marginBottom: 6, fontSize: 13, color: '#64748b' }}>PMI is required until LTV reaches 80% based on original value</div>
-            <div style={{ height: 12, background: '#334155', borderRadius: 12, marginBottom: 6 }}>
+            <div style={{ marginBottom: 6, fontSize: 13, color: 'var(--text-muted)' }}>PMI is required until LTV reaches 80% based on original value</div>
+            <div style={{ height: 12, background: 'var(--border)', borderRadius: 12, marginBottom: 6 }}>
               <div style={{ height: 12, width: `${((LOAN.originalBalance - LOAN.currentBalance) / (LOAN.originalBalance * 0.2)) * 100}%`, background: '#a78bfa', borderRadius: 12, maxWidth: '100%' }} />
             </div>
-            <div style={{ fontSize: 12, color: '#475569', marginBottom: 20 }}>Progress to 80% LTV: {(((LOAN.originalBalance - LOAN.currentBalance) / (LOAN.originalBalance * 0.2)) * 100).toFixed(1)}% complete</div>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 20 }}>Progress to 80% LTV: {(((LOAN.originalBalance - LOAN.currentBalance) / (LOAN.originalBalance * 0.2)) * 100).toFixed(1)}% complete</div>
             {[
               ['Original Value (Appraised)', `$590,000`],
               ['80% Threshold Balance', `$${(590000 * 0.8).toLocaleString()}`],
@@ -255,8 +255,8 @@ export default function LoanServicingDashboard() {
               ['Balance Required to Remove PMI', `$${(LOAN.currentBalance - 590000 * 0.8).toLocaleString()}`],
               ['Est. PMI Removal Date', 'Feb 2044 (standard schedule)'],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 600 }}>{v}</span>
               </div>
             ))}

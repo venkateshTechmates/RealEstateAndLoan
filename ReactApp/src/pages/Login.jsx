@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Login({ setRole }) {
@@ -11,13 +11,13 @@ export default function Login({ setRole }) {
     e.preventDefault()
     if (step === 1) { setStep(2); return }
     setRole(form.role)
-    navigate('/dashboard')
+    navigate('/select-org')
   }
 
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'linear-gradient(135deg,#0f172a 0%,#1e3a5f 50%,#0f172a 100%)',
+      background: 'linear-gradient(135deg,var(--bg-base) 0%,var(--bg-elevated) 50%,var(--bg-base) 100%)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -42,8 +42,8 @@ export default function Login({ setRole }) {
             fontSize: 28, margin: '0 auto 14px',
             boxShadow: '0 8px 32px rgba(59,130,246,0.3)',
           }}>🏦</div>
-          <h1 style={{ fontSize: 22, fontWeight: 800, color: '#f1f5f9' }}>RE Loan Suite</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Enterprise Real Estate & Loan Platform</p>
+          <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)' }}>RE Loan Suite</h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Enterprise Real Estate & Loan Platform</p>
         </div>
 
         {/* Card */}
@@ -83,9 +83,9 @@ export default function Login({ setRole }) {
 
                   {/* Demo quick access */}
                   <div style={{ marginTop: 20 }}>
-                    <div style={{ textAlign: 'center', fontSize: 11, color: '#475569', marginBottom: 10, position: 'relative' }}>
+                    <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-muted)', marginBottom: 10, position: 'relative' }}>
                       <span style={{ background: 'var(--bg-surface)', padding: '0 10px', position: 'relative', zIndex: 1 }}>Quick Demo Access</span>
-                      <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: '#334155', zIndex: 0 }} />
+                      <div style={{ position: 'absolute', top: '50%', left: 0, right: 0, height: 1, background: 'var(--border)', zIndex: 0 }} />
                     </div>
                     <div style={{ display: 'flex', gap: 8 }}>
                       {['borrower','lender','broker'].map(r => (
@@ -101,8 +101,8 @@ export default function Login({ setRole }) {
                 <>
                   <div style={{ textAlign: 'center', marginBottom: 20 }}>
                     <div style={{ fontSize: 32, marginBottom: 8 }}>📱</div>
-                    <div style={{ fontWeight: 600, color: '#f1f5f9' }}>Two-Factor Authentication</div>
-                    <div style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>Enter the 6-digit code sent to +1 (xxx) xxx-7890</div>
+                    <div style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Two-Factor Authentication</div>
+                    <div style={{ fontSize: 12, color: 'var(--text-muted)', marginTop: 4 }}>Enter the 6-digit code sent to +1 (xxx) xxx-7890</div>
                   </div>
                   <div className="form-group">
                     <label className="form-label">VERIFICATION CODE</label>
@@ -111,7 +111,7 @@ export default function Login({ setRole }) {
                   <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '11px 0', fontSize: 14 }}>
                     Verify & Sign In
                   </button>
-                  <button type="button" style={{ width: '100%', marginTop: 10, background: 'none', color: '#64748b', fontSize: 12, padding: 8 }} onClick={() => setStep(1)}>← Back</button>
+                  <button type="button" style={{ width: '100%', marginTop: 10, background: 'none', color: 'var(--text-muted)', fontSize: 12, padding: 8 }} onClick={() => setStep(1)}>← Back</button>
                 </>
               )}
             </form>
@@ -120,7 +120,7 @@ export default function Login({ setRole }) {
           )}
         </div>
 
-        <p style={{ textAlign: 'center', color: '#475569', fontSize: 11, marginTop: 20 }}>
+        <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: 11, marginTop: 20 }}>
           Protected by enterprise-grade security · SOC 2 Type II · ISO 27001
         </p>
       </div>

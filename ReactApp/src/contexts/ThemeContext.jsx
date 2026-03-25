@@ -10,6 +10,7 @@ export const THEMES = {
       '--bg-base': '#0f172a', '--bg-surface': '#1e293b', '--bg-elevated': '#263348',
       '--border': '#334155', '--border-light': '#475569',
       '--text-primary': '#f1f5f9', '--text-secondary': '#94a3b8', '--text-muted': '#64748b',
+      '--shadow': '0 4px 24px rgba(0,0,0,0.3)',
     },
   },
   navy: {
@@ -51,9 +52,10 @@ export const THEMES = {
     sidebar: '#ffffff', topbar: '#f8fafc',
     sidebarBorder: '#e2e8f0', navActive: 'rgba(59,130,246,0.08)',
     vars: {
-      '--bg-base': '#f1f5f9', '--bg-surface': '#ffffff', '--bg-elevated': '#f8fafc',
-      '--border': '#e2e8f0', '--border-light': '#cbd5e1',
+      '--bg-base': '#f1f5f9', '--bg-surface': '#ffffff', '--bg-elevated': '#f0f4f8',
+      '--border': '#d1d9e0', '--border-light': '#bcc8d4',
       '--text-primary': '#0f172a', '--text-secondary': '#334155', '--text-muted': '#64748b',
+      '--shadow': '0 2px 12px rgba(0,0,0,0.08)',
     },
   },
 }

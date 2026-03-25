@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const QUEUE_ITEMS = [
   { id: 'AQ-001', appNo: 'APP-2026-0421', borrower: 'John Doe', assetType: 'Brokerage', institution: 'Vanguard', amount: 65000, priority: 'High', sla: '2h', assignedTo: 'Sarah J.', status: 'In Review', submitted: 'Mar 24 9:12 AM', aging: '4h' },
@@ -57,7 +57,7 @@ export default function LenderAssetQueue() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Asset Verification Queue</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Review and verify borrower-submitted assets</p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Review and verify borrower-submitted assets</p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button className="btn btn-ghost" style={{ fontSize: 13 }}>📊 Export Report</button>
@@ -80,7 +80,7 @@ export default function LenderAssetQueue() {
               <span style={{ fontSize: 11, color: s.trendUp ? '#4ade80' : '#f87171', fontWeight: 600 }}>{s.trend}</span>
             </div>
             <div style={{ fontSize: 26, fontWeight: 900, color: s.color, marginBottom: 2 }}>{s.value}</div>
-            <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{s.label}</div>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -88,22 +88,22 @@ export default function LenderAssetQueue() {
       {/* Filter bar */}
       <div className="card" style={{ padding: '12px 16px', marginBottom: 16 }}>
         <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 13, color: '#64748b', fontWeight: 600 }}>Filters:</span>
+          <span style={{ fontSize: 13, color: 'var(--text-muted)', fontWeight: 600 }}>Filters:</span>
           {[
             { label: 'Status', value: filterStatus, set: setFilterStatus, opts: ['All', 'Pending', 'In Review', 'Questioned', 'Verified', 'Rejected'] },
             { label: 'Priority', value: filterPriority, set: setFilterPriority, opts: ['All', 'High', 'Medium', 'Low'] },
             { label: 'Asset Type', value: filterType, set: setFilterType, opts: ['All', 'Checking', 'Savings', 'Brokerage', 'Crypto', 'Gift Funds', '401k', 'Stock'] },
           ].map(f => (
             <select key={f.label} value={f.value} onChange={e => f.set(e.target.value)}
-              style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, padding: '6px 10px', fontSize: 12, color: '#f1f5f9', cursor: 'pointer' }}>
+              style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 10px', fontSize: 12, color: 'var(--text-primary)', cursor: 'pointer' }}>
               {f.opts.map(o => <option key={o} value={o}>{f.label}: {o}</option>)}
             </select>
           ))}
           <div style={{ flex: 1 }} />
-          <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8, padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 6, minWidth: 200 }}>
-            <span style={{ color: '#475569', fontSize: 13 }}>🔍</span>
+          <div style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border)', borderRadius: 8, padding: '6px 10px', display: 'flex', alignItems: 'center', gap: 6, minWidth: 200 }}>
+            <span style={{ color: 'var(--text-muted)', fontSize: 13 }}>🔍</span>
             <input value={searchQ} onChange={e => setSearchQ(e.target.value)} placeholder="Search borrower, app #..."
-              style={{ background: 'none', border: 'none', outline: 'none', color: '#f1f5f9', fontSize: 12, width: '100%' }} />
+              style={{ background: 'none', border: 'none', outline: 'none', color: 'var(--text-primary)', fontSize: 12, width: '100%' }} />
           </div>
           {(filterStatus !== 'All' || filterPriority !== 'All' || filterType !== 'All' || searchQ) && (
             <button className="btn btn-ghost" style={{ fontSize: 12, color: '#f87171' }}
@@ -121,7 +121,7 @@ export default function LenderAssetQueue() {
           <button className="btn btn-primary" style={{ fontSize: 12 }}>✅ Approve All</button>
           <button className="btn btn-secondary" style={{ fontSize: 12 }}>↩ Assign To</button>
           <button className="btn btn-ghost" style={{ fontSize: 12, color: '#fb923c' }}>❓ Question All</button>
-          <button className="btn btn-ghost" style={{ fontSize: 12, color: '#64748b' }} onClick={clearAll}>✕ Clear Selection</button>
+          <button className="btn btn-ghost" style={{ fontSize: 12, color: 'var(--text-muted)' }} onClick={clearAll}>✕ Clear Selection</button>
         </div>
       )}
 
@@ -129,12 +129,12 @@ export default function LenderAssetQueue() {
       <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
           <thead>
-            <tr style={{ background: '#0f172a', borderBottom: '1px solid #334155' }}>
+            <tr style={{ background: 'var(--bg-base)', borderBottom: '1px solid var(--border)' }}>
               <th style={{ padding: '10px 14px', textAlign: 'left', width: 36 }}>
                 <input type="checkbox" onChange={e => e.target.checked ? selectAll() : clearAll()} checked={selected.length === filtered.length && filtered.length > 0} />
               </th>
               {['App #', 'Borrower', 'Asset Type', 'Institution', 'Amount', 'Priority', 'Assigned To', 'SLA', 'Status', 'Actions'].map(h => (
-                <th key={h} style={{ padding: '10px 10px', textAlign: 'left', color: '#475569', fontWeight: 700, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
+                <th key={h} style={{ padding: '10px 10px', textAlign: 'left', color: 'var(--text-muted)', fontWeight: 700, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>{h}</th>
               ))}
             </tr>
           </thead>
@@ -143,7 +143,7 @@ export default function LenderAssetQueue() {
               const sm = STATUS_META[item.status] || STATUS_META.Pending
               const pm = PRIORITY_META[item.priority]
               return (
-                <tr key={item.id} style={{ borderBottom: '1px solid #1e293b', background: selected.includes(item.id) ? 'rgba(59,130,246,0.06)' : 'transparent' }}
+                <tr key={item.id} style={{ borderBottom: '1px solid var(--border)', background: selected.includes(item.id) ? 'rgba(59,130,246,0.06)' : 'transparent' }}
                   onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
                   onMouseLeave={e => e.currentTarget.style.background = selected.includes(item.id) ? 'rgba(59,130,246,0.06)' : 'transparent'}>
                   <td style={{ padding: '12px 14px' }}>
@@ -151,23 +151,23 @@ export default function LenderAssetQueue() {
                   </td>
                   <td style={{ padding: '12px 10px' }}>
                     <div style={{ fontWeight: 700, color: '#60a5fa' }}>{item.appNo}</div>
-                    <div style={{ fontSize: 11, color: '#475569' }}>{item.submitted}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{item.submitted}</div>
                   </td>
                   <td style={{ padding: '12px 10px' }}>
                     <div style={{ fontWeight: 600 }}>{item.borrower}</div>
                   </td>
                   <td style={{ padding: '12px 10px' }}>
-                    <span className="badge" style={{ background: '#1e293b', color: '#94a3b8', fontSize: 11 }}>{item.assetType}</span>
+                    <span className="badge" style={{ background: 'var(--bg-elevated)', color: 'var(--text-secondary)', fontSize: 11 }}>{item.assetType}</span>
                   </td>
-                  <td style={{ padding: '12px 10px', color: '#94a3b8' }}>{item.institution}</td>
-                  <td style={{ padding: '12px 10px', fontWeight: 700, color: '#f1f5f9' }}>${item.amount.toLocaleString()}</td>
+                  <td style={{ padding: '12px 10px', color: 'var(--text-secondary)' }}>{item.institution}</td>
+                  <td style={{ padding: '12px 10px', fontWeight: 700, color: 'var(--text-primary)' }}>${item.amount.toLocaleString()}</td>
                   <td style={{ padding: '12px 10px' }}>
                     <span className="badge" style={{ background: pm.bg, color: pm.color, fontSize: 11 }}>{item.priority}</span>
                   </td>
-                  <td style={{ padding: '12px 10px', color: item.assignedTo === 'Unassigned' ? '#f87171' : '#94a3b8', fontSize: 12 }}>{item.assignedTo}</td>
+                  <td style={{ padding: '12px 10px', color: item.assignedTo === 'Unassigned' ? '#f87171' : 'var(--text-secondary)', fontSize: 12 }}>{item.assignedTo}</td>
                   <td style={{ padding: '12px 10px' }}>
-                    <div style={{ fontSize: 12, color: item.priority === 'High' ? '#f87171' : '#64748b' }}>SLA: {item.sla}</div>
-                    <div style={{ fontSize: 11, color: '#475569' }}>Aging: {item.aging}</div>
+                    <div style={{ fontSize: 12, color: item.priority === 'High' ? '#f87171' : 'var(--text-muted)' }}>SLA: {item.sla}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>Aging: {item.aging}</div>
                   </td>
                   <td style={{ padding: '12px 10px' }}>
                     <span className="badge" style={{ background: sm.bg, color: sm.color, fontSize: 11 }}>{item.status}</span>
@@ -184,23 +184,23 @@ export default function LenderAssetQueue() {
             })}
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={11} style={{ padding: 40, textAlign: 'center', color: '#475569' }}>No assets match the current filters.</td>
+                <td colSpan={11} style={{ padding: 40, textAlign: 'center', color: 'var(--text-muted)' }}>No assets match the current filters.</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
 
-      <div style={{ marginTop: 10, fontSize: 12, color: '#475569', textAlign: 'right' }}>
+      <div style={{ marginTop: 10, fontSize: 12, color: 'var(--text-muted)', textAlign: 'right' }}>
         Showing {filtered.length} of {QUEUE_ITEMS.length} items
       </div>
 
       {/* Asset Detail Side Panel */}
       {activeItem && (
-        <div style={{ position: 'fixed', right: 0, top: 0, bottom: 0, width: 400, background: '#1e293b', borderLeft: '1px solid #334155', zIndex: 200, overflowY: 'auto', padding: 24 }}>
+        <div style={{ position: 'fixed', right: 0, top: 0, bottom: 0, width: 400, background: 'var(--bg-elevated)', borderLeft: '1px solid var(--border)', zIndex: 200, overflowY: 'auto', padding: 24 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div style={{ fontWeight: 800, fontSize: 15 }}>Review Asset</div>
-            <button onClick={() => setActiveItem(null)} style={{ background: 'none', border: 'none', color: '#64748b', fontSize: 20, cursor: 'pointer' }}>✕</button>
+            <button onClick={() => setActiveItem(null)} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: 20, cursor: 'pointer' }}>✕</button>
           </div>
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 17, fontWeight: 800, marginBottom: 2 }}>{activeItem.borrower}</div>
@@ -218,20 +218,20 @@ export default function LenderAssetQueue() {
                 ['Assigned To', activeItem.assignedTo],
                 ['Current Status', activeItem.status],
               ].map(([k, v]) => (
-                <tr key={k} style={{ borderBottom: '1px solid #334155' }}>
-                  <td style={{ padding: '9px 0', color: '#64748b' }}>{k}</td>
+                <tr key={k} style={{ borderBottom: '1px solid var(--border)' }}>
+                  <td style={{ padding: '9px 0', color: 'var(--text-muted)' }}>{k}</td>
                   <td style={{ padding: '9px 0', fontWeight: 600 }}>{v}</td>
                 </tr>
               ))}
             </tbody>
           </table>
           <div style={{ fontWeight: 700, marginBottom: 10 }}>Add Note</div>
-          <textarea rows={3} placeholder="Enter verification notes..." style={{ width: '100%', background: '#0f172a', border: '1px solid #334155', borderRadius: 8, padding: 10, color: '#f1f5f9', fontSize: 13, resize: 'none', marginBottom: 14, boxSizing: 'border-box' }} />
+          <textarea rows={3} placeholder="Enter verification notes..." style={{ width: '100%', background: 'var(--bg-base)', border: '1px solid var(--border)', borderRadius: 8, padding: 10, color: 'var(--text-primary)', fontSize: 13, resize: 'none', marginBottom: 14, boxSizing: 'border-box' }} />
           <div style={{ display: 'flex', gap: 8, flexDirection: 'column' }}>
             <button className="btn btn-primary" style={{ width: '100%' }}>✅ Approve Asset</button>
             <button className="btn btn-ghost" style={{ width: '100%', color: '#fb923c' }}>❓ Question — Request More Info</button>
             <button className="btn btn-ghost" style={{ width: '100%', color: '#f87171' }}>✗ Reject Asset</button>
-            <button className="btn btn-ghost" style={{ width: '100%', color: '#64748b' }} onClick={() => setActiveItem(null)}>Cancel</button>
+            <button className="btn btn-ghost" style={{ width: '100%', color: 'var(--text-muted)' }} onClick={() => setActiveItem(null)}>Cancel</button>
           </div>
         </div>
       )}

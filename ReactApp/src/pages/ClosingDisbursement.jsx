@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 
 const CLOSING_DATE = 'May 8, 2025'
 const CD_SENT = 'May 5, 2025'
@@ -37,7 +37,7 @@ const CD_LINE_ITEMS = [
   { section: 'Credits', label: 'Seller Credit (closing costs)', borrower: -3000, seller: 0 },
 ]
 
-const STATUS_COLOR = { Complete: '#4ade80', 'In Progress': '#60a5fa', Pending: '#475569', Waived: '#94a3b8' }
+const STATUS_COLOR = { Complete: '#4ade80', 'In Progress': '#60a5fa', Pending: 'var(--text-muted)', Waived: 'var(--text-secondary)' }
 
 export default function ClosingDisbursement() {
   const [activeTab, setActiveTab] = useState('checklist')
@@ -58,7 +58,7 @@ export default function ClosingDisbursement() {
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800 }}>Closing & Disbursement</h1>
-          <p style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Loan LA-001 · Marcus Johnson · Closing: <strong style={{ color: '#4ade80' }}>{CLOSING_DATE}</strong></p>
+          <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>Loan LA-001 · Marcus Johnson · Closing: <strong style={{ color: '#4ade80' }}>{CLOSING_DATE}</strong></p>
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           {!wireInitiated && <button className="btn btn-primary" onClick={() => setWireInitiated(true)} style={{ background: 'rgba(74,222,128,0.15)', borderColor: '#4ade80', color: '#4ade80' }}>💸 Initiate Funding Wire</button>}
@@ -70,11 +70,11 @@ export default function ClosingDisbursement() {
       <div style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.3)', borderRadius: 12, padding: 16, marginBottom: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <div style={{ fontWeight: 700, color: '#60a5fa', fontSize: 14 }}>Closing Disclosure 3-Day Waiting Period</div>
-          <div style={{ fontSize: 13, color: '#94a3b8', marginTop: 4 }}>CD delivered: {CD_SENT} · Earliest closing: {CLOSING_DATE}</div>
+          <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>CD delivered: {CD_SENT} · Earliest closing: {CLOSING_DATE}</div>
         </div>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 32, fontWeight: 900, color: '#60a5fa' }}>{cdDaysRemaining}</div>
-          <div style={{ fontSize: 11, color: '#64748b', textTransform: 'uppercase' }}>Business Days Left</div>
+          <div style={{ fontSize: 11, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Business Days Left</div>
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default function ClosingDisbursement() {
           <span style={{ fontWeight: 700 }}>Closing Progress</span>
           <span style={{ color: '#4ade80', fontWeight: 700 }}>{completedItems}/{totalItems} tasks complete</span>
         </div>
-        <div style={{ height: 10, background: '#334155', borderRadius: 10 }}>
+        <div style={{ height: 10, background: 'var(--border)', borderRadius: 10 }}>
           <div style={{ height: 10, borderRadius: 10, width: `${progressPct}%`, background: 'linear-gradient(90deg, #3b82f6, #4ade80)', transition: 'width 0.4s' }} />
         </div>
         <div style={{ display: 'flex', gap: 20, marginTop: 12, fontSize: 12 }}>
@@ -109,24 +109,24 @@ export default function ClosingDisbursement() {
         <div className="card" style={{ padding: 0 }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ background: '#1e293b' }}>
+              <tr style={{ background: 'var(--bg-elevated)' }}>
                 {['Category', 'Task', 'Assignee', 'Due Date', 'Status'].map(h => (
-                  <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: '#475569', textTransform: 'uppercase', borderBottom: '1px solid #334155' }}>{h}</th>
+                  <th key={h} style={{ padding: '12px 14px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--border)' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {CHECKLIST.map(c => (
-                <tr key={c.id} style={{ borderBottom: '1px solid #1e293b', opacity: c.status === 'Complete' ? 0.7 : 1 }}>
+                <tr key={c.id} style={{ borderBottom: '1px solid var(--border)', opacity: c.status === 'Complete' ? 0.7 : 1 }}>
                   <td style={{ padding: '12px 14px' }}>
-                    <span className="badge" style={{ background: '#334155', color: '#94a3b8', fontSize: 11 }}>{c.category}</span>
+                    <span className="badge" style={{ background: 'var(--border)', color: 'var(--text-secondary)', fontSize: 11 }}>{c.category}</span>
                   </td>
                   <td style={{ padding: '12px 14px', fontSize: 13 }}>
                     {c.status === 'Complete' && <span style={{ marginRight: 8, color: '#4ade80' }}>✓</span>}
                     {c.item}
                   </td>
-                  <td style={{ padding: '12px 14px', fontSize: 12, color: '#64748b' }}>{c.assignee}</td>
-                  <td style={{ padding: '12px 14px', fontSize: 12, color: '#64748b' }}>{c.due}</td>
+                  <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-muted)' }}>{c.assignee}</td>
+                  <td style={{ padding: '12px 14px', fontSize: 12, color: 'var(--text-muted)' }}>{c.due}</td>
                   <td style={{ padding: '12px 14px' }}>
                     <span className="badge" style={{ background: `${STATUS_COLOR[c.status]}22`, color: STATUS_COLOR[c.status], fontSize: 11 }}>{c.status}</span>
                   </td>
@@ -153,12 +153,12 @@ export default function ClosingDisbursement() {
           </div>
 
           <div className="card" style={{ padding: 0 }}>
-            <div style={{ padding: '14px 16px', borderBottom: '1px solid #334155', fontWeight: 700 }}>Closing Disclosure — Settlement Statement (Preview)</div>
+            <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)', fontWeight: 700 }}>Closing Disclosure — Settlement Statement (Preview)</div>
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
-                <tr style={{ background: '#1e293b' }}>
+                <tr style={{ background: 'var(--bg-elevated)' }}>
                   {['Sec', 'Description', 'Borrower', 'Seller'].map(h => (
-                    <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: '#475569', borderBottom: '1px solid #334155' }}>{h}</th>
+                    <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontSize: 11, color: 'var(--text-muted)', borderBottom: '1px solid var(--border)' }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -167,16 +167,16 @@ export default function ClosingDisbursement() {
                   <td style={{ padding: '10px 14px', fontSize: 12, fontWeight: 700, color: '#60a5fa' }}>—</td>
                   <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 700 }}>Down Payment (10%)</td>
                   <td style={{ padding: '10px 14px', fontSize: 13, fontWeight: 700 }}>$55,000</td>
-                  <td style={{ padding: '10px 14px', fontSize: 13, color: '#475569' }}>—</td>
+                  <td style={{ padding: '10px 14px', fontSize: 13, color: 'var(--text-muted)' }}>—</td>
                 </tr>
                 {CD_LINE_ITEMS.map((l, i) => (
-                  <tr key={i} style={{ borderBottom: '1px solid #1e293b' }}>
-                    <td style={{ padding: '10px 14px', fontSize: 12, color: '#475569' }}>{l.section}</td>
+                  <tr key={i} style={{ borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '10px 14px', fontSize: 12, color: 'var(--text-muted)' }}>{l.section}</td>
                     <td style={{ padding: '10px 14px', fontSize: 13 }}>{l.label}</td>
-                    <td style={{ padding: '10px 14px', fontSize: 13, color: l.borrower < 0 ? '#4ade80' : '#f1f5f9', fontWeight: l.borrower !== 0 ? 600 : 400 }}>
+                    <td style={{ padding: '10px 14px', fontSize: 13, color: l.borrower < 0 ? '#4ade80' : 'var(--text-primary)', fontWeight: l.borrower !== 0 ? 600 : 400 }}>
                       {l.borrower !== 0 ? `${l.borrower < 0 ? '-' : ''}$${Math.abs(l.borrower).toLocaleString()}` : '—'}
                     </td>
-                    <td style={{ padding: '10px 14px', fontSize: 13, color: l.seller < 0 ? '#4ade80' : '#f1f5f9', fontWeight: l.seller !== 0 ? 600 : 400 }}>
+                    <td style={{ padding: '10px 14px', fontSize: 13, color: l.seller < 0 ? '#4ade80' : 'var(--text-primary)', fontWeight: l.seller !== 0 ? 600 : 400 }}>
                       {l.seller !== 0 ? `${l.seller < 0 ? '-' : ''}$${Math.abs(l.seller).toLocaleString()}` : '—'}
                     </td>
                   </tr>
@@ -203,8 +203,8 @@ export default function ClosingDisbursement() {
               ['Payment Method', 'Incoming Wire / Cashier Check'],
               ['Wire Deadline', 'May 8, 2025 by 10:00 AM CT'],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
                 <span style={{ fontWeight: 700 }}>{v}</span>
               </div>
             ))}
@@ -222,9 +222,9 @@ export default function ClosingDisbursement() {
               ['Receiving Account', `****${8821}`],
               ['Wire Status', wireInitiated ? 'Initiated' : 'Pending'],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
-                <span style={{ fontWeight: 700, color: k === 'Wire Status' ? (wireInitiated ? '#4ade80' : '#facc15') : '#f1f5f9' }}>{v}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                <span style={{ fontWeight: 700, color: k === 'Wire Status' ? (wireInitiated ? '#4ade80' : '#facc15') : 'var(--text-primary)' }}>{v}</span>
               </div>
             ))}
             {!wireInitiated ? (
@@ -254,9 +254,9 @@ export default function ClosingDisbursement() {
               ['Title Search Clear', '✓ Yes – no unacceptable liens'],
               ['Survey', 'Existing survey acceptable per lender review'],
             ].map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid #334155', fontSize: 13 }}>
-                <span style={{ color: '#64748b' }}>{k}</span>
-                <span style={{ fontWeight: 600, maxWidth: 220, textAlign: 'right', color: v.startsWith('✓') ? '#4ade80' : '#f1f5f9' }}>{v}</span>
+              <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderBottom: '1px solid var(--border)', fontSize: 13 }}>
+                <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                <span style={{ fontWeight: 600, maxWidth: 220, textAlign: 'right', color: v.startsWith('✓') ? '#4ade80' : 'var(--text-primary)' }}>{v}</span>
               </div>
             ))}
           </div>
@@ -272,10 +272,10 @@ export default function ClosingDisbursement() {
                 { label: 'Recorded Deed Returned', done: false, date: 'May 16 (est.)' },
               ].map(s => (
                 <div key={s.label} style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                  <span style={{ width: 22, height: 22, borderRadius: '50%', background: s.done ? '#4ade80' : '#334155', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, flexShrink: 0, fontWeight: 700, color: s.done ? '#0f172a' : '#475569' }}>{s.done ? '✓' : '○'}</span>
+                  <span style={{ width: 22, height: 22, borderRadius: '50%', background: s.done ? '#4ade80' : 'var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, flexShrink: 0, fontWeight: 700, color: s.done ? 'var(--bg-base)' : 'var(--text-muted)' }}>{s.done ? '✓' : '○'}</span>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: s.done ? 600 : 400, color: s.done ? '#f1f5f9' : '#64748b' }}>{s.label}</div>
-                    <div style={{ fontSize: 11, color: '#475569' }}>{s.date}</div>
+                    <div style={{ fontSize: 13, fontWeight: s.done ? 600 : 400, color: s.done ? 'var(--text-primary)' : 'var(--text-muted)' }}>{s.label}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{s.date}</div>
                   </div>
                 </div>
               ))}
