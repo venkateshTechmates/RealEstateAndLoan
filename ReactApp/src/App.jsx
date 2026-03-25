@@ -35,6 +35,7 @@ import TitleCoAdminDashboard from './pages/TitleCoAdminDashboard.jsx'
 import TitleAgentPortal from './pages/TitleAgentPortal.jsx'
 import InsuranceAgentPortal from './pages/InsuranceAgentPortal.jsx'
 import BuilderPortal from './pages/BuilderPortal.jsx'
+import ComplianceDashboard from './pages/ComplianceDashboard.jsx'
 
 function AppRoutes({ role, setRole }) {
   const navigate = useNavigate()
@@ -83,6 +84,7 @@ function AppRoutes({ role, setRole }) {
           <Route path="title-agent" element={<TitleAgentPortal />} />
           <Route path="insurance-portal" element={<InsuranceAgentPortal />} />
           <Route path="builder-portal" element={<BuilderPortal />} />
+          <Route path="compliance" element={<ComplianceDashboard />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

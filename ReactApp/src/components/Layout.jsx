@@ -1,5 +1,12 @@
 import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
+import {
+  Home, FileText, Wallet, BarChart2, FilePlus, FolderOpen, Search, Shield, CreditCard,
+  Calculator, MessageSquare, Bell, User, Layers, Scale, CheckSquare, Package, Flag,
+  Settings, ShieldCheck, Globe, RefreshCw, Building2, Building, Users, Briefcase,
+  BookOpen, FileCheck, ClipboardList, Hammer, LogOut, ChevronRight, ChevronLeft,
+  Palette,
+} from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext.jsx'
 import { useSessionGuard } from '../utils/session.js'
 import FloatingChatbot from './FloatingChatbot.jsx'
@@ -7,105 +14,108 @@ import ThemePanel from './ThemePanel.jsx'
 
 const NAV_GROUPS = {
   borrower: [
-    { label: 'Dashboard', icon: '🏠', to: '/dashboard' },
-    { label: 'Apply for Loan', icon: '📋', to: '/apply' },
-    { label: 'My Assets', icon: '💰', to: '/assets' },
-    { label: 'Asset Overview', icon: '📊', to: '/assets/overview' },
-    { label: 'Declare Assets', icon: '📝', to: '/assets/declare' },
-    { label: 'Documents', icon: '📁', to: '/documents' },
-    { label: 'Property Search', icon: '🔍', to: '/properties' },
-    { label: 'Insurance', icon: '🛡️', to: '/insurance' },
-    { label: 'Loan Servicing', icon: '💳', to: '/servicing' },
-    { label: 'Pre-Qual Calculator', icon: '🧮', to: '/calculator' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
-    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+    { label: 'Dashboard', Icon: Home, to: '/dashboard' },
+    { label: 'Apply for Loan', Icon: FileText, to: '/apply' },
+    { label: 'My Assets', Icon: Wallet, to: '/assets' },
+    { label: 'Asset Overview', Icon: BarChart2, to: '/assets/overview' },
+    { label: 'Declare Assets', Icon: FilePlus, to: '/assets/declare' },
+    { label: 'Documents', Icon: FolderOpen, to: '/documents' },
+    { label: 'Property Search', Icon: Search, to: '/properties' },
+    { label: 'Insurance', Icon: Shield, to: '/insurance' },
+    { label: 'Loan Servicing', Icon: CreditCard, to: '/servicing' },
+    { label: 'Pre-Qual Calculator', Icon: Calculator, to: '/calculator' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
+    { label: 'Profile & Settings', Icon: User, to: '/profile' },
   ],
   lender: [
-    { label: 'Loan Pipeline', icon: '📌', to: '/pipeline' },
-    { label: 'Underwriting', icon: '⚖️', to: '/underwriting' },
-    { label: 'Asset Verification', icon: '✅', to: '/asset-verification' },
-    { label: 'Asset Queue', icon: '📦', to: '/asset-queue' },
-    { label: 'Documents', icon: '📁', to: '/documents' },
-    { label: 'Insurance', icon: '🛡️', to: '/insurance' },
-    { label: 'Closing', icon: '🏁', to: '/closing' },
-    { label: 'Servicing', icon: '💳', to: '/servicing' },
-    { label: 'Reports', icon: '📈', to: '/reports' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
-    { label: 'Admin', icon: '⚙️', to: '/admin' },
+    { label: 'Loan Pipeline', Icon: Layers, to: '/pipeline' },
+    { label: 'Underwriting', Icon: Scale, to: '/underwriting' },
+    { label: 'Asset Verification', Icon: CheckSquare, to: '/asset-verification' },
+    { label: 'Asset Queue', Icon: Package, to: '/asset-queue' },
+    { label: 'Documents', Icon: FolderOpen, to: '/documents' },
+    { label: 'Insurance', Icon: Shield, to: '/insurance' },
+    { label: 'Closing', Icon: Flag, to: '/closing' },
+    { label: 'Servicing', Icon: CreditCard, to: '/servicing' },
+    { label: 'Reports', Icon: BarChart2, to: '/reports' },
+    { label: 'Compliance', Icon: ShieldCheck, to: '/compliance' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
+    { label: 'Admin', Icon: Settings, to: '/admin' },
   ],
   broker: [
-    { label: 'Dashboard', icon: '🏠', to: '/dashboard' },
-    { label: 'Broker Portal', icon: '🤝', to: '/broker-dashboard' },
-    { label: 'Loan Pipeline', icon: '📌', to: '/pipeline' },
-    { label: 'Submit Application', icon: '📋', to: '/apply' },
-    { label: 'Documents', icon: '📁', to: '/documents' },
-    { label: 'Property Search', icon: '🔍', to: '/properties' },
-    { label: 'Insurance', icon: '🛡️', to: '/insurance' },
-    { label: 'Calculator', icon: '🧮', to: '/calculator' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
-    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+    { label: 'Dashboard', Icon: Home, to: '/dashboard' },
+    { label: 'Broker Portal', Icon: Briefcase, to: '/broker-dashboard' },
+    { label: 'Loan Pipeline', Icon: Layers, to: '/pipeline' },
+    { label: 'Submit Application', Icon: FilePlus, to: '/apply' },
+    { label: 'Documents', Icon: FolderOpen, to: '/documents' },
+    { label: 'Property Search', Icon: Search, to: '/properties' },
+    { label: 'Insurance', Icon: Shield, to: '/insurance' },
+    { label: 'Calculator', Icon: Calculator, to: '/calculator' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
+    { label: 'Profile & Settings', Icon: User, to: '/profile' },
   ],
   'super-admin': [
-    { label: 'Platform Overview', icon: '🌐', to: '/super-admin' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'All Organizations', icon: '🏢', to: '/admin' },
-    { label: 'Reports', icon: '📈', to: '/reports' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
-    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+    { label: 'Platform Overview', Icon: Globe, to: '/super-admin' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'All Organizations', Icon: Building2, to: '/admin' },
+    { label: 'Reports', Icon: BarChart2, to: '/reports' },
+    { label: 'Compliance', Icon: ShieldCheck, to: '/compliance' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
+    { label: 'Profile & Settings', Icon: User, to: '/profile' },
   ],
   'lender-admin': [
-    { label: 'Lender Admin', icon: '🏦', to: '/lender-admin' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'Loan Pipeline', icon: '📌', to: '/pipeline' },
-    { label: 'Underwriting', icon: '⚖️', to: '/underwriting' },
-    { label: 'Reports', icon: '📈', to: '/reports' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
-    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+    { label: 'Lender Admin', Icon: Building, to: '/lender-admin' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'Loan Pipeline', Icon: Layers, to: '/pipeline' },
+    { label: 'Underwriting', Icon: Scale, to: '/underwriting' },
+    { label: 'Reports', Icon: BarChart2, to: '/reports' },
+    { label: 'Compliance', Icon: ShieldCheck, to: '/compliance' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
+    { label: 'Profile & Settings', Icon: User, to: '/profile' },
   ],
   'brokerage-admin': [
-    { label: 'Brokerage Admin', icon: '🤝', to: '/brokerage-admin' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'Broker Portal', icon: '📊', to: '/broker-dashboard' },
-    { label: 'Reports', icon: '📈', to: '/reports' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
-    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+    { label: 'Brokerage Admin', Icon: Users, to: '/brokerage-admin' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'Broker Portal', Icon: Briefcase, to: '/broker-dashboard' },
+    { label: 'Reports', Icon: BarChart2, to: '/reports' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
+    { label: 'Profile & Settings', Icon: User, to: '/profile' },
   ],
   'title-admin': [
-    { label: 'Title Co Admin', icon: '📜', to: '/title-admin' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'Title Agent View', icon: '🔍', to: '/title-agent' },
-    { label: 'Closing', icon: '🏁', to: '/closing' },
-    { label: 'Reports', icon: '📈', to: '/reports' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Title Co Admin', Icon: BookOpen, to: '/title-admin' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'Title Agent View', Icon: FileCheck, to: '/title-agent' },
+    { label: 'Closing', Icon: Flag, to: '/closing' },
+    { label: 'Reports', Icon: BarChart2, to: '/reports' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
   ],
   'title-agent': [
-    { label: 'My Title Orders', icon: '📜', to: '/title-agent' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'Closing', icon: '🏁', to: '/closing' },
-    { label: 'Documents', icon: '📁', to: '/documents' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'My Title Orders', Icon: FileCheck, to: '/title-agent' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'Closing', Icon: Flag, to: '/closing' },
+    { label: 'Documents', Icon: FolderOpen, to: '/documents' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
   ],
   'insurance-agent': [
-    { label: 'Insurance Portal', icon: '🛡️', to: '/insurance-portal' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'Insurance Mgmt', icon: '📋', to: '/insurance' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Insurance Portal', Icon: Shield, to: '/insurance-portal' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'Insurance Mgmt', Icon: ClipboardList, to: '/insurance' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
   ],
   builder: [
-    { label: 'Builder Portal', icon: '🏗️', to: '/builder-portal' },
-    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
-    { label: 'Property Search', icon: '🔍', to: '/properties' },
-    { label: 'Documents', icon: '📁', to: '/documents' },
-    { label: 'Messages', icon: '💬', to: '/messages' },
-    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Builder Portal', Icon: Hammer, to: '/builder-portal' },
+    { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
+    { label: 'Property Search', Icon: Search, to: '/properties' },
+    { label: 'Documents', Icon: FolderOpen, to: '/documents' },
+    { label: 'Messages', Icon: MessageSquare, to: '/messages' },
+    { label: 'Notifications', Icon: Bell, to: '/notifications' },
   ],
 }
 
@@ -271,7 +281,7 @@ export default function Layout({ role, setRole, onLogout }) {
                   whiteSpace: 'nowrap',
                 })}
               >
-                <span style={{ fontSize: 16, flexShrink: 0 }}>{item.icon}</span>
+                <item.Icon size={16} style={{ flexShrink: 0, minWidth: 16 }} />
                 {!collapsed && item.label}
               </NavLink>
             ))}
@@ -300,10 +310,10 @@ export default function Layout({ role, setRole, onLogout }) {
                   <button
                     onClick={onLogout}
                     title="Sign Out"
-                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: t3, fontSize: 16, padding: '4px 6px', borderRadius: 6, flexShrink: 0, lineHeight: 1 }}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: t3, padding: '4px 6px', borderRadius: 6, flexShrink: 0, display: 'flex', alignItems: 'center' }}
                     onMouseEnter={e => { e.currentTarget.style.color = '#ef4444' }}
                     onMouseLeave={e => { e.currentTarget.style.color = t3 }}
-                  >🚪</button>
+                  ><LogOut size={16} /></button>
                 </>
               )}
             </div>
@@ -312,10 +322,10 @@ export default function Layout({ role, setRole, onLogout }) {
                 <button
                   onClick={onLogout}
                   title="Sign Out"
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: t3, fontSize: 16, padding: '4px', borderRadius: 6, lineHeight: 1 }}
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: t3, padding: '4px', borderRadius: 6, display: 'flex', alignItems: 'center' }}
                   onMouseEnter={e => { e.currentTarget.style.color = '#ef4444' }}
                   onMouseLeave={e => { e.currentTarget.style.color = t3 }}
-                >🚪</button>
+                ><LogOut size={16} /></button>
               </div>
             )}
           </div>
@@ -349,7 +359,7 @@ export default function Layout({ role, setRole, onLogout }) {
           onMouseEnter={e => { e.currentTarget.style.background = accent.color; e.currentTarget.style.color = '#fff' }}
           onMouseLeave={e => { e.currentTarget.style.background = bgEl; e.currentTarget.style.color = t2 }}
         >
-          {collapsed ? '›' : '‹'}
+          {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
       </div>
 
@@ -437,23 +447,23 @@ function TopBar({ role, accent, theme, onThemeClick, onLogout }) {
           fontSize: 13,
           width: 280,
         }}>
-          <span>🔍</span>
+          <Search size={14} style={{ flexShrink: 0 }} />
           <span>Search applications, properties…</span>
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        <button onClick={onThemeClick} title="Appearance & Theme" className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px', borderRadius: 8 }}>🎨</button>
-        <button className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px' }} onClick={() => navigate('/notifications')}>🔔</button>
-        <button className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px' }} onClick={() => navigate('/messages')}>💬</button>
+        <button onClick={onThemeClick} title="Appearance & Theme" className="btn-ghost" style={{ padding: '6px 8px', borderRadius: 8, display: 'flex', alignItems: 'center' }}><Palette size={18} /></button>
+        <button className="btn-ghost" style={{ padding: '6px 8px', display: 'flex', alignItems: 'center' }} onClick={() => navigate('/notifications')}><Bell size={18} /></button>
+        <button className="btn-ghost" style={{ padding: '6px 8px', display: 'flex', alignItems: 'center' }} onClick={() => navigate('/messages')}><MessageSquare size={18} /></button>
         <div style={{ width: 1, height: 24, background: border, margin: '0 4px' }} />
         <button
           onClick={onLogout}
           title="Sign Out"
           className="btn-ghost"
-          style={{ fontSize: 16, padding: '6px 8px', borderRadius: 8, color: t3 }}
+          style={{ fontSize: 16, padding: '6px 8px', borderRadius: 8, color: t3, display: 'flex', alignItems: 'center' }}
           onMouseEnter={e => { e.currentTarget.style.color = '#ef4444' }}
           onMouseLeave={e => { e.currentTarget.style.color = t3 }}
-        >🚪</button>
+        ><LogOut size={16} /></button>
         <div style={{ width: 1, height: 24, background: border, margin: '0 4px' }} />
         <div style={{
           background: `linear-gradient(135deg, ${accent.color}, #0284c7)`,
