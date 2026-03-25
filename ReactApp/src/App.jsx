@@ -36,6 +36,9 @@ import TitleAgentPortal from './pages/TitleAgentPortal.jsx'
 import InsuranceAgentPortal from './pages/InsuranceAgentPortal.jsx'
 import BuilderPortal from './pages/BuilderPortal.jsx'
 import ComplianceDashboard from './pages/ComplianceDashboard.jsx'
+import MultiTenantLogin from './pages/MultiTenantLogin.jsx'
+import TenantManagement from './pages/TenantManagement.jsx'
+import TransactionManagement from './pages/TransactionManagement.jsx'
 
 function AppRoutes({ role, setRole }) {
   const navigate = useNavigate()
@@ -48,6 +51,7 @@ function AppRoutes({ role, setRole }) {
     <Routes>
       <Route path="/select-org" element={<OrgSelect />} />
       <Route path="/login" element={<Login setRole={setRole} />} />
+      <Route path="/multi-tenant-login" element={<MultiTenantLogin />} />
       <Route path="/" element={
         isSessionValid()
           ? <Layout role={role} setRole={setRole} onLogout={handleLogout} />
@@ -85,6 +89,8 @@ function AppRoutes({ role, setRole }) {
           <Route path="insurance-portal" element={<InsuranceAgentPortal />} />
           <Route path="builder-portal" element={<BuilderPortal />} />
           <Route path="compliance" element={<ComplianceDashboard />} />
+          <Route path="tenant-management" element={<TenantManagement />} />
+          <Route path="transactions" element={<TransactionManagement />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>

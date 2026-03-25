@@ -5,7 +5,7 @@ import {
   Calculator, MessageSquare, Bell, User, Layers, Scale, CheckSquare, Package, Flag,
   Settings, ShieldCheck, Globe, RefreshCw, Building2, Building, Users, Briefcase,
   BookOpen, FileCheck, ClipboardList, Hammer, LogOut, ChevronRight, ChevronLeft,
-  Palette,
+  Palette, DollarSign,
 } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext.jsx'
 import { useSessionGuard } from '../utils/session.js'
@@ -23,6 +23,7 @@ const NAV_GROUPS = {
     { label: 'Property Search', Icon: Search, to: '/properties' },
     { label: 'Insurance', Icon: Shield, to: '/insurance' },
     { label: 'Loan Servicing', Icon: CreditCard, to: '/servicing' },
+    { label: 'Transactions', Icon: DollarSign, to: '/transactions' },
     { label: 'Pre-Qual Calculator', Icon: Calculator, to: '/calculator' },
     { label: 'Messages', Icon: MessageSquare, to: '/messages' },
     { label: 'Notifications', Icon: Bell, to: '/notifications' },
@@ -37,6 +38,7 @@ const NAV_GROUPS = {
     { label: 'Insurance', Icon: Shield, to: '/insurance' },
     { label: 'Closing', Icon: Flag, to: '/closing' },
     { label: 'Servicing', Icon: CreditCard, to: '/servicing' },
+    { label: 'Transactions', Icon: DollarSign, to: '/transactions' },
     { label: 'Reports', Icon: BarChart2, to: '/reports' },
     { label: 'Compliance', Icon: ShieldCheck, to: '/compliance' },
     { label: 'Messages', Icon: MessageSquare, to: '/messages' },
@@ -58,6 +60,7 @@ const NAV_GROUPS = {
   ],
   'super-admin': [
     { label: 'Platform Overview', Icon: Globe, to: '/super-admin' },
+    { label: 'Tenant Management', Icon: Building2, to: '/tenant-management' },
     { label: 'Workflow Tracker', Icon: RefreshCw, to: '/workflow-tracker' },
     { label: 'All Organizations', Icon: Building2, to: '/admin' },
     { label: 'Reports', Icon: BarChart2, to: '/reports' },
@@ -71,6 +74,7 @@ const NAV_GROUPS = {
     { label: 'Loan Pipeline', Icon: Layers, to: '/pipeline' },
     { label: 'Underwriting', Icon: Scale, to: '/underwriting' },
     { label: 'Reports', Icon: BarChart2, to: '/reports' },
+    { label: 'Transactions', Icon: DollarSign, to: '/transactions' },
     { label: 'Compliance', Icon: ShieldCheck, to: '/compliance' },
     { label: 'Messages', Icon: MessageSquare, to: '/messages' },
     { label: 'Notifications', Icon: Bell, to: '/notifications' },
