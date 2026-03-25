@@ -1,5 +1,6 @@
 ﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { createSession } from '../utils/session.js'
 
 export default function Login({ setRole }) {
   const [tab, setTab] = useState('login')
@@ -10,6 +11,7 @@ export default function Login({ setRole }) {
   const handleLogin = (e) => {
     e.preventDefault()
     if (step === 1) { setStep(2); return }
+    createSession()
     setRole(form.role)
     navigate('/select-org')
   }

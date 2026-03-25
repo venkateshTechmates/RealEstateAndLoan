@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useTheme } from '../contexts/ThemeContext.jsx'
+import { useSessionGuard } from '../utils/session.js'
 import FloatingChatbot from './FloatingChatbot.jsx'
 import ThemePanel from './ThemePanel.jsx'
 
@@ -56,12 +57,15 @@ const ROLE_COLORS = {
 }
 const ROLE_LABELS = { borrower: 'Borrower', lender: 'Loan Officer', broker: 'Broker' }
 
-export default function Layout({ role, setRole }) {
+export default function Layout({ role, setRole, onLogout }) {
   const [collapsed, setCollapsed] = useState(false)
   const [showThemePanel, setShowThemePanel] = useState(false)
+  const [sessionExpired, setSessionExpired] = useState(false)
   const navigate = useNavigate()
   const nav = NAV_GROUPS[role] || NAV_GROUPS.borrower
   const { theme, accent } = useTheme()
+
+  useSessionGuard(() => setSessionExpired(true))
 
   const t1 = theme.vars['--text-primary']
   const t2 = theme.vars['--text-secondary']
@@ -161,22 +165,44 @@ export default function Layout({ role, setRole }) {
           </nav>
 
           {/* User footer */}
-          <div style={{ padding: '14px 16px', borderTop: `1px solid ${theme.sidebarBorder}`, display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{
-              width: 32, height: 32,
-              background: `linear-gradient(135deg, ${ROLE_COLORS[role]}88, ${ROLE_COLORS[role]})`,
-              borderRadius: '50%',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0,
-            }}>
-              {role === 'borrower' ? 'JD' : role === 'lender' ? 'SO' : 'MB'}
+          <div style={{ padding: '12px 16px', borderTop: `1px solid ${theme.sidebarBorder}` }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{
+                width: 32, height: 32,
+                background: `linear-gradient(135deg, ${ROLE_COLORS[role]}88, ${ROLE_COLORS[role]})`,
+                borderRadius: '50%',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0,
+              }}>
+                {role === 'borrower' ? 'JD' : role === 'lender' ? 'SO' : 'MB'}
+              </div>
+              {!collapsed && (
+                <>
+                  <div style={{ flex: 1, overflow: 'hidden' }}>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: t1 }}>
+                      {role === 'borrower' ? 'John Doe' : role === 'lender' ? 'Sarah Owen' : 'Michael B.'}
+                    </div>
+                    <div style={{ fontSize: 10, color: t3 }}>{ROLE_LABELS[role]}</div>
+                  </div>
+                  <button
+                    onClick={onLogout}
+                    title="Sign Out"
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: t3, fontSize: 16, padding: '4px 6px', borderRadius: 6, flexShrink: 0, lineHeight: 1 }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#ef4444' }}
+                    onMouseLeave={e => { e.currentTarget.style.color = t3 }}
+                  >🚪</button>
+                </>
+              )}
             </div>
-            {!collapsed && (
-              <div style={{ overflow: 'hidden' }}>
-                <div style={{ fontSize: 12, fontWeight: 600, color: t1 }}>
-                  {role === 'borrower' ? 'John Doe' : role === 'lender' ? 'Sarah Owen' : 'Michael B.'}
-                </div>
-                <div style={{ fontSize: 10, color: t3 }}>{ROLE_LABELS[role]}</div>
+            {collapsed && (
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: 6 }}>
+                <button
+                  onClick={onLogout}
+                  title="Sign Out"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: t3, fontSize: 16, padding: '4px', borderRadius: 6, lineHeight: 1 }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#ef4444' }}
+                  onMouseLeave={e => { e.currentTarget.style.color = t3 }}
+                >🚪</button>
               </div>
             )}
           </div>
@@ -216,7 +242,7 @@ export default function Layout({ role, setRole }) {
 
       {/* ── Main content ── */}
       <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        <TopBar role={role} accent={accent} theme={theme} onThemeClick={() => setShowThemePanel(p => !p)} />
+        <TopBar role={role} accent={accent} theme={theme} onThemeClick={() => setShowThemePanel(p => !p)} onLogout={onLogout} />
         <main style={{ flex: 1, padding: '24px', overflowY: 'auto', maxWidth: 1400, width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
           <Outlet />
         </main>
@@ -227,11 +253,45 @@ export default function Layout({ role, setRole }) {
 
       {/* ── Floating chatbot ── */}
       <FloatingChatbot />
+
+      {/* ── Session expired modal ── */}
+      {sessionExpired && (
+        <div style={{
+          position: 'fixed', inset: 0,
+          background: 'rgba(0,0,0,0.65)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999,
+        }}>
+          <div style={{
+            background: theme.vars['--bg-elevated'],
+            border: `1px solid ${theme.vars['--border']}`,
+            borderRadius: 16,
+            padding: '32px 28px',
+            maxWidth: 360,
+            width: '90%',
+            textAlign: 'center',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+          }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>⏰</div>
+            <h2 style={{ color: theme.vars['--text-primary'], marginBottom: 8, fontSize: 18, fontWeight: 700 }}>Session Expired</h2>
+            <p style={{ color: theme.vars['--text-muted'], fontSize: 13, marginBottom: 24, lineHeight: 1.6 }}>
+              Your session has expired after 5 minutes of inactivity. Please sign in again to continue.
+            </p>
+            <button
+              onClick={onLogout}
+              className="btn btn-primary"
+              style={{ width: '100%', justifyContent: 'center', padding: '11px 0', fontSize: 14 }}
+            >
+              Sign In Again
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
-function TopBar({ role, accent, theme, onThemeClick }) {
+function TopBar({ role, accent, theme, onThemeClick, onLogout }) {
   const navigate = useNavigate()
   const t3 = theme.vars['--text-muted']
   const bgEl = theme.vars['--bg-elevated']
@@ -272,6 +332,15 @@ function TopBar({ role, accent, theme, onThemeClick }) {
         <button onClick={onThemeClick} title="Appearance & Theme" className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px', borderRadius: 8 }}>🎨</button>
         <button className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px' }} onClick={() => navigate('/notifications')}>🔔</button>
         <button className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px' }} onClick={() => navigate('/messages')}>💬</button>
+        <div style={{ width: 1, height: 24, background: border, margin: '0 4px' }} />
+        <button
+          onClick={onLogout}
+          title="Sign Out"
+          className="btn-ghost"
+          style={{ fontSize: 16, padding: '6px 8px', borderRadius: 8, color: t3 }}
+          onMouseEnter={e => { e.currentTarget.style.color = '#ef4444' }}
+          onMouseLeave={e => { e.currentTarget.style.color = t3 }}
+        >🚪</button>
         <div style={{ width: 1, height: 24, background: border, margin: '0 4px' }} />
         <div style={{
           background: `linear-gradient(135deg, ${accent.color}, #0284c7)`,

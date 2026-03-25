@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useState, useCallback } from 'react'
+import { HashRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { clearSession, isSessionValid } from './utils/session.js'
 import { ThemeProvider } from './contexts/ThemeContext.jsx'
 import Layout from './components/Layout.jsx'
 import Login from './pages/Login.jsx'
@@ -27,16 +28,22 @@ import BrokerDashboard from './pages/BrokerDashboard.jsx'
 import PreQualCalculator from './pages/PreQualCalculator.jsx'
 import MessagingCenter from './pages/MessagingCenter.jsx'
 
-export default function App() {
-  const [role, setRole] = useState('borrower')
+function AppRoutes({ role, setRole }) {
+  const navigate = useNavigate()
+  const handleLogout = useCallback(() => {
+    clearSession()
+    navigate('/login', { replace: true })
+  }, [navigate])
 
   return (
-    <ThemeProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/select-org" element={<OrgSelect />} />
-        <Route path="/login" element={<Login setRole={setRole} />} />
-        <Route path="/" element={<Layout role={role} setRole={setRole} />}>
+    <Routes>
+      <Route path="/select-org" element={<OrgSelect />} />
+      <Route path="/login" element={<Login setRole={setRole} />} />
+      <Route path="/" element={
+        isSessionValid()
+          ? <Layout role={role} setRole={setRole} onLogout={handleLogout} />
+          : <Navigate to="/login" replace />
+      }>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<BorrowerDashboard />} />
           <Route path="apply" element={<LoanApplicationWizard />} />
@@ -62,8 +69,17 @@ export default function App() {
           <Route path="messages" element={<MessagingCenter />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </BrowserRouter>
+    </Routes>
+  )
+}
+
+export default function App() {
+  const [role, setRole] = useState('borrower')
+  return (
+    <ThemeProvider>
+      <HashRouter>
+        <AppRoutes role={role} setRole={setRole} />
+      </HashRouter>
     </ThemeProvider>
   )
 }
