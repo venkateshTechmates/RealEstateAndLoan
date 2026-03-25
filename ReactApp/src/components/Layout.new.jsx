@@ -268,17 +268,32 @@ function TopBar({ role, accent, theme, onThemeClick }) {
           <span>Search applications, properties…</span>
         </div>
       </div>
+
       <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        <button onClick={onThemeClick} title="Appearance & Theme" className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px', borderRadius: 8 }}>🎨</button>
+        {/* Theme toggle */}
+        <button
+          onClick={onThemeClick}
+          title="Appearance & Theme"
+          className="btn-ghost"
+          style={{ fontSize: 18, padding: '6px 8px', borderRadius: 8 }}
+        >🎨</button>
+
+        {/* Notifications */}
         <button className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px' }} onClick={() => navigate('/notifications')}>🔔</button>
+
+        {/* Messages */}
         <button className="btn-ghost" style={{ fontSize: 18, padding: '6px 8px' }} onClick={() => navigate('/messages')}>💬</button>
+
         <div style={{ width: 1, height: 24, background: border, margin: '0 4px' }} />
+
+        {/* Avatar */}
         <div style={{
           background: `linear-gradient(135deg, ${accent.color}, #0284c7)`,
           borderRadius: '50%',
           width: 32, height: 32,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 12, fontWeight: 700, color: '#fff', cursor: 'pointer',
+          fontSize: 12, fontWeight: 700, color: '#fff',
+          cursor: 'pointer',
         }}
           onClick={() => navigate('/profile')}
         >
