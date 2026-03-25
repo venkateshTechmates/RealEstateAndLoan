@@ -48,21 +48,122 @@ const NAV_GROUPS = {
     { label: 'Notifications', icon: '🔔', to: '/notifications' },
     { label: 'Profile & Settings', icon: '👤', to: '/profile' },
   ],
+  'super-admin': [
+    { label: 'Platform Overview', icon: '🌐', to: '/super-admin' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'All Organizations', icon: '🏢', to: '/admin' },
+    { label: 'Reports', icon: '📈', to: '/reports' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+  ],
+  'lender-admin': [
+    { label: 'Lender Admin', icon: '🏦', to: '/lender-admin' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'Loan Pipeline', icon: '📌', to: '/pipeline' },
+    { label: 'Underwriting', icon: '⚖️', to: '/underwriting' },
+    { label: 'Reports', icon: '📈', to: '/reports' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+  ],
+  'brokerage-admin': [
+    { label: 'Brokerage Admin', icon: '🤝', to: '/brokerage-admin' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'Broker Portal', icon: '📊', to: '/broker-dashboard' },
+    { label: 'Reports', icon: '📈', to: '/reports' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+    { label: 'Profile & Settings', icon: '👤', to: '/profile' },
+  ],
+  'title-admin': [
+    { label: 'Title Co Admin', icon: '📜', to: '/title-admin' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'Title Agent View', icon: '🔍', to: '/title-agent' },
+    { label: 'Closing', icon: '🏁', to: '/closing' },
+    { label: 'Reports', icon: '📈', to: '/reports' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+  ],
+  'title-agent': [
+    { label: 'My Title Orders', icon: '📜', to: '/title-agent' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'Closing', icon: '🏁', to: '/closing' },
+    { label: 'Documents', icon: '📁', to: '/documents' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+  ],
+  'insurance-agent': [
+    { label: 'Insurance Portal', icon: '🛡️', to: '/insurance-portal' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'Insurance Mgmt', icon: '📋', to: '/insurance' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+  ],
+  builder: [
+    { label: 'Builder Portal', icon: '🏗️', to: '/builder-portal' },
+    { label: 'Workflow Tracker', icon: '🔄', to: '/workflow-tracker' },
+    { label: 'Property Search', icon: '🔍', to: '/properties' },
+    { label: 'Documents', icon: '📁', to: '/documents' },
+    { label: 'Messages', icon: '💬', to: '/messages' },
+    { label: 'Notifications', icon: '🔔', to: '/notifications' },
+  ],
 }
 
 const ROLE_COLORS = {
   borrower: '#3b82f6',
   lender: '#8b5cf6',
   broker: '#10b981',
+  'super-admin': '#f472b6',
+  'lender-admin': '#60a5fa',
+  'brokerage-admin': '#facc15',
+  'title-admin': '#34d399',
+  'title-agent': '#34d399',
+  'insurance-agent': '#fb923c',
+  builder: '#a78bfa',
 }
-const ROLE_LABELS = { borrower: 'Borrower', lender: 'Loan Officer', broker: 'Broker' }
+const ROLE_LABELS = {
+  borrower: 'Borrower',
+  lender: 'Loan Officer',
+  broker: 'Broker',
+  'super-admin': 'Super Admin',
+  'lender-admin': 'Lender Admin',
+  'brokerage-admin': 'Brokerage Admin',
+  'title-admin': 'Title Co Admin',
+  'title-agent': 'Title Agent',
+  'insurance-agent': 'Insurance Agent',
+  builder: 'Builder',
+}
+const ROLE_NAMES = {
+  borrower: 'John Doe',
+  lender: 'Sarah Owen',
+  broker: 'Michael B.',
+  'super-admin': 'Admin User',
+  'lender-admin': 'FNM Admin',
+  'brokerage-admin': 'PRG Admin',
+  'title-agent': 'Lisa Monroe',
+  'title-admin': 'Premier Title',
+  'insurance-agent': 'Kevin Hart',
+  builder: 'Raj Patel',
+}
+const ROLE_INITIALS = {
+  borrower: 'JD',
+  lender: 'SO',
+  broker: 'MB',
+  'super-admin': 'SA',
+  'lender-admin': 'LA',
+  'brokerage-admin': 'BA',
+  'title-agent': 'LM',
+  'title-admin': 'TA',
+  'insurance-agent': 'KH',
+  builder: 'RP',
+}
 
 export default function Layout({ role, setRole, onLogout }) {
   const [collapsed, setCollapsed] = useState(false)
   const [showThemePanel, setShowThemePanel] = useState(false)
   const [sessionExpired, setSessionExpired] = useState(false)
   const navigate = useNavigate()
-  const nav = NAV_GROUPS[role] || NAV_GROUPS.borrower
+  const nav = NAV_GROUPS[role] || NAV_GROUPS.lender
   const { theme, accent } = useTheme()
 
   useSessionGuard(() => setSessionExpired(true))
@@ -117,7 +218,12 @@ export default function Layout({ role, setRole, onLogout }) {
               <div style={{ fontSize: 10, fontWeight: 700, color: t3, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>Active Role</div>
               <select
                 value={role}
-                onChange={e => { setRole(e.target.value); navigate('/dashboard') }}
+                onChange={e => {
+                  const r = e.target.value
+                  setRole(r)
+                  const firstNav = NAV_GROUPS[r]?.[0]?.to || '/dashboard'
+                  navigate(firstNav)
+                }}
                 style={{
                   background: bgEl,
                   border: `1px solid ${border}`,
@@ -132,6 +238,13 @@ export default function Layout({ role, setRole, onLogout }) {
                 <option value="borrower">🏠 Borrower / Applicant</option>
                 <option value="lender">🏦 Loan Officer / UW</option>
                 <option value="broker">🤝 Broker</option>
+                <option value="super-admin">⭐ Super Admin</option>
+                <option value="lender-admin">🏦 Lender Admin</option>
+                <option value="brokerage-admin">🤝 Brokerage Admin</option>
+                <option value="title-admin">📜 Title Co Admin</option>
+                <option value="title-agent">🔍 Title Agent</option>
+                <option value="insurance-agent">🛡️ Insurance Agent</option>
+                <option value="builder">🏗️ Builder</option>
               </select>
             </div>
           )}
@@ -174,13 +287,13 @@ export default function Layout({ role, setRole, onLogout }) {
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: 13, fontWeight: 700, color: '#fff', flexShrink: 0,
               }}>
-                {role === 'borrower' ? 'JD' : role === 'lender' ? 'SO' : 'MB'}
+                {ROLE_INITIALS[role] || 'U'}
               </div>
               {!collapsed && (
                 <>
                   <div style={{ flex: 1, overflow: 'hidden' }}>
                     <div style={{ fontSize: 12, fontWeight: 600, color: t1 }}>
-                      {role === 'borrower' ? 'John Doe' : role === 'lender' ? 'Sarah Owen' : 'Michael B.'}
+                      {ROLE_NAMES[role] || 'User'}
                     </div>
                     <div style={{ fontSize: 10, color: t3 }}>{ROLE_LABELS[role]}</div>
                   </div>

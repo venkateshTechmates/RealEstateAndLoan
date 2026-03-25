@@ -27,6 +27,14 @@ import ReportsDashboard from './pages/ReportsDashboard.jsx'
 import BrokerDashboard from './pages/BrokerDashboard.jsx'
 import PreQualCalculator from './pages/PreQualCalculator.jsx'
 import MessagingCenter from './pages/MessagingCenter.jsx'
+import LoanWorkflowTracker from './pages/LoanWorkflowTracker.jsx'
+import SuperAdminDashboard from './pages/SuperAdminDashboard.jsx'
+import LenderAdminDashboard from './pages/LenderAdminDashboard.jsx'
+import BrokerageAdminDashboard from './pages/BrokerageAdminDashboard.jsx'
+import TitleCoAdminDashboard from './pages/TitleCoAdminDashboard.jsx'
+import TitleAgentPortal from './pages/TitleAgentPortal.jsx'
+import InsuranceAgentPortal from './pages/InsuranceAgentPortal.jsx'
+import BuilderPortal from './pages/BuilderPortal.jsx'
 
 function AppRoutes({ role, setRole }) {
   const navigate = useNavigate()
@@ -67,6 +75,14 @@ function AppRoutes({ role, setRole }) {
           <Route path="broker-dashboard" element={<BrokerDashboard />} />
           <Route path="calculator" element={<PreQualCalculator />} />
           <Route path="messages" element={<MessagingCenter />} />
+          <Route path="workflow-tracker" element={<LoanWorkflowTracker />} />
+          <Route path="super-admin" element={<SuperAdminDashboard />} />
+          <Route path="lender-admin" element={<LenderAdminDashboard />} />
+          <Route path="brokerage-admin" element={<BrokerageAdminDashboard />} />
+          <Route path="title-admin" element={<TitleCoAdminDashboard />} />
+          <Route path="title-agent" element={<TitleAgentPortal />} />
+          <Route path="insurance-portal" element={<InsuranceAgentPortal />} />
+          <Route path="builder-portal" element={<BuilderPortal />} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
