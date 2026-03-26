@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import {
   Home, FileText, Wallet, BarChart2, FilePlus, FolderOpen, Search, Shield, CreditCard,
   Calculator, MessageSquare, Bell, User, Layers, Scale, CheckSquare, Package, Flag,
   Settings, ShieldCheck, Globe, RefreshCw, Building2, Building, Users, Briefcase,
   BookOpen, FileCheck, ClipboardList, Hammer, LogOut, ChevronRight, ChevronLeft,
-  Palette, DollarSign,
+  Palette, DollarSign, Menu, X,
 } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext.jsx'
 import { useSessionGuard } from '../utils/session.js'
@@ -176,11 +176,26 @@ export default function Layout({ role, setRole, onLogout }) {
   const [collapsed, setCollapsed] = useState(false)
   const [showThemePanel, setShowThemePanel] = useState(false)
   const [sessionExpired, setSessionExpired] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768)
   const navigate = useNavigate()
   const nav = NAV_GROUPS[role] || NAV_GROUPS.lender
   const { theme, accent } = useTheme()
 
   useSessionGuard(() => setSessionExpired(true))
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    const handler = (e) => {
+      setIsMobile(e.matches)
+      if (!e.matches) setMobileOpen(false)
+    }
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  // Close drawer when navigating on mobile
+  useEffect(() => { if (isMobile) setMobileOpen(false) }, [navigate, isMobile])
 
   const t1 = theme.vars['--text-primary']
   const t2 = theme.vars['--text-secondary']
@@ -191,11 +206,29 @@ export default function Layout({ role, setRole, onLogout }) {
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: theme.vars['--bg-base'] }}>
 
+      {/* ── Mobile overlay backdrop ── */}
+      {isMobile && (
+        <div
+          className={`sidebar-overlay${mobileOpen ? ' open' : ''}`}
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
       {/* ── Sidebar wrapper (relative so edge-toggle can poke out) ── */}
-      <div style={{ position: 'relative', display: 'flex', flexShrink: 0 }}>
+      <div style={{
+        position: isMobile ? 'fixed' : 'relative',
+        top: isMobile ? 0 : undefined,
+        left: isMobile ? 0 : undefined,
+        bottom: isMobile ? 0 : undefined,
+        zIndex: isMobile ? 200 : undefined,
+        display: 'flex',
+        flexShrink: 0,
+        transform: isMobile ? (mobileOpen ? 'translateX(0)' : 'translateX(-100%)') : 'none',
+        transition: 'transform 0.25s ease',
+      }}>
         <aside style={{
-          width: collapsed ? 64 : 240,
-          minWidth: collapsed ? 64 : 240,
+          width: isMobile ? 260 : (collapsed ? 64 : 240),
+          minWidth: isMobile ? 260 : (collapsed ? 64 : 240),
           background: theme.sidebar,
           borderRight: `1px solid ${theme.sidebarBorder}`,
           display: 'flex',
@@ -335,8 +368,23 @@ export default function Layout({ role, setRole, onLogout }) {
           </div>
         </aside>
 
-        {/* ── Edge toggle button ── */}
-        <button
+        {/* ── Mobile close button inside drawer ── */}
+        {isMobile && (
+          <button
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: 'absolute', top: 12, right: 12,
+              background: bgEl, border: `1px solid ${border}`,
+              borderRadius: '50%', width: 28, height: 28,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', color: t2, zIndex: 10,
+            }}
+          ><X size={14} /></button>
+        )}
+
+        {/* ── Edge toggle button (desktop only) ── */}
+        {!isMobile && <button
+          className="sidebar-edge-btn"
           onClick={() => setCollapsed(c => !c)}
           title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           style={{
@@ -364,13 +412,13 @@ export default function Layout({ role, setRole, onLogout }) {
           onMouseLeave={e => { e.currentTarget.style.background = bgEl; e.currentTarget.style.color = t2 }}
         >
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-        </button>
+        </button>}
       </div>
 
       {/* ── Main content ── */}
-      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        <TopBar role={role} accent={accent} theme={theme} onThemeClick={() => setShowThemePanel(p => !p)} onLogout={onLogout} />
-        <main style={{ flex: 1, padding: '24px', overflowY: 'auto', maxWidth: 1400, width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+      <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        <TopBar role={role} accent={accent} theme={theme} onThemeClick={() => setShowThemePanel(p => !p)} onLogout={onLogout} onMobileToggle={() => setMobileOpen(o => !o)} isMobile={isMobile} />
+        <main className="main-content" style={{ flex: 1, padding: '24px', overflowY: 'auto', maxWidth: 1400, width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
           <Outlet />
         </main>
       </div>
@@ -418,28 +466,34 @@ export default function Layout({ role, setRole, onLogout }) {
   )
 }
 
-function TopBar({ role, accent, theme, onThemeClick, onLogout }) {
+function TopBar({ role, accent, theme, onThemeClick, onLogout, onMobileToggle, isMobile }) {
   const navigate = useNavigate()
   const t3 = theme.vars['--text-muted']
   const bgEl = theme.vars['--bg-elevated']
   const border = theme.vars['--border']
 
   return (
-    <div style={{
+    <div className="topbar" style={{
       height: 56,
       borderBottom: `1px solid ${theme.sidebarBorder}`,
       background: theme.topbar,
       display: 'flex',
       alignItems: 'center',
       padding: '0 24px',
-      gap: 16,
+      gap: 12,
       position: 'sticky',
       top: 0,
       zIndex: 10,
       flexShrink: 0,
     }}>
+      {/* Hamburger – mobile only */}
+      {isMobile && (
+        <button className="hamburger-btn" onClick={onMobileToggle} title="Open menu">
+          <Menu size={20} />
+        </button>
+      )}
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 10 }}>
-        <div style={{
+        <div className="topbar-search" style={{
           background: bgEl,
           border: `1px solid ${border}`,
           borderRadius: 8,
@@ -450,6 +504,7 @@ function TopBar({ role, accent, theme, onThemeClick, onLogout }) {
           color: t3,
           fontSize: 13,
           width: 280,
+          flexShrink: 0,
         }}>
           <Search size={14} style={{ flexShrink: 0 }} />
           <span>Search applications, properties…</span>

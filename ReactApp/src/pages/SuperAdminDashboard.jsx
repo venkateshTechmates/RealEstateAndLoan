@@ -152,7 +152,7 @@ export default function SuperAdminDashboard() {
       )}
 
       {activeTab === 'compliance' && (
-        <div style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 16 }}>
+        <div className="resp-grid" style={{ display: 'grid', gridTemplateColumns: '3fr 2fr', gap: 16 }}>
           <div className="card" style={{ padding: '20px' }}>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 16 }}>Compliance Status — All Organizations</div>
             {COMPLIANCE_STATUS.map(c => (

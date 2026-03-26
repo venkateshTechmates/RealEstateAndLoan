@@ -79,7 +79,7 @@ export default function PropertySearch() {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
+      <div className="resp-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
         {/* Property grid */}
         <div style={{ display: 'grid', gridTemplateColumns: view === 'grid' ? '1fr 1fr' : '1fr', gap: 16 }}>
           {filtered.map(p => (

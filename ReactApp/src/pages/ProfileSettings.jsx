@@ -66,7 +66,7 @@ export default function ProfileSettings() {
               </div>
               <div className="divider" />
               <div style={{ fontWeight: 700, marginBottom: 14, marginTop: 14 }}>Address</div>
-              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 14, marginBottom: 20 }}>
+              <div className="resp-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 14, marginBottom: 20 }}>
                 {[['STREET ADDRESS', 'address'], ['CITY', 'city'], ['STATE', 'state']].map(([l, k]) => (
                   <div key={k} className="form-group">
                     <label className="form-label">{l}</label>

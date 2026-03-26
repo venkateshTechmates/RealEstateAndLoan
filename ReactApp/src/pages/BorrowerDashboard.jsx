@@ -57,7 +57,7 @@ export default function BorrowerDashboard() {
         <StatCard icon="✅" label="App Progress" value="78%" sub="5 of 7 steps complete" color="#f59e0b" isProgress />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
+      <div className="resp-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
         {/* Left column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
@@ -209,12 +209,12 @@ export default function BorrowerDashboard() {
 
 function PageHeader({ title, sub, actions }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
+    <div className="page-header-row" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
       <div>
         <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)' }}>{title}</h1>
         {sub && <p style={{ color: 'var(--text-muted)', fontSize: 13, marginTop: 4 }}>{sub}</p>}
       </div>
-      {actions}
+      <div className="page-header-actions" style={{ display: 'flex', gap: 10 }}>{actions}</div>
     </div>
   )
 }

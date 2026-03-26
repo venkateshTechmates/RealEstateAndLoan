@@ -314,3 +314,120 @@ td:first-child, th:first-child { color: var(--text-primary); font-weight: 500; }
 .step-label { font-size: 11px; font-weight: 500; color: var(--text-muted); margin-top: 6px; text-align: center; }
 .step.active .step-label { color: var(--blue-light); font-weight: 600; }
 .step.completed .step-label { color: var(--green-light); }
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile drawer overlay (controlled by Layout.jsx)
+───────────────────────────────────────────────────────────── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 199;
+}
+.sidebar-overlay.open { display: block; }
+
+/* Hamburger button – hidden on desktop */
+.hamburger-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+.hamburger-btn:hover { background: var(--bg-elevated); color: var(--text-primary); }
+
+/* ─────────────────────────────────────────────────────────────
+   Tablet  ≤ 1024px
+───────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+  .form-row-3 { grid-template-columns: 1fr 1fr; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile  ≤ 768px
+───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hamburger visible, search hidden */
+  .hamburger-btn { display: flex; }
+  .topbar-search { display: none !important; }
+
+  /* Main content full-width with less padding */
+  .main-content { padding: 16px !important; }
+
+  /* Grids collapse to 1 column */
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr !important; }
+
+  /* Form rows collapse to 1 column */
+  .form-row, .form-row-3 { grid-template-columns: 1fr !important; }
+
+  /* Card padding reduced */
+  .card { padding: 14px !important; }
+  .stat-card { padding: 14px !important; }
+
+  /* Stat value slightly smaller */
+  .stat-value { font-size: 22px; }
+
+  /* Steps: vertical list on mobile */
+  .steps { flex-direction: column; align-items: flex-start; gap: 0; }
+  .step { flex-direction: row; align-items: center; flex: none; width: 100%; gap: 12px; padding-bottom: 20px; }
+  .step:not(:last-child)::after {
+    left: 15px; top: 32px;
+    width: 1px; height: calc(100% - 32px);
+    right: auto;
+  }
+  .step-label { margin-top: 0; text-align: left; }
+
+  /* Tab groups scrollable */
+  .tab-group { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .tab-btn { flex-shrink: 0; }
+
+  /* Tables always scrollable */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Section headers stack */
+  .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+
+  /* Buttons full-width helper */
+  .btn-mobile-full { width: 100%; justify-content: center; }
+
+  /* Hide edge toggle on mobile */
+  .sidebar-edge-btn { display: none !important; }
+
+  /* Topbar padding */
+  .topbar { padding: 0 12px !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Small mobile  ≤ 480px
+───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  body { font-size: 13px; }
+
+  .card { padding: 12px !important; }
+  .stat-value { font-size: 20px; }
+  .stat-label { font-size: 11px; }
+
+  /* Page header stacks */
+  .page-header-row { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+  .page-header-actions { width: 100%; }
+  .page-header-actions .btn { flex: 1; justify-content: center; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Responsive inline-grid helper (overrides inline styles)
+───────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .resp-grid   { grid-template-columns: 1fr !important; }
+  .resp-2col   { grid-template-columns: 1fr !important; }
+  .resp-flex-col { flex-direction: column !important; align-items: stretch !important; }
+  .resp-hide   { display: none !important; }
+}

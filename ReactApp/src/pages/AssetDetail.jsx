@@ -116,7 +116,7 @@ export default function AssetDetail() {
       </div>
 
       {/* Two-column: Details + Chart */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 16, marginBottom: 16 }}>
+      <div className="resp-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 16, marginBottom: 16 }}>
         {/* Asset Details */}
         <div className="card">
           <div style={{ fontWeight: 700, marginBottom: 14 }}>Asset Details</div>
